@@ -13,16 +13,29 @@ public abstract class Item {
     
     private int _id;
     private String _name;
+    private int _buyCost;
+    private int _sellCost;
     
-    public Item(int id, String name){
+    public Item(int id, String name, int buyCost, int sellCost){
         _id = id;
         _name = name;
+        _buyCost = buyCost;
+        _sellCost = sellCost;
     }
     
     public int GetId(){
         return _id;
     }
+    
     public String GetName(){
         return _name;
+    }
+    
+    public int GetBuyCost(){
+        return _buyCost;
+    }
+    
+    public int GetSellCost(){
+        return _sellCost;
     }
 }

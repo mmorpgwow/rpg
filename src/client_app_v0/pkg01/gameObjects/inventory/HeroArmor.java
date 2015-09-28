@@ -7,6 +7,8 @@ package client_app_v0.pkg01.gameObjects.inventory;
 
 import client_app_v0.pkg01.gameObjects.inventory.items.Armor;
 import client_app_v0.pkg01.gameObjects.inventory.items.ArmorType;
+import client_app_v0.pkg01.gameObjects.inventory.items.Stats;
+import client_app_v0.pkg01.gameObjects.inventory.items.Weapon;
 
 /**
  *
@@ -22,79 +24,48 @@ public class HeroArmor {
     private Armor _belt;
     private Armor _neck;
     private Armor _ring;
-    private Armor _rightHand;
-    private Armor _leftHand;
+    private Weapon _rightHand;
+    private Weapon _leftHand;
 
     public HeroArmor() {
 
     }
-
-    public boolean IsEmpty(Armor slot,Armor newslot){ 
-            if (slot==null) {
-                    slot = newslot;
-                    return true;
-                }
-                else{
-                    return false;
-                }
-    }
-    public boolean IsEmpty(Armor slot1,Armor slot2,Armor newslot){ 
-            if (slot1==null & slot2 == null) {
-                    slot1 = newslot;
-                    return true;
-                }
-                else{
-                    return false;
-                }
+    
+    public Stats GetHeroStats(){
+        Stats s = new Stats(0,0,0,0,0,0);
+        s = s.addStats(_legs.GetStats());
+        s = s.addStats(_hands.GetStats());
+        s = s.addStats(_boots.GetStats());
+        s = s.addStats(_chest.GetStats());
+        s = s.addStats(_helm.GetStats());
+        s = s.addStats(_belt.GetStats());
+        s = s.addStats(_neck.GetStats());
+        s = s.addStats(_ring.GetStats());
+        s = s.addStats(_rightHand.GetStats());
+        s = s.addStats(_leftHand.GetStats());
+        return s;
     }
     
-    public boolean PutOn(Armor armor) {
-        switch (armor.GetArmorType()) {
-            case LEGS:
-                return IsEmpty(this._legs,armor);
-            case HANDS:
-                return IsEmpty(this._hands,armor);
-            case BOOTS:
-                return IsEmpty(this._boots,armor);
-            case CHEST:
-                return IsEmpty(this._chest,armor);
-            case HELM:
-                return IsEmpty(this._helm,armor);
-            case BELT:
-                return IsEmpty(this._belt,armor);
-            case NECK:
-                return IsEmpty(this._neck,armor);
-            case RING:
-                return IsEmpty(this._ring,armor);
-            case ONE_HAND_SWORD:
-                return IsEmpty(this._rightHand,armor);
-            case SHIELD:
-                return IsEmpty(this._leftHand,armor);
-            case TWO_HAND_SWORD:
-                return IsEmpty(this._rightHand, this._leftHand,armor);
-            case STUFF:
-                return IsEmpty(this._rightHand, this._leftHand,armor);
-            case BOW:
-                return IsEmpty(this._rightHand, this._leftHand,armor);
-            default:
-                return false;
+    public Weapon TakeOffLeftWeapon(){
+        if(this._leftHand != null){
+            Weapon w = this._leftHand;
+            this._leftHand = null;
+            return w;
         }
+        return null;
     }
     
-    public Armor GetArmor(Armor slot){
-        Armor arm = slot;
-        slot = null;
-        return arm;
-    }
-    public Armor GetArmor(Armor slot1,Armor slot2){
-        Armor arm = slot1;
-        slot1 = null;
-        slot2 = null;
-        return arm;
+    public Weapon TakeOffWeapon(){
+        if(this._leftHand != null){
+            Weapon w = this._leftHand;
+            this._leftHand = null;
+            return w;
+        }
+        return null;
     }
     
-    public Armor TakeOff(ArmorType type){
-          switch (type) {
+    public Armor TakeOffArmor(ArmorType type) {
+        switch (type) {
             case LEGS:
                 return GetArmor(this._legs);
             case HANDS:
@@ -111,18 +82,95 @@ public class HeroArmor {
                 return GetArmor(this._neck);
             case RING:
                 return GetArmor(this._ring);
-            case ONE_HAND_SWORD:
-                return GetArmor(this._rightHand);
-            case SHIELD:
-                return GetArmor(this._leftHand);
-            case TWO_HAND_SWORD:
-                return GetArmor(this._rightHand, this._leftHand);
-            case STUFF:
-                return GetArmor(this._rightHand, this._leftHand);
-            case BOW:
-                return GetArmor(this._rightHand, this._leftHand);
             default:
                 return null;
         }
     }
+    
+     public boolean PutOnWeapon(Weapon weapon) {
+        switch (weapon.GetWeaponType()) {
+            case SWORD:
+                return TakeRightHand(weapon);
+            case SHIELD:
+                return TakeLeftHand(weapon);
+            case STUFF:
+                return TakeRightHand(weapon);
+            case BOW:
+                return TakeRightHand(weapon);         
+            default:
+                return false;
+        }
+    }
+    
+    public boolean PutOnArmor(Armor armor) {
+        switch (armor.GetArmorType()) {
+            case LEGS:
+                return IsEmpty(this._legs, armor);
+            case HANDS:
+                return IsEmpty(this._hands, armor);
+            case BOOTS:
+                return IsEmpty(this._boots, armor);
+            case CHEST:
+                return IsEmpty(this._chest, armor);
+            case HELM:
+                return IsEmpty(this._helm, armor);
+            case BELT:
+                return IsEmpty(this._belt, armor);
+            case NECK:
+                return IsEmpty(this._neck, armor);
+            case RING:
+                return IsEmpty(this._ring, armor);           
+            default:
+                return false;
+        }
+    }
+
+    private boolean IsEmpty(Armor slot, Armor newslot) {
+        if (slot == null) {
+            slot = newslot;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean TakeRightHand(Weapon newslot) {
+        if(this._rightHand == null){
+            if(this._leftHand == null){            
+                this._rightHand  = newslot;
+                return true;
+            } else {
+                if(this._rightHand.TwoHands()){
+                    return false;
+                } else {
+                    this._rightHand  = newslot;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean TakeLeftHand(Weapon newslot) {
+        if(this._leftHand == null){
+            if(this._rightHand == null){            
+                this._leftHand = newslot;
+                return true;
+            } else {
+                if(this._rightHand.TwoHands()){
+                    return false;
+                } else {
+                    this._leftHand = newslot;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private Armor GetArmor(Armor slot) {
+        Armor arm = slot;
+        slot = null;
+        return arm;
+    }    
 }

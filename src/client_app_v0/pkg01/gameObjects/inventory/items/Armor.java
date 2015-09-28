@@ -11,58 +11,22 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public class Armor extends Item{
     
-    private int _strenght;
-    private int _agility;
-    private int _intellegence;
-    private int _physicArmor;
-    private int _magicResist;
-    private int _attackPower;
-    private int _spellPower;
+    public final ItemType _itemType = ItemType.ARMOR;
+    //================================================
     private ArmorType _type;
+    private Stats _stats;
+    //================================================
+    public Armor(int id, String name,int buyCost, int sellCost, int strenght, int agility, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
+        super(id, name, buyCost, sellCost);
+        _stats = new Stats(strenght, intellegence, physicArmor, magicResist, attackPower, spellPower);
+    }
     
-    public Armor(int id, String name, int strenght,int agility, int intellegence, 
-            int physicArmor,int magicResist,int attackPower,int spellPower,
-            ArmorType type){
-    super(id, name);
-    _strenght = strenght;  
-    _agility = agility;
-    _intellegence = intellegence;
-    _physicArmor = physicArmor;
-    _magicResist = magicResist;
-    _attackPower = attackPower;
-    _spellPower = spellPower;
-    _type = type;
+    public Stats GetStats(){
+        return _stats;
     }
     
     public ArmorType GetArmorType() {
         return _type;
     }
     
-    public int GetStrenght() {
-        return _strenght;
-    }
-
-    public int GetAgility() {
-        return _agility;
-    }
-
-    public int GetIntellegence() {
-        return _intellegence;
-    }
-
-    public int GetPhysicArmor() {
-        return _physicArmor;
-    }
-
-    public int GetMagicResist() {
-        return _magicResist;
-    }
-
-    public int GetAttackPower() {
-        return _attackPower;
-    }
-
-    public int GetSpellPower() {
-        return _spellPower;
-    }
 }

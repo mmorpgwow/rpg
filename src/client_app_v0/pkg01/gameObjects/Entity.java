@@ -29,7 +29,7 @@ public abstract class Entity implements DynamicEntity {
         this.health = health;
         this.energy = energy;
         this.body = body;
-        this.inventory = new Inventory();
+        //this.inventory = new Inventory();
     }
 
     @Override

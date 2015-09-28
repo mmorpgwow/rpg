@@ -35,8 +35,8 @@ public abstract class Skill {
         _name = name;
         _range = range;
     }
-    
-    public void LvlUp(){
+
+    public void LvlUp() {
         _lvl += 1;
     }
 }

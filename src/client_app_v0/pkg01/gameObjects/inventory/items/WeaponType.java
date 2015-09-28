@@ -7,15 +7,12 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
 
 /**
  *
- * @author Pablo
+ * @author Broff
  */
-public enum ArmorType {
-    LEGS,
-    HANDS,
-    BOOTS,
-    CHEST,
-    HELM,
-    BELT,
-    NECK,
-    RING
+public enum WeaponType {
+    
+    SWORD,
+    SHIELD,
+    STUFF,              
+    BOW
 }

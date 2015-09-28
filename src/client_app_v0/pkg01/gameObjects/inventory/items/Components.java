@@ -9,6 +9,17 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  *
  * @author Pablo
  */
-public class Components {
+public class Components extends Item{
+
+    public final ItemType _itemType = ItemType.COMPONENT;
+    //================================================
+    
+    //================================================
+    
+    public Components(int id, String name, int buyCost, int sellCost) {
+        super(id, name, buyCost, sellCost);
+    }
+
+    
     
 }

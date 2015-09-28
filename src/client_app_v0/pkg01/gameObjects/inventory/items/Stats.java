@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client_app_v0.pkg01.gameObjects.stats;
+package client_app_v0.pkg01.gameObjects.inventory.items;
 
 /**
  *
- * @author Pablo
+ * @author Broff
  */
-public abstract class HeroStats {
-
-    private int _lvl;
-    private int _exp;
+public class Stats {
 
     private int _strenght;
     private int _intellegence;
@@ -20,11 +17,8 @@ public abstract class HeroStats {
     private int _magicResist;
     private int _attackPower;
     private int _spellPower;
-    
-    public HeroStats(int strenght,int agility, int intellegence, int physicArmor,
-            int magicResist, int attackPower, int spellPower){
-        _lvl = 1;
-        _exp = 0;
+
+    public Stats(int strenght, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
         _strenght = strenght;
         _intellegence = intellegence;
         _physicArmor = physicArmor;
@@ -32,26 +26,17 @@ public abstract class HeroStats {
         _attackPower = attackPower;
         _spellPower = spellPower;
     }
-    
-    public int GetLvl() {
-        return _lvl;
-    }
 
-    public void AddExp(int exp) {
-        _exp += exp;
-        CheckLvlUp();
-    }
-
-    private void CheckLvlUp() {
-
-    }
-    
-    public abstract void LvlUp();
-    public abstract int GetHpReg();
-    public abstract int GetMpReg();
-
-    public int GetExp() {
-        return _exp;
+    public Stats addStats(Stats stats) {
+        int str     = this._strenght + stats.GetStrenght();
+        int intel   = this._intellegence + stats.GetIntellegence();
+        int arm     = this._physicArmor + stats.GetPhysicArmor();
+        int magRes  = this._magicResist + stats.GetMagicResist();
+        int ap      = this._attackPower + stats.GetAttackPower();
+        int spd     = this._spellPower + stats.GetSpellPower();
+        
+        Stats stat  = new Stats(str, intel, arm, magRes, ap, spd);
+        return stat;
     }
 
     public int GetStrenght() {
