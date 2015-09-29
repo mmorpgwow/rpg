@@ -9,10 +9,10 @@ package client_app_v0.pkg01.gameObjects.classes;
  *
  * @author Broff
  */
-public class ChangableStats {
+public class ChangeableStats {
 
-    private int _strenght;
-    private int _strenghtGain;
+    private int _strength;
+    private int _strengthGain;
     private int _intellegence;
     private int _intellegenceGain;
     private int _physicArmor;
@@ -35,14 +35,14 @@ public class ChangableStats {
     int _levelCost;
     int _level;
 
-    public ChangableStats(
-            int strenght, int strenghtGain, int intellegence, int intellegenceGain,
+    public ChangeableStats(
+            int strength, int strengthGain, int intellegence, int intellegenceGain,
             int physicArmor, int physicArmorGain, int magicResist, int magicResistGain,
             int attackPower, int attackPowerGain, int spellPower, int spellPowerGain,
             int health, int healthGain, int energy, int energyGain,
             int healthRegen, int healthRegenGain, int energyRegen, int energyRegenGain, int levelCost) {
-        _strenght = strenght;
-        _strenghtGain = strenghtGain;
+        _strength = strength;
+        _strengthGain = strengthGain;
         _intellegence = intellegence;
         _intellegenceGain = intellegenceGain;
         _physicArmor = physicArmor;
@@ -84,8 +84,8 @@ public class ChangableStats {
         return true;
     }
 
-    public int GetStrenght() {
-        return calculateStat(_strenght, _strenghtGain);
+    public int GetStrength() {
+        return calculateStat(_strength, _strengthGain);
     }
 
     public int GetIntellegence() {

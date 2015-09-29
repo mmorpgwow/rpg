@@ -5,6 +5,7 @@
  */
 package client_app_v0.pkg01.gameObjects.skills;
 
+import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.ClassType;
 
 /**
@@ -14,17 +15,7 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
 public class Buff extends Skill{
 
     private int _time;
-    private int _strength;
-    private int _agility;
-    private int _intellegence;
-    private int _physicArmor;
-    private int _magicResist;
-    private int _attackPower;
-    private int _spellPower;
-    private int _changeHealth;
-    private int _changeEnergy;
-    private int _changeHpRegen;
-    private int _changeMpRegen;
+    private ChangeableStats _stats;
     
     public Buff(int lvlcost, int cost, int cooldown, 
             ClassType classType, int id, String name, int range, int time,
@@ -33,5 +24,10 @@ public class Buff extends Skill{
         _time = time;
     }
     
-    
+    public int GetTime(){
+        return _time;
+    }
+    public ChangeableStats GetStats(){
+        return _stats;
+    }
 }

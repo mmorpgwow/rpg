@@ -13,9 +13,9 @@ public abstract class Hero {
     private int _lvl;
     private int _startExp;
     private int _exp;
-    private ChangableStats _stat;
+    private ChangeableStats _stat;
     
-    public Hero(int startExp, int exp, ChangableStats stats){        
+    public Hero(int startExp, int exp, ChangeableStats stats){        
         _startExp = startExp;
         _stat = stats;
         _lvl = 1;
@@ -32,7 +32,7 @@ public abstract class Hero {
         return _exp;
     }
     
-    public final ChangableStats GetStat(){
+    public final ChangeableStats GetStat(){
         return _stat;
     }
     

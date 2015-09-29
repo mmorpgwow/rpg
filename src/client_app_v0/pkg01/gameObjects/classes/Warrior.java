@@ -12,7 +12,7 @@ package client_app_v0.pkg01.gameObjects.classes;
 public class Warrior extends Hero{
     private final ClassType _class = ClassType.MAGE;
 
-    public Warrior(int startExp, int exp, ChangableStats stats) {
+    public Warrior(int startExp, int exp, ChangeableStats stats) {
         super(startExp, exp, stats);
     }        
     

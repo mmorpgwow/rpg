@@ -22,11 +22,11 @@ public class Weapon extends Item{
     private int _maxDamage;
     private int _minDamage;
     //================================================
-    public Weapon(int id, String name,int buyCost, int sellCost, int strenght, int agility, int intellegence,
+    public Weapon(int id, String name,int buyCost, int sellCost, int strength, int agility, int intellegence,
             int physicArmor, int magicResist, int attackPower, int spellPower, 
             WeaponType type, boolean twoHands, int maxDamage, int minDamage) {
         super(id, name, buyCost, sellCost);
-        _stats = new Stats(strenght, intellegence, physicArmor, magicResist, attackPower, spellPower);
+        _stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
         _type = type;
         _twoHands = twoHands;
         _maxDamage = maxDamage;

@@ -10,6 +10,12 @@ package client_app_v0.pkg01.gameObjects.skills;
  * @author qw
  */
 public enum SkillEntityType {
-    PHYSYCAL,
-    MAGIC
+    //P - Physical
+    //M - Magic
+    PPIERCE,
+    PNORMAL,
+    PHEAVY,
+    MFROST,
+    MFIRE,
+    MLIGHTNING
 }
