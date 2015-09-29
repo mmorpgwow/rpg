@@ -14,20 +14,20 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
 public class Shield extends Skill {
     
     private SkillEntityType _typeOfBlockingSkill;
-    private int _blockingPercent;
+    private int _blockingDamage;
 
     public Shield(int lvlcost, int cost, int cooldown, ClassType classType, 
             int id, String name, int range, int castTime, SkillEntityType typeOfBlockingSkill,
-            int blockingPercent) {
+            int blockingDamage) {
         super(lvlcost, cost, cooldown, classType, id, name, range, castTime);
         _typeOfBlockingSkill = typeOfBlockingSkill;
-        _blockingPercent = blockingPercent;
+        _blockingDamage = blockingDamage;
     }
     
     public SkillEntityType GetType(){
         return _typeOfBlockingSkill;
     }
-    public int GetPercent(){
-        return _blockingPercent;
+    public int GetDamage(){
+        return _blockingDamage;
     }
 }
