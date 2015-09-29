@@ -26,9 +26,10 @@ public class Buff extends Skill{
     private int _changeHpRegen;
     private int _changeMpRegen;
     
-    public Buff(SkillType skillType, int lvlcost, int cost, int cooldown, 
-            ClassType classType, int id, String name, int range, int time) {
-        super(skillType, lvlcost, cost, cooldown, classType, id, name, range);
+    public Buff(int lvlcost, int cost, int cooldown, 
+            ClassType classType, int id, String name, int range, int time,
+            int castTime) {
+        super(lvlcost, cost, cooldown, classType, id, name, range, castTime);
         _time = time;
     }
     

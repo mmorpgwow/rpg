@@ -14,5 +14,6 @@ public enum SkillType {
     RANGED,
     BUFF,
     DEBUFF,
-    AOE
+    AOE,
+    MOVE
 }

@@ -10,5 +10,6 @@ package client_app_v0.pkg01.gameObjects.skills;
  * @author qw
  */
 public enum SkillEntityType {
-    PHYSYC
+    PHYSYCAL,
+    MAGIC
 }
