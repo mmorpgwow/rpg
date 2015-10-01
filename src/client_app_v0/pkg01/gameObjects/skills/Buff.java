@@ -6,22 +6,22 @@
 package client_app_v0.pkg01.gameObjects.skills;
 
 import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
-import client_app_v0.pkg01.gameObjects.classes.ClassType;
 
 /**
  *
  * @author qw
  */
-public class Buff extends Skill{
+public class Buff{
 
     private int _time;
+    private int _timeGain;
     private ChangeableStats _stats;
+    private Skill _skill;
     
-    public Buff(int lvlcost, int cost, int cooldown, 
-            ClassType classType, int id, String name, int range, int time,
-            int castTime) {
-        super(lvlcost, cost, cooldown, classType, id, name, range, castTime);
+    public Buff(Skill skill, int time, int timeGain) {
         _time = time;
+        _timeGain = timeGain;
+        _skill = skill;
     }
     
     public int GetTime(){
@@ -29,5 +29,11 @@ public class Buff extends Skill{
     }
     public ChangeableStats GetStats(){
         return _stats;
+    }
+
+    public void LvlUp() {
+        _time+=_timeGain;
+        _stats.LvlUp();
+        _skill.LvlUp();
     }
 }

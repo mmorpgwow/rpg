@@ -11,22 +11,26 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
  *
  * @author qw
  */
-public abstract class Skill {
+public class Skill {
 
-    //private SkillType _skillType;
+    private SkillType _skillType;
     private int _lvl;
     private int _lvlCost;
     private int _cost;
+    private int _costChange;
     private int _cooldown;
+    private int _cooldownChange;
     private ClassType _classType;
     private int _id;
     private String _name;
     private int _range;
+    private int _rangeChange;
     private int _castTime;
 
-    public Skill(int lvlcost, int cost, int cooldown,
-            ClassType classType, int id, String name, int range, int castTime) {
-        //_skillType = skillType;
+    public Skill(int lvlcost, int cost, int cooldown, SkillType skillType,
+            ClassType classType, int id, String name, int range, int castTime,
+            int costChange, int cooldownChange,int rangeChange) {
+        _skillType = skillType;
         _lvl = 0;
         _lvlCost = lvlcost;
         _cost = cost;
@@ -36,10 +40,16 @@ public abstract class Skill {
         _name = name;
         _range = range;
         _castTime = castTime;
+        _costChange = costChange;
+        _cooldownChange = cooldownChange;
+        _rangeChange = rangeChange;
     }
-
-    public void LvlUp() {
-        _lvl += 1;
+    
+    public void LvlUp(){
+        _lvl++;
+        _cost += _costChange;
+        _cooldown += _cooldownChange;
+        _range += _rangeChange;
     }
     
     public int GetLvl(){

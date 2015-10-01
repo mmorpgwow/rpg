@@ -12,21 +12,21 @@ import java.util.List;
  *
  * @author Pablo
  */
-public class Ranged extends Skill {
+public class Ranged{
 
     private int _width;
     private int _height;
     private int _xSpeed;
     private int _ySpeed;
     private int _damage;
+    private int _damageGain;
     private List<Buff> _buffs;
     private SkillEntityType _type;
+    private Skill _skill;
 
-    public Ranged(int lvlcost, int cost, int cooldown, ClassType classType,
-            int id, String name, int range, int width, int height, int xSpeed,
+    public Ranged(Skill skill, int width, int height, int xSpeed,
             int ySpeed, int damage, List<Buff> buffs, SkillEntityType type,
-            int castTime) {
-        super(lvlcost, cost, cooldown, classType, id, name, range, castTime);
+            int damageGain) {
         _width = width;
         _height = height;
         _xSpeed = xSpeed;
@@ -34,6 +34,8 @@ public class Ranged extends Skill {
         _damage = damage;
         _buffs = buffs;
         _type = type;
+        _skill = skill;
+        _damageGain = damageGain;
     }
 
     public int GetDamage() {

@@ -70,7 +70,7 @@ public class ChangeableStats {
     }
 
     private int calculateStat(int startStat, int gainStat) {
-        if(checkLevel()){
+        if (checkLevel()) {
             return startStat += gainStat * (_level - _levelCost);
         } else {
             return 0;
@@ -82,6 +82,24 @@ public class ChangeableStats {
             return false;
         }
         return true;
+    }
+
+    public void LvlUp() {
+        _level++;
+        IncreaseStats();
+    }
+
+    private void IncreaseStats() {
+        _strength += _strengthGain;
+        _intellegence += _intellegenceGain;
+        _physicArmor += _physicArmorGain;
+        _magicResist += _magicResistGain;
+        _attackPower += _attackPowerGain;
+        _spellPower += _spellPowerGain;
+        _health += _healthGain;
+        _energy += _energyGain;
+        _healthRegen += _healthRegenGain;
+        _energyRegen += _energyRegenGain;
     }
 
     public int GetStrength() {
@@ -115,7 +133,7 @@ public class ChangeableStats {
     public int GetEnergy() {
         return calculateStat(_energy, _energyGain);
     }
-    
+
     public int GetHealthRegen() {
         return calculateStat(_healthRegen, _healthRegenGain);
     }

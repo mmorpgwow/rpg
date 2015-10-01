@@ -28,5 +28,6 @@ public class Player {
         _inventory = inventory;
         _classHero = classHero;
         _skills = skills;
+        
     }
 }
