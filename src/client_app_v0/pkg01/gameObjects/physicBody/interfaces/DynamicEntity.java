@@ -13,11 +13,6 @@ import client_app_v0.pkg01.gameObjects.physicBody.Body;
  */
 public interface DynamicEntity extends Entity{
     
-    float getHealth();
-    float setHealth(float health);
-        
-    float getEnergy();
-    float setEnergy(float energy);
     
     void update();
 }

@@ -11,33 +11,34 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
  *
  * @author Pablo
  */
-public class Shield{
+public class Shield implements Abillity{
     
-    private SkillEntityType _typeOfBlockingSkill;
-    private int _blockingDamage;
-    private int _blockingDamageChange;
-    private Skill _skill;
+    private SkillEntityType typeOfBlockingSkill;
+    private int blockingDamage;
+    private int blockingDamageChange;
+    private Skill skill;
 
     public Shield(Skill skill, SkillEntityType typeOfBlockingSkill,
             int blockingDamage, int blockingDamageChange) {
-        _typeOfBlockingSkill = typeOfBlockingSkill;
-        _blockingDamage = blockingDamage;
-        _blockingDamageChange = _blockingDamageChange;
-        _skill = skill;
+        this.typeOfBlockingSkill = typeOfBlockingSkill;
+        this.blockingDamage = blockingDamage;
+        this.blockingDamageChange = blockingDamageChange;
+        this.skill = skill;
     }
     
-    public void LvlUp(){
-        _skill.LvlUp();
-        ChangeStats();
+    @Override
+    public void lvlUp(){
+        skill.lvlUp();
+        changeStats();
     }
-    private void ChangeStats(){
-        _blockingDamage += _blockingDamageChange;
+    private void changeStats(){
+        blockingDamage += blockingDamageChange;
     }
     
-    public SkillEntityType GetType(){
-        return _typeOfBlockingSkill;
+    public SkillEntityType getType(){
+        return typeOfBlockingSkill;
     }
-    public int GetDamage(){
-        return _blockingDamage;
+    public int getDamage(){
+        return blockingDamage;
     }
 }

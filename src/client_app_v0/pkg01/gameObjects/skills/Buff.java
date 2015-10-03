@@ -11,29 +11,30 @@ import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
  *
  * @author qw
  */
-public class Buff{
+public class Buff implements Abillity{
 
-    private int _time;
-    private int _timeGain;
-    private ChangeableStats _stats;
-    private Skill _skill;
+    private int time;
+    private int timeGain;
+    private ChangeableStats stats;
+    private Skill skill;
     
     public Buff(Skill skill, int time, int timeGain) {
-        _time = time;
-        _timeGain = timeGain;
-        _skill = skill;
+        this.time = time;
+        this.timeGain = timeGain;
+        this.skill = skill;
     }
     
-    public int GetTime(){
-        return _time;
+    public int getTime(){
+        return time;
     }
-    public ChangeableStats GetStats(){
-        return _stats;
+    public ChangeableStats getStats(){
+        return stats;
     }
 
-    public void LvlUp() {
-        _time+=_timeGain;
-        _stats.LvlUp();
-        _skill.LvlUp();
+    @Override
+    public void lvlUp() {
+        time+=timeGain;
+        stats.lvlUp();
+        skill.lvlUp();
     }
 }

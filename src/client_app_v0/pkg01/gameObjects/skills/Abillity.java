@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client_app_v0.pkg01;
+package client_app_v0.pkg01.gameObjects.skills;
 
 /**
  *
  * @author Pablo
  */
-public class Client_app_v0 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
-    
+public interface Abillity {
+    public void lvlUp();
 }

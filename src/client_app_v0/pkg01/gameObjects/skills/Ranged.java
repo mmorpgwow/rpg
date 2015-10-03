@@ -12,51 +12,56 @@ import java.util.List;
  *
  * @author Pablo
  */
-public class Ranged{
+public class Ranged implements Abillity{
 
-    private int _width;
-    private int _height;
-    private int _xSpeed;
-    private int _ySpeed;
-    private int _damage;
-    private int _damageGain;
-    private List<Buff> _buffs;
-    private SkillEntityType _type;
-    private Skill _skill;
+    private int width;
+    private int height;
+    private int xSpeed;
+    private int ySpeed;
+    private int damage;
+    private int damageGain;
+    private List<Buff> buffs;
+    private SkillEntityType type;
+    private Skill skill;
 
     public Ranged(Skill skill, int width, int height, int xSpeed,
             int ySpeed, int damage, List<Buff> buffs, SkillEntityType type,
             int damageGain) {
-        _width = width;
-        _height = height;
-        _xSpeed = xSpeed;
-        _ySpeed = ySpeed;
-        _damage = damage;
-        _buffs = buffs;
-        _type = type;
-        _skill = skill;
-        _damageGain = damageGain;
+        this.width = width;
+        this.height = height;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.damage = damage;
+        this.buffs = buffs;
+        this.type = type;
+        this.skill = skill;
+        this.damageGain = damageGain;
     }
 
-    public int GetDamage() {
-        return _damage;
+    public int getDamage() {
+        return damage;
     }
-    public int GetWidth() {
-        return _width;
+    public int getWidth() {
+        return width;
     }
-    public int GetHeight() {
-        return _height;
+    public int getHeight() {
+        return height;
     }
-    public int GetXSpeed(){
-        return _xSpeed;
+    public int getXSpeed(){
+        return xSpeed;
     }
-    public int GetYSpeed(){
-        return _ySpeed;
+    public int getYSpeed(){
+        return ySpeed;
     }
-    public List<Buff> GetBuffs() {
-        return _buffs;
+    public List<Buff> getBuffs() {
+        return buffs;
     }
-    public SkillEntityType GetSkillType(){
-        return _type;
+    public SkillEntityType getSkillType(){
+        return type;
+    }
+
+    @Override
+    public void lvlUp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

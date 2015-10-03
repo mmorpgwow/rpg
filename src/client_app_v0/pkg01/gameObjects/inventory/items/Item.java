@@ -11,31 +11,31 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public abstract class Item {
     
-    private int _id;
-    private String _name;
-    private int _buyCost;
-    private int _sellCost;
+    private int id;
+    private String name;
+    private int buyCost;
+    private int sellCost;
     
     public Item(int id, String name, int buyCost, int sellCost){
-        _id = id;
-        _name = name;
-        _buyCost = buyCost;
-        _sellCost = sellCost;
+        this.id = id;
+        this.name = name;
+        this.buyCost = buyCost;
+        this.sellCost = sellCost;
     }
     
-    public int GetId(){
-        return _id;
+    public int getId(){
+        return id;
     }
     
-    public String GetName(){
-        return _name;
+    public String getName(){
+        return name;
     }
     
-    public int GetBuyCost(){
-        return _buyCost;
+    public int getBuyCost(){
+        return buyCost;
     }
     
-    public int GetSellCost(){
-        return _sellCost;
+    public int getSellCost(){
+        return sellCost;
     }
 }

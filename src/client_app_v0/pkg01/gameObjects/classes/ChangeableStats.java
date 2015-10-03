@@ -11,29 +11,29 @@ package client_app_v0.pkg01.gameObjects.classes;
  */
 public class ChangeableStats {
 
-    private int _strength;
-    private int _strengthGain;
-    private int _intellegence;
-    private int _intellegenceGain;
-    private int _physicArmor;
-    private int _physicArmorGain;
-    private int _magicResist;
-    private int _magicResistGain;
-    private int _attackPower;
-    private int _attackPowerGain;
-    private int _spellPower;
-    private int _spellPowerGain;
-    private int _health;
-    private int _healthGain;
-    private int _energy;
-    private int _energyGain;
-    private int _healthRegen;
-    private int _healthRegenGain;
-    private int _energyRegen;
-    private int _energyRegenGain;
+    private int strength;
+    private int strengthGain;
+    private int intellegence;
+    private int intellegenceGain;
+    private int physicArmor;
+    private int physicArmorGain;
+    private int magicResist;
+    private int magicResistGain;
+    private int attackPower;
+    private int attackPowerGain;
+    private int spellPower;
+    private int spellPowerGain;
+    private int health;
+    private int healthGain;
+    private int energy;
+    private int energyGain;
+    private int healthRegen;
+    private int healthRegenGain;
+    private int energyRegen;
+    private int energyRegenGain;
 
-    int _levelCost;
-    int _level;
+    int levelCost;
+    int level;
 
     public ChangeableStats(
             int strength, int strengthGain, int intellegence, int intellegenceGain,
@@ -41,104 +41,104 @@ public class ChangeableStats {
             int attackPower, int attackPowerGain, int spellPower, int spellPowerGain,
             int health, int healthGain, int energy, int energyGain,
             int healthRegen, int healthRegenGain, int energyRegen, int energyRegenGain, int levelCost) {
-        _strength = strength;
-        _strengthGain = strengthGain;
-        _intellegence = intellegence;
-        _intellegenceGain = intellegenceGain;
-        _physicArmor = physicArmor;
-        _physicArmorGain = physicArmorGain;
-        _magicResist = magicResist;
-        _magicResistGain = magicResistGain;
-        _attackPower = attackPower;
-        _attackPowerGain = attackPowerGain;
-        _spellPower = spellPower;
-        _spellPowerGain = spellPowerGain;
-        _health = health;
-        _healthGain = healthGain;
-        _energy = energy;
-        _energyGain = energyGain;
-        _healthRegen = healthRegen;
-        _healthRegenGain = healthRegenGain;
-        _energyRegen = energyRegen;
-        _energyRegenGain = energyRegenGain;
-        _levelCost = levelCost;
-        _level = 0;
+        this.strength = strength;
+        this.strengthGain = strengthGain;
+        this.intellegence = intellegence;
+        this.intellegenceGain = intellegenceGain;
+        this.physicArmor = physicArmor;
+        this.physicArmorGain = physicArmorGain;
+        this.magicResist = magicResist;
+        this.magicResistGain = magicResistGain;
+        this.attackPower = attackPower;
+        this.attackPowerGain = attackPowerGain;
+        this.spellPower = spellPower;
+        this.spellPowerGain = spellPowerGain;
+        this.health = health;
+        this.healthGain = healthGain;
+        this.energy = energy;
+        this.energyGain = energyGain;
+        this.healthRegen = healthRegen;
+        this.healthRegenGain = healthRegenGain;
+        this.energyRegen = energyRegen;
+        this.energyRegenGain = energyRegenGain;
+        this.levelCost = levelCost;
+        level = 0;
     }
 
     public void initLevel(int lvl) {
-        _level = lvl;
+        level = lvl;
     }
 
     private int calculateStat(int startStat, int gainStat) {
         if (checkLevel()) {
-            return startStat += gainStat * (_level - _levelCost);
+            return startStat += gainStat * (level - levelCost);
         } else {
             return 0;
         }
     }
 
     public boolean checkLevel() {
-        if (_levelCost > _level) {
+        if (levelCost > level) {
             return false;
         }
         return true;
     }
 
-    public void LvlUp() {
-        _level++;
-        IncreaseStats();
+    public void lvlUp() {
+        level++;
+        increaseStats();
     }
 
-    private void IncreaseStats() {
-        _strength += _strengthGain;
-        _intellegence += _intellegenceGain;
-        _physicArmor += _physicArmorGain;
-        _magicResist += _magicResistGain;
-        _attackPower += _attackPowerGain;
-        _spellPower += _spellPowerGain;
-        _health += _healthGain;
-        _energy += _energyGain;
-        _healthRegen += _healthRegenGain;
-        _energyRegen += _energyRegenGain;
+    private void increaseStats() {
+        strength += strengthGain;
+        intellegence += intellegenceGain;
+        physicArmor += physicArmorGain;
+        magicResist += magicResistGain;
+        attackPower += attackPowerGain;
+        spellPower += spellPowerGain;
+        health += healthGain;
+        energy += energyGain;
+        healthRegen += healthRegenGain;
+        energyRegen += energyRegenGain;
     }
 
-    public int GetStrength() {
-        return calculateStat(_strength, _strengthGain);
+    public int getStrength() {
+        return calculateStat(strength, strengthGain);
     }
 
-    public int GetIntellegence() {
-        return calculateStat(_intellegence, _intellegenceGain);
+    public int getIntellegence() {
+        return calculateStat(intellegence, intellegenceGain);
     }
 
-    public int GetPhysicArmor() {
-        return calculateStat(_physicArmor, _physicArmorGain);
+    public int getPhysicArmor() {
+        return calculateStat(physicArmor, physicArmorGain);
     }
 
-    public int GetMagicResist() {
-        return calculateStat(_magicResist, _magicResistGain);
+    public int getMagicResist() {
+        return calculateStat(magicResist, magicResistGain);
     }
 
-    public int GetAttackPower() {
-        return calculateStat(_attackPower, _attackPowerGain);
+    public int getAttackPower() {
+        return calculateStat(attackPower, attackPowerGain);
     }
 
-    public int GetSpellPower() {
-        return calculateStat(_spellPower, _spellPowerGain);
+    public int getSpellPower() {
+        return calculateStat(spellPower, spellPowerGain);
     }
 
-    public int GetHealth() {
-        return calculateStat(_health, _healthGain);
+    public int getHealth() {
+        return calculateStat(health, healthGain);
     }
 
-    public int GetEnergy() {
-        return calculateStat(_energy, _energyGain);
+    public int getEnergy() {
+        return calculateStat(energy, energyGain);
     }
 
-    public int GetHealthRegen() {
-        return calculateStat(_healthRegen, _healthRegenGain);
+    public int getHealthRegen() {
+        return calculateStat(healthRegen, healthRegenGain);
     }
 
-    public int GetEnergyRegen() {
-        return calculateStat(_energyRegen, _energyRegenGain);
+    public int getEnergyRegen() {
+        return calculateStat(energyRegen, energyRegenGain);
     }
 }

@@ -13,42 +13,42 @@ import java.util.Random;
  */
 public class Weapon extends Item{
     
-    public final ItemType _itemType = ItemType.ARMOR;
+    public final ItemType itemType = ItemType.ARMOR;
     //================================================
-    private boolean _twoHands;
-    private WeaponType _type;
-    private Stats _stats;
+    private boolean twoHands;
+    private WeaponType type;
+    private Stats stats;
     
-    private int _maxDamage;
-    private int _minDamage;
+    private int maxDamage;
+    private int minDamage;
     //================================================
     public Weapon(int id, String name,int buyCost, int sellCost, int strength, int agility, int intellegence,
             int physicArmor, int magicResist, int attackPower, int spellPower, 
             WeaponType type, boolean twoHands, int maxDamage, int minDamage) {
         super(id, name, buyCost, sellCost);
-        _stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
-        _type = type;
-        _twoHands = twoHands;
-        _maxDamage = maxDamage;
-        _minDamage = minDamage;
+        this.stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
+        this.type = type;
+        this.twoHands = twoHands;
+        this.maxDamage = maxDamage;
+        this.minDamage = minDamage;
     }
     
-    public Stats GetStats(){
-        return _stats;
+    public Stats getStats(){
+        return stats;
     }
     
-    public int Hit(){
+    public int hit(){
         Random rnd = new Random();
-        int number = _minDamage + rnd.nextInt(_maxDamage - _minDamage + 1);
+        int number = minDamage + rnd.nextInt(maxDamage - minDamage + 1);
         return number;
     }
     
-    public WeaponType GetWeaponType(){
-        return _type;
+    public WeaponType getWeaponType(){
+        return type;
     }
     
-    public boolean TwoHands(){
-        return _twoHands;
+    public boolean twoHands(){
+        return twoHands;
     }    
     
 }

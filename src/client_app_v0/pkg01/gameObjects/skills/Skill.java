@@ -13,58 +13,58 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
  */
 public class Skill {
 
-    private SkillType _skillType;
-    private int _lvl;
-    private int _lvlCost;
-    private int _cost;
-    private int _costChange;
-    private int _cooldown;
-    private int _cooldownChange;
-    private ClassType _classType;
-    private int _id;
-    private String _name;
-    private int _range;
-    private int _rangeChange;
-    private int _castTime;
+    private SkillType skillType;
+    private int lvl;
+    private int lvlCost;
+    private int cost;
+    private int costChange;
+    private int cooldown;
+    private int cooldownChange;
+    private ClassType classType;
+    private int id;
+    private String name;
+    private int range;
+    private int rangeChange;
+    private int castTime;
 
     public Skill(int lvlcost, int cost, int cooldown, SkillType skillType,
             ClassType classType, int id, String name, int range, int castTime,
             int costChange, int cooldownChange,int rangeChange) {
-        _skillType = skillType;
-        _lvl = 0;
-        _lvlCost = lvlcost;
-        _cost = cost;
-        _cooldown = cooldown;
-        _classType = classType;
-        _id = id;
-        _name = name;
-        _range = range;
-        _castTime = castTime;
-        _costChange = costChange;
-        _cooldownChange = cooldownChange;
-        _rangeChange = rangeChange;
+        this.skillType = skillType;
+        this.lvl = 0;
+        this.lvlCost = lvlcost;
+        this.cost = cost;
+        this.cooldown = cooldown;
+        this.classType = classType;
+        this.id = id;
+        this.name = name;
+        this.range = range;
+        this.castTime = castTime;
+        this.costChange = costChange;
+        this.cooldownChange = cooldownChange;
+        this.rangeChange = rangeChange;
     }
     
-    public void LvlUp(){
-        _lvl++;
-        _cost += _costChange;
-        _cooldown += _cooldownChange;
-        _range += _rangeChange;
+    public void lvlUp(){
+        lvl++;
+        cost += costChange;
+        cooldown += cooldownChange;
+        range += rangeChange;
     }
     
-    public int GetLvl(){
-        return _lvl;
+    public int getLvl(){
+        return lvl;
     }
-    public int GetLvlCost(){
-        return _lvlCost;
+    public int getLvlCost(){
+        return lvlCost;
     }
-    public int GetCost(){
-        return _cost;
+    public int getCost(){
+        return cost;
     }
-    public ClassType GetClassType(){
-        return _classType;
+    public ClassType getClassType(){
+        return classType;
     }
-    public int GetRange(){
-        return _range;
+    public int getRange(){
+        return range;
     }
 }

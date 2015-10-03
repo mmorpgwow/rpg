@@ -11,54 +11,54 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public class Potion extends Item {
 
-    public final ItemType _itemType = ItemType.POTION;
+    public final ItemType itemType = ItemType.POTION;
     public final int maxCount = 10;
     //================================================
-    private int _resHealth;
-    private int _resEnergy;
-    private int _count;
-    private PotionType _type;
+    private int resHealth;
+    private int resEnergy;
+    private int count;
+    private PotionType type;
     //================================================
     public Potion(int id, String name,int buyCost, int sellCost, int resHealth, int resEnergy, PotionType type, int count) {
         super(id, name, buyCost, sellCost);
-        _resHealth = resHealth;
-        _resEnergy = resEnergy;
-        _count = count;
-        _type = type;
+        this.resHealth = resHealth;
+        this.resEnergy = resEnergy;
+        this.count = count;
+        this.type = type;
     }
     
-    public PotionType GetType(){
-        return _type;
+    public PotionType getType(){
+        return type;
     }
     
-    public int GetCount(){
-        return _count;
+    public int getCount(){
+        return count;
     }
     
-    public int Add(int i){
-        if(i + _count <= maxCount){
+    public int add(int i){
+        if(i + count <= maxCount){
             return 0;
         } else {
-            return i + _count - maxCount;
+            return i + count - maxCount;
         }
     }
     ////WARNING NEED FINISH METHOD/////
-    public Potion GetPotions(int i){
+    public Potion getPotions(int i){
         return null;        
     }
     
-    public int DrinkPotion(){
-        _count--;
-        if(_type == PotionType.ENERGY){
-            return _resEnergy;
+    public int drinkPotion(){
+        count--;
+        if(type == PotionType.ENERGY){
+            return resEnergy;
         } else {
-            return _resHealth;
+            return resHealth;
         } 
     }
     
-    public int[] GetRestoratedValue(){
-        _count--;
-        int[] Arr = {_resHealth,_resEnergy};
+    public int[] getRestoratedValue(){
+        count--;
+        int[] Arr = {resHealth,resEnergy};
         return Arr;
     }
 }

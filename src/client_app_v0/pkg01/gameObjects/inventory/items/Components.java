@@ -11,7 +11,7 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public class Components extends Item{
 
-    public final ItemType _itemType = ItemType.COMPONENT;
+    public final ItemType itemType = ItemType.COMPONENT;
     //================================================
     
     //================================================

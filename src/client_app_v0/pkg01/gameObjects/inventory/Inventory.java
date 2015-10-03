@@ -14,56 +14,56 @@ import java.util.List;
  */
 public class Inventory {
     
-    private int _gold;
-    private int _gem;
-    private List<Item> _bag;
-    private HeroArmor _armor;
+    private int gold;
+    private int gem;
+    private List<Item> bag;
+    private HeroArmor armor;
     
     public Inventory(List<Item> bag, HeroArmor armor ){
-        _bag = bag;
-        _armor = armor;
+        this.bag = bag;
+        this.armor = armor;
     }
     
-    public int GetGold(){
-        return _gold;
+    public int getGold(){
+        return gold;
     }
     
-    public boolean GiveGold(int gold){
-        if(_gold < gold){
+    public boolean giveGold(int gold){
+        if(gold < gold){
             return false;
         } else {
-            _gold -= gold;
+            gold -= gold;
             return true;
         }
     }
     
-    public void AddGold(int gold){
-        _gold += gold;
+    public void addGold(int gold){
+        gold += gold;
     }
     
-    public int GetGem(){
-        return _gem;
+    public int getGem(){
+        return gem;
     }
     
-    public boolean GiveGem(int gem){
-        if(_gem < gem){
+    public boolean giveGem(int gem){
+        if(gem < gem){
             return false;
         } else {
-            _gem -= gem;
+            gem -= gem;
             return true;
         }
     }
     
-    public void AddGem(int gems){
-        _gem += gems;
+    public void addGem(int gems){
+        gem += gems;
     }
     
-    public List<Item> GetBag(){
-        return _bag;
+    public List<Item> getBag(){
+        return bag;
     }
     
-    public HeroArmor GetArmor(){
-        return _armor;
+    public HeroArmor getArmor(){
+        return armor;
     }
     
 }

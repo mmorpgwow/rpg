@@ -11,22 +11,22 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public class Armor extends Item{
     
-    public final ItemType _itemType = ItemType.ARMOR;
+    public final ItemType itemType = ItemType.ARMOR;
     //================================================
-    private ArmorType _type;
-    private Stats _stats;
+    private ArmorType type;
+    private Stats stats;
     //================================================
     public Armor(int id, String name,int buyCost, int sellCost, int strength, int agility, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
         super(id, name, buyCost, sellCost);
-        _stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
+        this.stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
     }
     
-    public Stats GetStats(){
-        return _stats;
+    public Stats getStats(){
+        return stats;
     }
     
-    public ArmorType GetArmorType() {
-        return _type;
+    public ArmorType getArmorType() {
+        return type;
     }
     
 }

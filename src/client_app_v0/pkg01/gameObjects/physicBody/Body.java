@@ -11,25 +11,25 @@ package client_app_v0.pkg01.gameObjects.physicBody;
  */
 public class Body {
     
-    private int _width;
-    private int _height;
+    private int width;
+    private int height;
     
     public Body(int width, int height){
-        _width = width;
-        _height = height;
+        width = width;
+        height = height;
     }
     
-    public int GetWidth(){
-        return _width;
+    public int getWidth(){
+        return width;
     }
-    public int GetHeight(){
-        return _height;
+    public int getHeight(){
+        return height;
     }
     
-    public void SetWidth(int width){
-        _width=width;
+    public void setWidth(int width){
+        width=width;
     }
-    public void SetHeight(int height){
-        _height=height;
+    public void setHeight(int height){
+        height=height;
     }
 }

@@ -16,116 +16,116 @@ import client_app_v0.pkg01.gameObjects.inventory.items.Weapon;
  */
 public class HeroArmor {
 
-    private Armor _legs;
-    private Armor _hands;
-    private Armor _boots;
-    private Armor _chest;
-    private Armor _helm;
-    private Armor _belt;
-    private Armor _neck;
-    private Armor _ring;
-    private Weapon _rightHand;
-    private Weapon _leftHand;
+    private Armor legs;
+    private Armor hands;
+    private Armor boots;
+    private Armor chest;
+    private Armor helm;
+    private Armor belt;
+    private Armor neck;
+    private Armor ring;
+    private Weapon rightHand;
+    private Weapon leftHand;
 
     public HeroArmor() {
 
     }
     
-    public Stats GetHeroStats(){
+    public Stats getHeroStats(){
         Stats s = new Stats(0,0,0,0,0,0);
-        s = s.addStats(_legs.GetStats());
-        s = s.addStats(_hands.GetStats());
-        s = s.addStats(_boots.GetStats());
-        s = s.addStats(_chest.GetStats());
-        s = s.addStats(_helm.GetStats());
-        s = s.addStats(_belt.GetStats());
-        s = s.addStats(_neck.GetStats());
-        s = s.addStats(_ring.GetStats());
-        s = s.addStats(_rightHand.GetStats());
-        s = s.addStats(_leftHand.GetStats());
+        s = s.addStats(legs.getStats());
+        s = s.addStats(hands.getStats());
+        s = s.addStats(boots.getStats());
+        s = s.addStats(chest.getStats());
+        s = s.addStats(helm.getStats());
+        s = s.addStats(belt.getStats());
+        s = s.addStats(neck.getStats());
+        s = s.addStats(ring.getStats());
+        s = s.addStats(rightHand.getStats());
+        s = s.addStats(leftHand.getStats());
         return s;
     }
     
-    public Weapon TakeOffLeftWeapon(){
-        if(this._leftHand != null){
-            Weapon w = this._leftHand;
-            this._leftHand = null;
+    public Weapon takeOffLeftWeapon(){
+        if(this.leftHand != null){
+            Weapon w = this.leftHand;
+            this.leftHand = null;
             return w;
         }
         return null;
     }
     
     public Weapon TakeOffWeapon(){
-        if(this._leftHand != null){
-            Weapon w = this._leftHand;
-            this._leftHand = null;
+        if(this.leftHand != null){
+            Weapon w = this.leftHand;
+            this.leftHand = null;
             return w;
         }
         return null;
     }
     
-    public Armor TakeOffArmor(ArmorType type) {
+    public Armor takeOffArmor(ArmorType type) {
         switch (type) {
             case LEGS:
-                return GetArmor(this._legs);
+                return getArmor(this.legs);
             case HANDS:
-                return GetArmor(this._hands);
+                return getArmor(this.hands);
             case BOOTS:
-                return GetArmor(this._boots);
+                return getArmor(this.boots);
             case CHEST:
-                return GetArmor(this._chest);
+                return getArmor(this.chest);
             case HELM:
-                return GetArmor(this._helm);
+                return getArmor(this.helm);
             case BELT:
-                return GetArmor(this._belt);
+                return getArmor(this.belt);
             case NECK:
-                return GetArmor(this._neck);
+                return getArmor(this.neck);
             case RING:
-                return GetArmor(this._ring);
+                return getArmor(this.ring);
             default:
                 return null;
         }
     }
     
-     public boolean PutOnWeapon(Weapon weapon) {
-        switch (weapon.GetWeaponType()) {
+     public boolean putOnWeapon(Weapon weapon) {
+        switch (weapon.getWeaponType()) {
             case SWORD:
-                return TakeRightHand(weapon);
+                return takeRightHand(weapon);
             case SHIELD:
-                return TakeLeftHand(weapon);
+                return takeLeftHand(weapon);
             case STUFF:
-                return TakeRightHand(weapon);
+                return takeRightHand(weapon);
             case BOW:
-                return TakeRightHand(weapon);         
+                return takeRightHand(weapon);         
             default:
                 return false;
         }
     }
     
-    public boolean PutOnArmor(Armor armor) {
-        switch (armor.GetArmorType()) {
+    public boolean putOnArmor(Armor armor) {
+        switch (armor.getArmorType()) {
             case LEGS:
-                return IsEmpty(this._legs, armor);
+                return isEmpty(this.legs, armor);
             case HANDS:
-                return IsEmpty(this._hands, armor);
+                return isEmpty(this.hands, armor);
             case BOOTS:
-                return IsEmpty(this._boots, armor);
+                return isEmpty(this.boots, armor);
             case CHEST:
-                return IsEmpty(this._chest, armor);
+                return isEmpty(this.chest, armor);
             case HELM:
-                return IsEmpty(this._helm, armor);
+                return isEmpty(this.helm, armor);
             case BELT:
-                return IsEmpty(this._belt, armor);
+                return isEmpty(this.belt, armor);
             case NECK:
-                return IsEmpty(this._neck, armor);
+                return isEmpty(this.neck, armor);
             case RING:
-                return IsEmpty(this._ring, armor);           
+                return isEmpty(this.ring, armor);           
             default:
                 return false;
         }
     }
 
-    private boolean IsEmpty(Armor slot, Armor newslot) {
+    private boolean isEmpty(Armor slot, Armor newslot) {
         if (slot == null) {
             slot = newslot;
             return true;
@@ -134,16 +134,16 @@ public class HeroArmor {
         }
     }
 
-    private boolean TakeRightHand(Weapon newslot) {
-        if(this._rightHand == null){
-            if(this._leftHand == null){            
-                this._rightHand  = newslot;
+    private boolean takeRightHand(Weapon newslot) {
+        if(this.rightHand == null){
+            if(this.leftHand == null){            
+                this.rightHand  = newslot;
                 return true;
             } else {
-                if(this._rightHand.TwoHands()){
+                if(this.rightHand.twoHands()){
                     return false;
                 } else {
-                    this._rightHand  = newslot;
+                    this.rightHand  = newslot;
                     return true;
                 }
             }
@@ -151,16 +151,16 @@ public class HeroArmor {
         return false;
     }
     
-    private boolean TakeLeftHand(Weapon newslot) {
-        if(this._leftHand == null){
-            if(this._rightHand == null){            
-                this._leftHand = newslot;
+    private boolean takeLeftHand(Weapon newslot) {
+        if(this.leftHand == null){
+            if(this.rightHand == null){            
+                this.leftHand = newslot;
                 return true;
             } else {
-                if(this._rightHand.TwoHands()){
+                if(this.rightHand.twoHands()){
                     return false;
                 } else {
-                    this._leftHand = newslot;
+                    this.leftHand = newslot;
                     return true;
                 }
             }
@@ -168,7 +168,7 @@ public class HeroArmor {
         return false;
     }
     
-    private Armor GetArmor(Armor slot) {
+    private Armor getArmor(Armor slot) {
         Armor arm = slot;
         slot = null;
         return arm;

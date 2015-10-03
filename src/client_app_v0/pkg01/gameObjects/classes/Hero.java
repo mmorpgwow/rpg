@@ -10,52 +10,52 @@ package client_app_v0.pkg01.gameObjects.classes;
  * @author Broff
  */
 public abstract class Hero {
-    private int _lvl;
-    private int _startExp;
-    private int _exp;
-    private ChangeableStats _stat;
+    private int lvl;
+    private int startExp;
+    private int exp;
+    private ChangeableStats stat;
     
     public Hero(int startExp, int exp, ChangeableStats stats){        
-        _startExp = startExp;
-        _stat = stats;
-        _lvl = 1;
-        _exp = 0;
-        AddExp(exp);    
-        _stat.initLevel(_lvl);
+        this.startExp = startExp;
+        this.stat = stats;
+        lvl = 1;
+        exp = 0;
+        addExp(exp);    
+        stat.initLevel(lvl);
     }
     
-    public final int GetLevel(){
-        return _lvl;
+    public final int getLevel(){
+        return lvl;
     }
     
-    public final int GetExp(){
-        return _exp;
+    public final int getExp(){
+        return exp;
     }
     
-    public final ChangeableStats GetStat(){
-        return _stat;
+    public final ChangeableStats getStat(){
+        return stat;
     }
     
-    public final void AddExp(int exp){
-        int lvlExp = GetLvlExp(_lvl);
-        int summExp = _exp + exp;
+    public final void addExp(int exp){
+        int lvlExp = getLvlExp(lvl);
+        int summExp = exp + exp;
         if(summExp < lvlExp){
-            _exp += exp;
+            exp += exp;
         } else {
-            LvlUp();            
-            _exp = 0;
-            AddExp(summExp  - lvlExp);
+            lvlUp();            
+            exp = 0;
+            addExp(summExp  - lvlExp);
         }
     }
     
-    private final void LvlUp(){
-        _lvl++;
-        _stat.initLevel(_lvl);
+    private final void lvlUp(){
+        lvl++;
+        stat.initLevel(lvl);
     }
     
-    public int GetLvlExp(int lvl){
-        int exp = _startExp;
-        for(int i = 1; i < _lvl;i++ ){
+    public int getLvlExp(int lvl){
+        int exp = startExp;
+        for(int i = 1; i < lvl;i++ ){
             exp =  exp + exp * 1/3;
         }
         return exp;

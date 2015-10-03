@@ -18,46 +18,12 @@ public abstract class Entity implements DynamicEntity {
     private int yPos;
     
     private Body body;
-    private Inventory inventory;
-        
-    private float health;
-    private float energy;
     
-    public Entity(int x, int y, float health, float energy,Body body){
+    public Entity(int x, int y, Body body){
         this.xPos = x;
         this.yPos = y;
-        this.health = health;
-        this.energy = energy;
         this.body = body;
         //this.inventory = new Inventory();
-    }
-
-    @Override
-    public float getHealth() {
-        return health;
-    }
-
-    @Override
-    public float setHealth(float health) {
-        if(health < 0){
-            return this.health;
-        } else {
-            return this.health = health;
-        }
-    }
-
-    @Override
-    public float getEnergy() {
-        return this.energy;
-    }
-
-    @Override
-    public float setEnergy(float energy) {
-       if(energy < 0){
-           return this.energy;
-       } else {
-           return this.energy = energy;
-       }
     }
 
     @Override
