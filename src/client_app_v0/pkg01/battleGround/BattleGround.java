@@ -41,4 +41,15 @@ public class BattleGround {
             players.add(e);
         }
     }
+    
+    public Entity getEntity(int id){
+        if(id >= 0 && id < players.size()){
+            players.get(id);
+        }
+        return null;
+    }
+    
+    public List<Entity> getEntityList(){
+        return this.players;
+    }
 }

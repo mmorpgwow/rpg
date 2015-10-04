@@ -18,6 +18,7 @@ import java.util.List;
  * @author Broff
  */
 public class Player extends Entity{
+    public final static EntityType type = EntityType.PLAYER;
     
     private Body body;    
     private Inventory inventory;
