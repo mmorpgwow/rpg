@@ -13,7 +13,7 @@ public abstract class Hero {
     private int lvl;
     private int startExp;
     private int exp;
-    private ChangeableStats stat;
+    private ChangeableStats stat;  
     
     public Hero(int startExp, int exp, ChangeableStats stats){        
         this.startExp = startExp;
@@ -21,7 +21,7 @@ public abstract class Hero {
         lvl = 1;
         exp = 0;
         addExp(exp);    
-        stat.initLevel(lvl);
+        stat.initLevel(lvl);   
     }
     
     public final int getLevel(){
