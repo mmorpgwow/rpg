@@ -15,5 +15,6 @@ public enum SkillType {
     BUFF,
     DEBUFF,
     AOE,
-    MOVE
+    MOVE,
+    SHIELD
 }

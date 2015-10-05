@@ -18,10 +18,11 @@ public class Buff implements Abillity{
     private ChangeableStats stats;
     private Skill skill;
     
-    public Buff(Skill skill, int time, int timeGain) {
+    public Buff(Skill skill, ChangeableStats stats, int time, int timeGain) {
         this.time = time;
         this.timeGain = timeGain;
         this.skill = skill;
+        this.stats = stats;
     }
     
     public int getTime(){

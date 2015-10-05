@@ -16,9 +16,9 @@ public class Armor extends Item{
     private ArmorType type;
     private Stats stats;
     //================================================
-    public Armor(int id, String name,int buyCost, int sellCost, int strength, int agility, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
+    public Armor(int id, String name,int buyCost, int sellCost, Stats stats ) {
         super(id, name, buyCost, sellCost);
-        this.stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
+        this.stats = stats;
     }
     
     public Stats getStats(){

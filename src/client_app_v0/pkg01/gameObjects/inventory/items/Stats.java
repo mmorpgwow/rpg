@@ -18,8 +18,8 @@ public class Stats {
     private int attackPower;
     private int spellPower;
 
-    public Stats(int strenght, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
-        this.strenght = strenght;
+    public Stats(int strength, int intellegence, int physicArmor, int magicResist, int attackPower, int spellPower) {
+        this.strenght = strength;
         this.intellegence = intellegence;
         this.physicArmor = physicArmor;
         this.magicResist = magicResist;

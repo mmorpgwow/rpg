@@ -22,11 +22,10 @@ public class Weapon extends Item{
     private int maxDamage;
     private int minDamage;
     //================================================
-    public Weapon(int id, String name,int buyCost, int sellCost, int strength, int agility, int intellegence,
-            int physicArmor, int magicResist, int attackPower, int spellPower, 
+    public Weapon(int id, String name,int buyCost, int sellCost, Stats stats, 
             WeaponType type, boolean twoHands, int maxDamage, int minDamage) {
         super(id, name, buyCost, sellCost);
-        this.stats = new Stats(strength, intellegence, physicArmor, magicResist, attackPower, spellPower);
+        this.stats = stats;
         this.type = type;
         this.twoHands = twoHands;
         this.maxDamage = maxDamage;
