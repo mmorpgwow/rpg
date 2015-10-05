@@ -5,6 +5,8 @@
  */
 package client_app_v0.pkg01;
 
+import client_app_v0.pkg01.renderFactory.RenderHeroInfo;
+
 /**
  *
  * @author qw
@@ -15,7 +17,8 @@ public class Client_app_v001 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        RenderHeroInfo r = new RenderHeroInfo();
+        r.show();
     }
     
 }

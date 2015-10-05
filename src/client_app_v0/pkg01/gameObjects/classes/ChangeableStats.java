@@ -24,8 +24,10 @@ public class ChangeableStats {
     private int spellPower;
     private int spellPowerGain;
     private int health;
+    private int actualHealth;
     private int healthGain;
     private int energy;
+    private int actualEnergy;
     private int energyGain;
     private int healthRegen;
     private int healthRegenGain;
@@ -63,6 +65,8 @@ public class ChangeableStats {
         this.energyRegenGain = energyRegenGain;
         this.levelCost = levelCost;
         level = 0;
+        actualHealth = getHealth();
+        actualEnergy = getEnergy();
     }
 
     public void initLevel(int lvl) {
@@ -132,6 +136,14 @@ public class ChangeableStats {
 
     public int getEnergy() {
         return calculateStat(energy, energyGain);
+    }
+    
+    public int getActualHealth() {
+        return this.actualHealth;
+    }
+
+    public int getActualEnergy() {
+        return this.actualEnergy;
     }
 
     public int getHealthRegen() {

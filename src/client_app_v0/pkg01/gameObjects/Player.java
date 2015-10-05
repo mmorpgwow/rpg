@@ -5,8 +5,10 @@
  */
 package client_app_v0.pkg01.gameObjects;
 
+import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.Hero;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
+import client_app_v0.pkg01.gameObjects.inventory.items.Stats;
 import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.physicBody.Entity;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
@@ -61,5 +63,69 @@ public class Player extends Entity{
         } else {
             return null;
         }
+    }
+    
+    public ChangeableStats getHeroStats(){
+        return this.classHero.getStat();
+    }
+    
+    public Stats getArmorStats(){
+        return this.inventory.getArmor().getArmorStats();
+    }
+    
+    public int getGold(){
+        return this.inventory.getGold();
+    }
+    
+    public void addGold(int gold){
+        this.inventory.addGold(gold);
+    }
+    
+    public void addGem(int gem){
+        this.inventory.addGem(gem);
+    }
+    
+    public int getGem(){
+        return this.inventory.getGem();
+    }
+    
+    public int getStrenght() {
+        return getHeroStats().getStrength() + getArmorStats().getStrenght();
+    }
+
+    public int getIntellegence() {
+        return getHeroStats().getIntellegence() + getArmorStats().getIntellegence();
+    }
+
+    public int getPhysicArmor() {
+        return getHeroStats().getPhysicArmor() + getArmorStats().getPhysicArmor();
+    }
+
+    public int getMagicResist() {
+        return getHeroStats().getMagicResist() + getArmorStats().getMagicResist();
+    }
+
+    public int getAttackPower() {
+        return getHeroStats().getAttackPower() + getArmorStats().getAttackPower();
+    }
+
+    public int getSpellPower() {
+        return getHeroStats().getSpellPower() + getArmorStats().getSpellPower();
+    }
+    
+    public int getHealth() {
+        return this.classHero.getStat().getHealth();
+    }
+
+    public int getEnergy() {
+        return this.classHero.getStat().getEnergy();
+    }
+
+    public int getHealthRegen() {
+        return this.classHero.getStat().getHealthRegen();
+    }
+
+    public int getEnergyRegen() {
+        return this.classHero.getStat().getEnergyRegen();
     }
 }

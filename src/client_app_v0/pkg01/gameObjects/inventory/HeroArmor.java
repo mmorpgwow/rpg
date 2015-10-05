@@ -31,7 +31,7 @@ public class HeroArmor {
 
     }
     
-    public Stats getHeroStats(){
+    public Stats getArmorStats(){
         Stats s = new Stats(0,0,0,0,0,0);
         s = s.addStats(legs.getStats());
         s = s.addStats(hands.getStats());
