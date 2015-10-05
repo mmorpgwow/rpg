@@ -21,7 +21,7 @@ public class RenderHeroInfo {
     //==========================================
     float healthBarCount = 15;
     float energyBarCount = 15;
-    float experienceBarCount = 60;
+    float experienceBarCount = 73;
     float line = 75;
     private char initChar = ' ';
 
@@ -39,13 +39,13 @@ public class RenderHeroInfo {
             initWord(0,38,"CLASS HERO - " + p.getClassName() +"(" + p.getLevel() + ")");
             initWord(1,40,"(-_-(-_-)-_-)");
             drawLine(2,0,line);
-            initHealth(3,0,p.getActualHealth(), p.getHealth());        
-            initEnergy(3,35,p.getActualEnergy(), p.getEnergy());
-            drawLine(4,0,line);
-            initExperience(5,0,p.getExp(), p.getLevelExp());
-            initWord(7, 0,"STRENGTH:        |" + p.getStrenght());
-            initWord(8, 0,"intellegence:    |" + p.getIntellegence());
-            initWord(9, 0,"physicArmor:     |" + p.getPhysicArmor());
+            initHealth(2,0,p.getActualHealth(), p.getHealth());        
+            initEnergy(2,35,p.getActualEnergy(), p.getEnergy());
+            drawLine(3,0,line);
+            initExperience(4,0,p.getExp(), p.getLevelExp());
+            initWord(5, 0,"STRENGTH:        |" + p.getStrenght());
+            initWord(6, 0,"intellegence:    |" + p.getIntellegence());
+            initWord(7, 0,"physicArmor:     |" + p.getPhysicArmor());
             initWord(10,0,"magicResist:     |" + p.getMagicResist());
             initWord(11,0,"attackPower:     |" + p.getAttackPower());
             initWord(12,0,"spellPower:      |" + p.getSpellPower());
@@ -60,20 +60,19 @@ public class RenderHeroInfo {
     
     public RenderHeroInfo() {  
         initWord(0,38,"CLASS HERO - " + "MAG(" + 5 + ")");
-        initWord(1,40,"(-_-(-_-)-_-)");
-        drawLine(2,0,line);
-        initHealth(3,0,50, 100);        
-        initEnergy(3,40,200, 300);
-        drawLine(4,0,line);
-        initExperience(5,0,700, 1570);
-        initWord(7, 0,"STRENGTH:        |" + 7);
-        initWord(8, 0,"intellegence:    |" + 10);
-        initWord(9, 0,"physicArmor:     |" + 34);
-        initWord(10,0,"magicResist:     |" + 23);
-        initWord(11,0,"attackPower:     |" + 23);
-        initWord(12,0,"spellPower:      |" + 234);
-        initWord(13,0,"healthRegen:     |" + 2);
-        initWord(14,0,"energyRegen:     |" + 50);
+        drawLine(1,0,line);
+        initHealth(2,0,50, 100);        
+        initEnergy(2,35,200, 300);
+        drawLine(3,0,line);
+        initExperience(4,0,700, 1570);
+        initWord(6, 0,"STRENGTH:        |" + 7);
+        initWord(7, 0,"intellegence:    |" + 10);
+        initWord(8, 0,"physicArmor:     |" + 34);
+        initWord(9,0,"magicResist:     |" + 23);
+        initWord(6,30,"attackPower:     |" + 23);
+        initWord(7,30,"spellPower:      |" + 234);
+        initWord(8,30,"healthRegen:     |" + 2);
+        initWord(9,30,"energyRegen:     |" + 50);
     }
 
     public void initGrid(char c) {
@@ -153,10 +152,10 @@ public class RenderHeroInfo {
             }
             x++;
         }
-        grid[y][x] = '|';
-        x =startX + (int)experienceBarCount / 2;
+        grid[y][x] = '|';        
         y++;
         String str = " EXPIRIENCE (" + actualExperience + "/" + maxExperience + ")";
+        x =startX + (int)(experienceBarCount-str.length()) / 2;
         initWord(y,x,str);
     }
 

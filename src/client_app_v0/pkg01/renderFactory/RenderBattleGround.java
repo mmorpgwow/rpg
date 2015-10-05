@@ -8,6 +8,9 @@ package client_app_v0.pkg01.renderFactory;
 import client_app_v0.pkg01.battleGround.BattleGround;
 import client_app_v0.pkg01.gameObjects.Player;
 import client_app_v0.pkg01.gameObjects.physicBody.Entity;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,33 +33,40 @@ public class RenderBattleGround {
     private char[][] hero1Grid;
     private char[][] hero2Grid;
     private char initChar = ' ';
+    PrintStream stream;
 
     //=================================================
-    public RenderBattleGround(BattleGround bg) {//Entity hero1, Entity hero2){
+    public RenderBattleGround(BattleGround bg){//, Process p) {//Entity hero1, Entity hero2){
+        //PrintStream st = new PrintStream(p.getOutputStream());
+        /*OutputStream o = p.getOutputStream();
+        try {
+            o.write(123);
+        } catch (IOException ex) {
+            Logger.getLogger(RenderBattleGround.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        stream = st;*/
         xBG = bg.getXSize();
         yBG = bg.getYSize();        
         GRID_SIZE_X = 151;
-        GRID_SIZE_Y = yBG + 33;
+        GRID_SIZE_Y = yBG + 23;
         if(xBG > 151){
             GRID_SIZE_X = xBG+3;
         }
         grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
-        update();
+        update();        
     }
 
-    public void update() {        
+    public void update() {            
         initGrid(initChar);
                 
         initBattleGround((int)(GRID_SIZE_X-xBG)/2);
         drawLine(yBG+2, 0, GRID_SIZE_X);
         initPlayers(yBG+3);
-        drawLine(yBG+18, 0, GRID_SIZE_X);
-        initBattleLog(yBG+19, 0);
-        drawLine(yBG+25, 0, GRID_SIZE_X);
-        initEffectsLog(yBG+26, 0);
-        drawLine(yBG+32, 0, GRID_SIZE_X);
-        drawVerticalLine(yBG+28, 75, 4);
-        drawVerticalLine(yBG+2, 75, 16);
+        drawLine(yBG+12, 0, GRID_SIZE_X);
+        initBattleLog(yBG+13, 0);
+        initEffectsLog(yBG+18, 0);
+        drawVerticalLine(yBG+19, 75, 4);
+        drawVerticalLine(yBG+3, 75, 10);
     }
 
     public void initGrid(char c) {
@@ -90,24 +100,22 @@ public class RenderBattleGround {
     
     private void initBattleLog(int y, int x){
         initWord(y,(int)GRID_SIZE_X/2-8,"--=BATTLE LOG=--");
-        drawLine(y+1, 0, GRID_SIZE_X);
+        initWord(y+1,x,"Player2: Use skill awdaw Damage 100");  
         initWord(y+2,x,"Player1: Use skill awdaw Damage 100");
         initWord(y+3,x,"Player2: Use skill awdaw Damage 100");
-        initWord(y+4,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+5,x,"Player2: Use skill awdaw Damage 100");        
+        initWord(y+4,x,"Player1: Use skill awdaw Damage 100");              
     }
     
     private void initEffectsLog(int y, int x){
         initWord(y,(int)GRID_SIZE_X/2-9,"--=EFFECTS LOG=--");
-        drawLine(y+1, 0, GRID_SIZE_X);
         initWord(y+2,x,"Player1: Use skill awdaw Damage 100");
         initWord(y+3,x,"Player1: Use skill awdaw Damage 100");
         initWord(y+4,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+5,x,"Player1: Use skill awdaw Damage 100");    
+        initWord(y+1,x,"Player1: Use skill awdaw Damage 100");    
         initWord(y+2,x+76,"Player2: Use skill awdaw Damage 100");
         initWord(y+3,x+76,"Player2: Use skill awdaw Damage 100");
         initWord(y+4,x+76,"Player2: Use skill awdaw Damage 100");
-        initWord(y+5,x+76,"Player2: Use skill awdaw Damage 100");
+        initWord(y+1,x+76,"Player2: Use skill awdaw Damage 100");
     }
 
     public void initWord(int y, int x,String str){
@@ -116,7 +124,7 @@ public class RenderBattleGround {
         }
     }
     
-    public void show() {        
+    public void show() {       
         for (int i = 0; i < GRID_SIZE_Y; i++) {
             for (int j = 0; j < GRID_SIZE_X; j++) {
                 System.out.print(grid[i][j]);

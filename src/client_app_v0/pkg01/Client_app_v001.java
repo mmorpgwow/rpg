@@ -8,6 +8,9 @@ package client_app_v0.pkg01;
 import client_app_v0.pkg01.battleGround.BattleGround;
 import client_app_v0.pkg01.renderFactory.RenderBattleGround;
 import client_app_v0.pkg01.renderFactory.RenderHeroInfo;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,12 +21,20 @@ public class Client_app_v001 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        //RenderHeroInfo r = new RenderHeroInfo();
-        //r.show();
-        BattleGround bg = new BattleGround(100,20, 5);
+    public static void main(String[] args) {        
+        BattleGround bg = new BattleGround(100, 12, 5);
         RenderBattleGround r = new RenderBattleGround(bg);
-        r.show();        
+        r.show();   
+        
+        while(true){
+            r.update();
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Client_app_v001.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            r.show();
+        }
     }
     
 }
