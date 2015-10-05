@@ -5,6 +5,7 @@
  */
 package client_app_v0.pkg01;
 
+import client_app_v0.pkg01.battleGround.BattleGround;
 import client_app_v0.pkg01.renderFactory.RenderBattleGround;
 import client_app_v0.pkg01.renderFactory.RenderHeroInfo;
 
@@ -20,7 +21,8 @@ public class Client_app_v001 {
     public static void main(String[] args) {
         //RenderHeroInfo r = new RenderHeroInfo();
         //r.show();
-        RenderBattleGround r = new RenderBattleGround();
+        BattleGround bg = new BattleGround(100,20, 5);
+        RenderBattleGround r = new RenderBattleGround(bg);
         r.show();        
     }
     

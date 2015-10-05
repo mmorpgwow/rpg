@@ -52,4 +52,12 @@ public class BattleGround {
     public List<Entity> getEntityList(){
         return this.players;
     }
+    
+    public int getXSize(){
+        return xSize;
+    }
+    
+    public int getYSize(){
+        return ySize;
+    }
 }
