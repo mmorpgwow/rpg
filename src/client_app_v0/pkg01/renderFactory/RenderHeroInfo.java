@@ -5,7 +5,10 @@
  */
 package client_app_v0.pkg01.renderFactory;
 
+import client_app_v0.pkg01.gameObjects.EntityType;
+import client_app_v0.pkg01.gameObjects.Player;
 import client_app_v0.pkg01.gameObjects.classes.Hero;
+import client_app_v0.pkg01.gameObjects.physicBody.Entity;
 
 /**
  *
@@ -13,39 +16,64 @@ import client_app_v0.pkg01.gameObjects.classes.Hero;
  */
 public class RenderHeroInfo {
 
-    static final int GRID_SIZE_X = 100;
-    static final int GRID_SIZE_Y = 20;
+    static final int GRID_SIZE_X = 75;
+    static final int GRID_SIZE_Y = 15;
     //==========================================
     float healthBarCount = 15;
     float energyBarCount = 15;
-    float line = 60;
+    float experienceBarCount = 60;
+    float line = 75;
+    private char initChar = ' ';
 
-    char[][] grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
-
+    private char[][] grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
+    
     //==========================================
 
-    public RenderHeroInfo(Hero hero) {
-        initGrid(' ');
+    {
+        initGrid(initChar);
     }
-
-    public RenderHeroInfo() {        
-        initGrid(' ');
+    
+    public RenderHeroInfo(Entity hero) {
+        if(hero.type == EntityType.PLAYER){
+            Player p = (Player)hero;
+            initWord(0,38,"CLASS HERO - " + p.getClassName() +"(" + p.getLevel() + ")");
+            initWord(1,40,"(-_-(-_-)-_-)");
+            drawLine(2,0,line);
+            initHealth(3,0,p.getActualHealth(), p.getHealth());        
+            initEnergy(3,35,p.getActualEnergy(), p.getEnergy());
+            drawLine(4,0,line);
+            initExperience(5,0,p.getExp(), p.getLevelExp());
+            initWord(7, 0,"STRENGTH:        |" + p.getStrenght());
+            initWord(8, 0,"intellegence:    |" + p.getIntellegence());
+            initWord(9, 0,"physicArmor:     |" + p.getPhysicArmor());
+            initWord(10,0,"magicResist:     |" + p.getMagicResist());
+            initWord(11,0,"attackPower:     |" + p.getAttackPower());
+            initWord(12,0,"spellPower:      |" + p.getSpellPower());
+            initWord(13,0,"healthRegen:     |" + p.getHealthRegen());
+            initWord(14,0,"energyRegen:     |" + p.getEnergyRegen());
+        }        
+    }
+    
+    public char[][] getGrid(){
+        return grid;
+    }
+    
+    public RenderHeroInfo() {  
         initWord(0,38,"CLASS HERO - " + "MAG(" + 5 + ")");
         initWord(1,40,"(-_-(-_-)-_-)");
-        grawLine(2,0,line);
+        drawLine(2,0,line);
         initHealth(3,0,50, 100);        
         initEnergy(3,40,200, 300);
-        grawLine(4,0,line);
-        initWord(5, 0,"strength:        |" + 7);
-        initWord(6, 0,"intellegence:    |" + 10);
-        initWord(7, 0,"physicArmor:     |" + 34);
-        initWord(8, 0,"magicResist:     |" + 23);
-        initWord(9, 0,"attackPower:     |" + 23);
-        initWord(10,0,"spellPower:      |" + 234);
-        initWord(11,0,"healthRegen:     |" + 2);
-        initWord(12,0,"energyRegen:     |" + 50);
-        
-        
+        drawLine(4,0,line);
+        initExperience(5,0,700, 1570);
+        initWord(7, 0,"STRENGTH:        |" + 7);
+        initWord(8, 0,"intellegence:    |" + 10);
+        initWord(9, 0,"physicArmor:     |" + 34);
+        initWord(10,0,"magicResist:     |" + 23);
+        initWord(11,0,"attackPower:     |" + 23);
+        initWord(12,0,"spellPower:      |" + 234);
+        initWord(13,0,"healthRegen:     |" + 2);
+        initWord(14,0,"energyRegen:     |" + 50);
     }
 
     public void initGrid(char c) {
@@ -65,9 +93,9 @@ public class RenderHeroInfo {
         }
     }
 
-    public void grawLine(int y, int x,float lineCount) {
+    public void drawLine(int y, int x,float lineCount) {
         for (int i = 0; i < lineCount; i++) {
-            grid[y][x+i] = '─';
+            grid[y][x+i] = '_';
         }
     }
 
@@ -75,17 +103,17 @@ public class RenderHeroInfo {
         int startX = x;
         float Hp = healthBarCount * actualHp / maxHp;
         int actHP = (int) Hp;
-        grid[y][x] = '►';
+        grid[y][x] = '|';
         x++;
         for (int i = 0; i < healthBarCount; i++) {            
             if (i < actHP) {
-                grid[y][x] = '█';
+                grid[y][x] = 'X';
             } else {
-                grid[y][x] = '▒';
+                grid[y][x] = '.';
             }
             x++;
         }
-        grid[y][x] = '◄';
+        grid[y][x] = '|';
         x+=2;
         String str = " HEALTH (" + actualHp + "/" + maxHp + ")";
         initWord(y,x,str);
@@ -95,19 +123,40 @@ public class RenderHeroInfo {
         int startX = x;
         float Hp = energyBarCount * actualEnergy / maxEnergy;
         int actHP = (int) Hp;
-        grid[y][x] = '►';
+        grid[y][x] = '|';
         x++;
         for (int i = 0; i < energyBarCount; i++) {            
             if (i < actHP) {
-                grid[y][x] = '█';
+                grid[y][x] = 'X';
             } else {
-                grid[y][x] = '▒';
+                grid[y][x] = '.';
             }
             x++;
         }
-        grid[y][x] = '◄';
+        grid[y][x] = '|';
         x+=2;
         String str = " ENERGY (" + actualEnergy + "/" + maxEnergy + ")";
+        initWord(y,x,str);
+    }
+    
+    public void initExperience(int y, int x,int actualExperience, int maxExperience) {
+        int startX = x;
+        float Hp = experienceBarCount * actualExperience / maxExperience;
+        int actHP = (int) Hp;
+        grid[y][x] = '|';
+        x++;
+        for (int i = 0; i < experienceBarCount; i++) {            
+            if (i < actHP) {
+                grid[y][x] = 'X';
+            } else {
+                grid[y][x] = '.';
+            }
+            x++;
+        }
+        grid[y][x] = '|';
+        x =startX + (int)experienceBarCount / 2;
+        y++;
+        String str = " EXPIRIENCE (" + actualExperience + "/" + maxExperience + ")";
         initWord(y,x,str);
     }
 

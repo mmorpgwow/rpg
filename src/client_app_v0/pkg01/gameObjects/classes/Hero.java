@@ -10,6 +10,7 @@ package client_app_v0.pkg01.gameObjects.classes;
  * @author Broff
  */
 public abstract class Hero {
+    public ClassType heroClass;
     private int lvl;
     private int startExp;
     private int exp;
@@ -22,6 +23,10 @@ public abstract class Hero {
         exp = 0;
         addExp(exp);    
         stat.initLevel(lvl);   
+    }
+    
+    public ClassType getHeroClass(){
+        return heroClass;
     }
     
     public final int getLevel(){
@@ -37,13 +42,13 @@ public abstract class Hero {
     }
     
     public final void addExp(int exp){
-        int lvlExp = getLvlExp(lvl);
-        int summExp = exp + exp;
+        int lvlExp = getLvlExp();
+        int summExp = this.exp + exp;
         if(summExp < lvlExp){
-            exp += exp;
+            this.exp += exp;
         } else {
             lvlUp();            
-            exp = 0;
+            this.exp = 0;
             addExp(summExp  - lvlExp);
         }
     }
@@ -53,7 +58,7 @@ public abstract class Hero {
         stat.initLevel(lvl);
     }
     
-    public int getLvlExp(int lvl){
+    public int getLvlExp(){
         int exp = startExp;
         for(int i = 1; i < lvl;i++ ){
             exp =  exp + exp * 1/3;

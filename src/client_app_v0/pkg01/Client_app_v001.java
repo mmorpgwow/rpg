@@ -5,6 +5,7 @@
  */
 package client_app_v0.pkg01;
 
+import client_app_v0.pkg01.renderFactory.RenderBattleGround;
 import client_app_v0.pkg01.renderFactory.RenderHeroInfo;
 
 /**
@@ -17,8 +18,10 @@ public class Client_app_v001 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        RenderHeroInfo r = new RenderHeroInfo();
-        r.show();
+        //RenderHeroInfo r = new RenderHeroInfo();
+        //r.show();
+        RenderBattleGround r = new RenderBattleGround();
+        r.show();        
     }
     
 }

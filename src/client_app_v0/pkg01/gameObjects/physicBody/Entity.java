@@ -5,6 +5,7 @@
  */
 package client_app_v0.pkg01.gameObjects.physicBody;
 
+import client_app_v0.pkg01.gameObjects.EntityType;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
 
 /**
@@ -13,6 +14,7 @@ import client_app_v0.pkg01.gameObjects.inventory.Inventory;
  */
 public abstract class Entity {
 
+    public static EntityType type;
     private int xPos;
     private int yPos;
     private int xPosBattle;

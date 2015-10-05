@@ -6,6 +6,7 @@
 package client_app_v0.pkg01.gameObjects;
 
 import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
+import client_app_v0.pkg01.gameObjects.classes.ClassType;
 import client_app_v0.pkg01.gameObjects.classes.Hero;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
 import client_app_v0.pkg01.gameObjects.inventory.items.Stats;
@@ -19,76 +20,100 @@ import java.util.List;
  *
  * @author Broff
  */
-public class Player extends Entity{
+public class Player extends Entity {
+
     public final static EntityType type = EntityType.PLAYER;
-    
-    private Body body;    
+
+    private Body body;
     private Inventory inventory;
     private Hero classHero;
-    private List<Abillity> skills = new ArrayList<Abillity>();   
+    private List<Abillity> skills = new ArrayList<Abillity>();
     private int abilityPoints;
-    
-    public Player(int xPos, int yPos,int xBattle,int yBattle,int speed, Body body, Inventory inventory, 
+
+    public Player(int xPos, int yPos, int xBattle, int yBattle, int speed, Body body, Inventory inventory,
             Hero classHero, List<Abillity> skills) {
-        super(xPos, yPos, xBattle, yBattle,speed, body);
+        super(xPos, yPos, xBattle, yBattle, speed, body);
         this.inventory = inventory;
         this.classHero = classHero;
         this.skills = skills;
         this.battleState = false;
     }
 
-    public int getLevel(){
+    public ClassType getClassHero() {
+        return classHero.getHeroClass();
+    }
+
+    public String getClassName() {
+        switch (getClassHero()) {
+            case MAGE:
+                return "MAGE";
+            case WARRIOR:
+                return "WARRIOR";
+            default:
+                return "NO CLASS";
+        }
+    }
+
+    public int getLevel() {
         return this.classHero.getLevel();
     }
-    
-    public void startBattle(){
+
+    public void startBattle() {
         this.battleState = true;
     }
-    
-    public void finishtBattle(){
+
+    public void finishtBattle() {
         this.battleState = false;
     }
-    
-    public void abilityLvlUp(int abilityId){
-        
+
+    public void abilityLvlUp(int abilityId) {
+
     }
-    
-    public List<Abillity> getAbilityList(){
+
+    public List<Abillity> getAbilityList() {
         return skills;
     }
-    
-    public Abillity getAbility(int id){
-        if(skills.size() > id && id >=0){
+
+    public Abillity getAbility(int id) {
+        if (skills.size() > id && id >= 0) {
             return skills.get(id);
         } else {
             return null;
         }
     }
-    
-    public ChangeableStats getHeroStats(){
+
+    public ChangeableStats getHeroStats() {
         return this.classHero.getStat();
     }
-    
-    public Stats getArmorStats(){
+
+    public Stats getArmorStats() {
         return this.inventory.getArmor().getArmorStats();
     }
     
-    public int getGold(){
+    public int getLevelExp(){
+        return this.classHero.getLvlExp();
+    }
+    
+    public int getExp(){
+        return this.classHero.getExp();
+    }
+    
+    public int getGold() {
         return this.inventory.getGold();
     }
-    
-    public void addGold(int gold){
+
+    public void addGold(int gold) {
         this.inventory.addGold(gold);
     }
-    
-    public void addGem(int gem){
+
+    public void addGem(int gem) {
         this.inventory.addGem(gem);
     }
-    
-    public int getGem(){
+
+    public int getGem() {
         return this.inventory.getGem();
     }
-    
+
     public int getStrenght() {
         return getHeroStats().getStrength() + getArmorStats().getStrenght();
     }
@@ -112,13 +137,21 @@ public class Player extends Entity{
     public int getSpellPower() {
         return getHeroStats().getSpellPower() + getArmorStats().getSpellPower();
     }
-    
+
     public int getHealth() {
-        return this.classHero.getStat().getHealth();
+        return this.classHero.getStat().getHealth() + getStrenght();
     }
 
     public int getEnergy() {
-        return this.classHero.getStat().getEnergy();
+        return this.classHero.getStat().getEnergy() + getIntellegence();
+    }
+    
+    public int getActualHealth() {
+        return this.classHero.getStat().getActualHealth();
+    }
+
+    public int getActualEnergy() {
+        return this.classHero.getStat().getActualEnergy();
     }
 
     public int getHealthRegen() {

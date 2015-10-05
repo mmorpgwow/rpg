@@ -10,7 +10,7 @@ package client_app_v0.pkg01.gameObjects.classes;
  * @author Broff
  */
 public class Mage extends Hero {
-    private final ClassType heroClass = ClassType.MAGE;
+    public final ClassType heroClass = ClassType.MAGE;
 
     public Mage(int startExp, int exp, ChangeableStats stats) {
         super(startExp, exp, stats);

@@ -65,8 +65,8 @@ public class ChangeableStats {
         this.energyRegenGain = energyRegenGain;
         this.levelCost = levelCost;
         level = 0;
-        actualHealth = getHealth();
-        actualEnergy = getEnergy();
+        actualHealth = getHealth() + this.strength;
+        actualEnergy = getEnergy() + this.intellegence;
     }
 
     public void initLevel(int lvl) {
@@ -90,7 +90,9 @@ public class ChangeableStats {
 
     public void lvlUp() {
         level++;
-        increaseStats();
+        //increaseStats();
+        actualHealth = getHealth() + getStrength();
+        actualEnergy = getEnergy() + getIntellegence();
     }
 
     private void increaseStats() {
