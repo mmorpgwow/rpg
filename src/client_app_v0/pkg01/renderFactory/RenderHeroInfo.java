@@ -30,11 +30,22 @@ public class RenderHeroInfo {
 
     public RenderHeroInfo() {        
         initGrid(' ');
-        initWord(0,40,"(-_-(-_-)-_-)");
-        grawLine(1,0,line);
-        initHealth(2,0,50, 100);        
-        initEnergy(2,40,200, 300);
-        grawLine(3,0,line);
+        initWord(0,38,"CLASS HERO - " + "MAG(" + 5 + ")");
+        initWord(1,40,"(-_-(-_-)-_-)");
+        grawLine(2,0,line);
+        initHealth(3,0,50, 100);        
+        initEnergy(3,40,200, 300);
+        grawLine(4,0,line);
+        initWord(5, 0,"strength:        |" + 7);
+        initWord(6, 0,"intellegence:    |" + 10);
+        initWord(7, 0,"physicArmor:     |" + 34);
+        initWord(8, 0,"magicResist:     |" + 23);
+        initWord(9, 0,"attackPower:     |" + 23);
+        initWord(10,0,"spellPower:      |" + 234);
+        initWord(11,0,"healthRegen:     |" + 2);
+        initWord(12,0,"energyRegen:     |" + 50);
+        
+        
     }
 
     public void initGrid(char c) {
@@ -104,7 +115,7 @@ public class RenderHeroInfo {
         for (int i = 0; i < str.length(); i++) {
             grid[y][x+i] = str.charAt(i);
         }
-    }
+    }    
     
     public void initStats() {
 
