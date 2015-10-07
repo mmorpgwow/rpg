@@ -9,9 +9,12 @@ import client_app_v0.pkg01.battleGround.BattleGround;
 import client_app_v0.pkg01.gameObjects.Player;
 import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.Mage;
+import client_app_v0.pkg01.gameObjects.inventory.HeroArmor;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
+import client_app_v0.pkg01.gameObjects.inventory.items.Armor;
 import client_app_v0.pkg01.gameObjects.inventory.items.Item;
 import client_app_v0.pkg01.gameObjects.inventory.items.ItemList;
+import client_app_v0.pkg01.gameObjects.inventory.items.Weapon;
 import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.SkillList;
@@ -49,7 +52,7 @@ public class Client_app_v001 {
         }
     }
 
-    public static Player SetPlayer() { // Probably you should add position of 
+    public static Player setPlayer() { // Probably you should add position of 
         //player at the battle ground as input values
         Body body = new Body(10, 10); //Correct it if it's necessary
         
@@ -61,15 +64,15 @@ public class Client_app_v001 {
         
         List<Item> bag = new ArrayList<Item>();
         ItemList itemList = new ItemList();
-        bag.add(itemList.GetItemWithID(9));
-        bag.add(itemList.GetItemWithID(10));
-        HeroArmor heroArmor = HeroArmor();
+        bag.add(itemList.getItemWithID(9));
+        bag.add(itemList.getItemWithID(10));
+        HeroArmor heroArmor = new HeroArmor();
         for (int i = 0; i < 8; i++) {
             if (i!=2) {
-                heroArmor.putOnArmor(skillList.getSkillWithID(i));
+                heroArmor.putOnArmor((Armor) itemList.getItemWithID(i));
             }
             else{
-                heroArmor.putOnWeapon(skillList.getSkillWithID(i));
+                heroArmor.putOnWeapon((Weapon) itemList.getItemWithID(i));
             }
         }
         Inventory inventory = new Inventory(bag,heroArmor);
@@ -82,3 +85,4 @@ public class Client_app_v001 {
         return player;
     }
 }
+    

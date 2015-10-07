@@ -51,7 +51,7 @@ public class ItemList {
         energyPotion = new Potion(10,"Energy",50,1,0,200,1);
     }
 
-    public Item GetItemWithID(int id) {
+    public Item getItemWithID(int id) {
         switch (id) {
             case 0:
                 return helm;
