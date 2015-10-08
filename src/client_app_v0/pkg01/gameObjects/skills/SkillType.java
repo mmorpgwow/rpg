@@ -12,6 +12,7 @@ package client_app_v0.pkg01.gameObjects.skills;
 public enum SkillType {
     MILEE,
     RANGED,
+    DIRECTIONAL,
     BUFF,
     DEBUFF,
     AOE,

@@ -11,10 +11,10 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public abstract class Item {
     
-    private int id;
-    private String name;
-    private int buyCost;
-    private int sellCost;
+    protected int id;
+    protected String name;
+    protected int buyCost;
+    protected int sellCost;
     
     public Item(int id, String name, int buyCost, int sellCost){
         this.id = id;

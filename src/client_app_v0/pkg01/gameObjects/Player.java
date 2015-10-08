@@ -13,7 +13,9 @@ import client_app_v0.pkg01.gameObjects.inventory.items.Stats;
 import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.physicBody.Entity;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
+import client_app_v0.pkg01.gameObjects.skills.Buff;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,25 +26,41 @@ public class Player extends Entity {
 
     public final static EntityType type = EntityType.PLAYER;
 
-    private Body body;
     private Inventory inventory;
     private Hero classHero;
     private List<Abillity> skills = new ArrayList<Abillity>();
+    private List<Buff> buffs = new ArrayList<Buff>();
     private int abilityPoints;
-
+    private String nick;
+    private int health;
+    private int energy;
+    private boolean lifeState = true;
+    
     public Player(int xPos, int yPos, int xBattle, int yBattle, int speed, Body body, Inventory inventory,
-            Hero classHero, List<Abillity> skills) {
+            Hero classHero, List<Abillity> skills, String nick) {
         super(xPos, yPos, xBattle, yBattle, speed, body);
         this.inventory = inventory;
         this.classHero = classHero;
         this.skills = skills;
         this.battleState = false;
+        this.nick = nick;
+        this.health = getHealth();
+        this.energy = getEnergy();
+        abilityPoints = getLevel();
     }
 
     public ClassType getClassHero() {
         return classHero.getHeroClass();
     }
 
+    public String getNickName(){
+        return this.nick;
+    }
+    
+    public List<Buff> getBuffs(){
+        return this.buffs;
+    }
+    
     public String getClassName() {
         switch (getClassHero()) {
             case MAGE:
@@ -53,17 +71,52 @@ public class Player extends Entity {
                 return "NO CLASS";
         }
     }
+    
+    public void tick(){
+        if(lifeState){
+            buffsTick();
+            regenTick();
+        }
+    }
+    
+    private void buffsTick(){
+        for(int i = 0 ;i < buffs.size();i++){
+            if(buffs.get(i).getTime() <= 1){
+                buffs.get(i).tick();
+                buffs.remove(i);
+            } else {
+                buffs.get(i).tick();
+            }
+        }
+    }
+    
+    private void regenTick(){
+        if(health + getHealthRegen() > getHealth()){
+            health = getHealth();
+        } else {
+            health += getHealthRegen();
+        }
+        if(energy + getEnergyRegen() > getEnergy())
+        {
+            energy = getEnergy();
+        } else {
+            energy += getEnergyRegen();
+        }   
+    }
 
     public int getLevel() {
         return this.classHero.getLevel();
     }
 
     public void startBattle() {
+        this.health = getHealth();
+        this.energy = getEnergy();
         this.battleState = true;
     }
 
     public void finishtBattle() {
         this.battleState = false;
+        
     }
 
     public void abilityLvlUp(int abilityId) {
@@ -89,15 +142,15 @@ public class Player extends Entity {
     public Stats getArmorStats() {
         return this.inventory.getArmor().getArmorStats();
     }
-    
-    public int getLevelExp(){
+
+    public int getLevelExp() {
         return this.classHero.getLvlExp();
     }
-    
-    public int getExp(){
+
+    public int getExp() {
         return this.classHero.getExp();
     }
-    
+
     public int getGold() {
         return this.inventory.getGold();
     }
@@ -139,26 +192,67 @@ public class Player extends Entity {
     }
 
     public int getHealth() {
-        return this.classHero.getStat().getHealth() + getStrenght();
+        return getHeroStats().getHealth() + getStrenght();
     }
 
     public int getEnergy() {
-        return this.classHero.getStat().getEnergy() + getIntellegence();
+        return getHeroStats().getEnergy() + getIntellegence();
     }
-    
+
     public int getActualHealth() {
-        return this.classHero.getStat().getActualHealth();
+        return this.health;
     }
 
     public int getActualEnergy() {
-        return this.classHero.getStat().getActualEnergy();
+        return this.energy;
+    }
+    
+    public void setActualHealth(int dlt) {
+        if(this.health + dlt > getHealth()){
+            this.health = getHealth();
+        } else if(this.health + dlt <= 0){
+            this.health = 0;
+            setLifeState();
+        } else {
+            this.health += dlt;
+        }
+        
+    }
+    
+    public void setLifeState(){
+        this.lifeState = !this.lifeState;
+    }
+    
+    public boolean getLifeState(){
+        return this.lifeState;
+    }
+
+    public boolean setActualEnergy(int dlt) {
+        if(this.energy + dlt > getHealth()){
+            this.energy = getHealth();
+            return true;
+        } else if(this.energy + dlt < 0){
+            this.energy = 0;
+            return false;
+        } else {
+            this.energy += dlt;
+            return true;
+        }
     }
 
     public int getHealthRegen() {
-        return this.classHero.getStat().getHealthRegen();
+        return getHeroStats().getHealthRegen();
     }
 
     public int getEnergyRegen() {
-        return this.classHero.getStat().getEnergyRegen();
+        return getHeroStats().getEnergyRegen();
+    }
+    
+    public int getWidth() {
+        return this.body.getWidth();
+    }
+
+    public int getHeight() {         
+        return this.body.getHeight();
     }
 }

@@ -13,43 +13,46 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
  */
 public class Skill {
 
-    private SkillType skillType;
     private int lvl;
     private int lvlCost;
-    private int cost;
-    private int costChange;
+    private int energyCost;
+    private int costGain;
     private int cooldown;
-    private int cooldownChange;
+    private int coldownValue = 0;
+    private int cooldownGain;
     private ClassType classType;
     private int id;
     private String name;
     private int range;
-    private int rangeChange;
+    private int rangeGain;
     private int castTime;
 
-    public Skill(int lvlcost, int cost, int cooldown, SkillType skillType,
+    public Skill(int lvlcost, int cost, int cooldown,
             ClassType classType, int id, String name, int range, int castTime,
             int costChange, int cooldownChange,int rangeChange) {
-        this.skillType = skillType;
         this.lvl = 0;
         this.lvlCost = lvlcost;
-        this.cost = cost;
+        this.energyCost = cost;
         this.cooldown = cooldown;
         this.classType = classType;
         this.id = id;
         this.name = name;
         this.range = range;
         this.castTime = castTime;
-        this.costChange = costChange;
-        this.cooldownChange = cooldownChange;
-        this.rangeChange = rangeChange;
+        this.costGain = costChange;
+        this.cooldownGain = cooldownChange;
+        this.rangeGain = rangeChange;
     }
     
     public void lvlUp(){
         lvl++;
-        cost += costChange;
-        cooldown += cooldownChange;
-        range += rangeChange;
+        //energyCost += costChange;
+        //cooldown += cooldownChange;
+        //range += rangeChange;
+    }
+    
+    private int calculateStat(int startStat, int gainStat) {        
+        return startStat += gainStat * (lvl);        
     }
     
     public int getLvl(){
@@ -58,13 +61,34 @@ public class Skill {
     public int getLvlCost(){
         return lvlCost;
     }
-    public int getCost(){
-        return cost;
+    public int getEnergyCost(){
+        return calculateStat(energyCost, costGain);
     }
+    
+    public boolean use(){
+        if(coldownValue == 0){
+            coldownValue = cooldown;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void tick(){
+        if(coldownValue > 0){
+            coldownValue--;
+        }
+    }
+    
     public ClassType getClassType(){
         return classType;
     }
+    
     public int getRange(){
         return range;
+    }
+    
+    public String getName(){
+        return name;
     }
 }

@@ -33,16 +33,16 @@ public class HeroArmor {
     
     public Stats getArmorStats(){
         Stats s = new Stats(0,0,0,0,0,0);
-        s = s.addStats(legs.getStats());
-        s = s.addStats(hands.getStats());
-        s = s.addStats(boots.getStats());
-        s = s.addStats(chest.getStats());
-        s = s.addStats(helm.getStats());
-        s = s.addStats(belt.getStats());
-        s = s.addStats(neck.getStats());
-        s = s.addStats(ring.getStats());
-        s = s.addStats(rightHand.getStats());
-        s = s.addStats(leftHand.getStats());
+        s = s.addStats(legs!=null?legs.getStats():null);
+        s = s.addStats(hands!=null?hands.getStats():null);
+        s = s.addStats(boots!=null?boots.getStats():null);
+        s = s.addStats(chest!=null?chest.getStats():null);
+        s = s.addStats(helm!=null?helm.getStats():null);
+        s = s.addStats(belt!=null?belt.getStats():null);
+        s = s.addStats(neck!=null?neck.getStats():null);
+        s = s.addStats(ring!=null?ring.getStats():null);
+        s = s.addStats(rightHand!=null?rightHand.getStats():null);
+        s = s.addStats(leftHand!=null?leftHand.getStats():null);
         return s;
     }
     
@@ -105,21 +105,61 @@ public class HeroArmor {
     public boolean putOnArmor(Armor armor) {
         switch (armor.getArmorType()) {
             case LEGS:
-                return isEmpty(this.legs, armor);
+                if(isEmpty(this.legs, armor)){
+                    this.legs = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case HANDS:
-                return isEmpty(this.hands, armor);
+                if(isEmpty(this.hands, armor)){
+                    this.hands = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case BOOTS:
-                return isEmpty(this.boots, armor);
+                if(isEmpty(this.boots, armor)){
+                    this.boots = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case CHEST:
-                return isEmpty(this.chest, armor);
+                if(isEmpty(this.chest, armor)){
+                    this.chest = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case HELM:
-                return isEmpty(this.helm, armor);
+                if(isEmpty(this.helm, armor)){
+                    this.helm = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case BELT:
-                return isEmpty(this.belt, armor);
+                if(isEmpty(this.belt, armor)){
+                    this.belt = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case NECK:
-                return isEmpty(this.neck, armor);
+                if(isEmpty(this.neck, armor)){
+                    this.neck = armor;
+                    return true;
+                } else {
+                    return false;
+                }
             case RING:
-                return isEmpty(this.ring, armor);           
+                if(isEmpty(this.ring, armor)){
+                    this.ring = armor;
+                    return true;
+                } else {
+                    return false;
+                }           
             default:
                 return false;
         }

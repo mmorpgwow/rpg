@@ -28,14 +28,19 @@ public class Stats {
     }
 
     public Stats addStats(Stats stats) {
-        int str     = this.strenght + stats.getStrenght();
-        int intel   = this.intellegence + stats.getIntellegence();
-        int arm     = this.physicArmor + stats.getPhysicArmor();
-        int magRes  = this.magicResist + stats.getMagicResist();
-        int ap      = this.attackPower + stats.getAttackPower();
-        int spd     = this.spellPower + stats.getSpellPower();
-        
-        Stats stat  = new Stats(str, intel, arm, magRes, ap, spd);
+        Stats stat;
+        if (stats != null) {
+            int str = this.strenght + stats.getStrenght();
+            int intel = this.intellegence + stats.getIntellegence();
+            int arm = this.physicArmor + stats.getPhysicArmor();
+            int magRes = this.magicResist + stats.getMagicResist();
+            int ap = this.attackPower + stats.getAttackPower();
+            int spd = this.spellPower + stats.getSpellPower();
+
+            stat = new Stats(str, intel, arm, magRes, ap, spd);
+        } else {
+            stat = new Stats(0, 0, 0, 0, 0, 0);
+        }
         return stat;
     }
 

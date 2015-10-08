@@ -11,17 +11,16 @@ package client_app_v0.pkg01.gameObjects.classes;
  */
 public abstract class Hero {
     public ClassType heroClass;
-    private int lvl;
-    private int startExp;
-    private int exp;
-    private ChangeableStats stat;  
+    protected int lvl;
+    protected int startExp;
+    protected int exp;
+    protected ChangeableStats stat;  
     
-    public Hero(int startExp, int exp, ChangeableStats stats){        
+    public Hero(int startExp, ChangeableStats stats){        
         this.startExp = startExp;
         this.stat = stats;
         lvl = 1;
-        exp = 0;
-        addExp(exp);    
+        exp = 0;    
         stat.initLevel(lvl);   
     }
     
@@ -29,40 +28,42 @@ public abstract class Hero {
         return heroClass;
     }
     
-    public final int getLevel(){
+    public int getLevel(){
         return lvl;
     }
     
-    public final int getExp(){
-        return exp;
+    public int getExp(){
+        return this.exp;
     }
     
-    public final ChangeableStats getStat(){
+    public ChangeableStats getStat(){
         return stat;
     }
     
-    public final void addExp(int exp){
+    public void addExp(int Exp){
         int lvlExp = getLvlExp();
-        int summExp = this.exp + exp;
-        if(summExp < lvlExp){
-            this.exp += exp;
+        if(Exp < lvlExp){
+            this.exp += Exp;
         } else {
             lvlUp();            
             this.exp = 0;
-            addExp(summExp  - lvlExp);
+            addExp(Exp  - lvlExp);
         }
     }
     
-    private final void lvlUp(){
+    private void lvlUp(){
         lvl++;
         stat.initLevel(lvl);
     }
     
     public int getLvlExp(){
-        int exp = startExp;
-        for(int i = 1; i < lvl;i++ ){
-            exp =  exp + exp * 1/3;
+        if(startExp <= 0){
+            startExp = 10;
         }
-        return exp;
+        int Exp = startExp;
+        for(int i = 1; i < lvl;i++ ){
+            Exp =Exp* 4/3;
+        }
+        return Exp;
     }
 }

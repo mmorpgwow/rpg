@@ -17,5 +17,6 @@ public enum SkillEntityType {
     PHEAVY,
     MFROST,
     MFIRE,
-    MLIGHTNING
+    MLIGHTNING,
+    MHOLY,
 }

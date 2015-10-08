@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class AoE implements Abillity{
 
+    private SkillType skillType = SkillType.AOE;
     private int damage;
     private int damageGain;
     private int xPos;
@@ -79,5 +80,13 @@ public class AoE implements Abillity{
     public void lvlUp() {
         skill.lvlUp();
         upStats();
+    }
+    
+    public SkillEntityType getSkillEntityType(){
+        return type;
+    }
+    
+    public SkillType getSkillType(){
+        return skillType;
     }
 }

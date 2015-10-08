@@ -15,8 +15,8 @@ public class Body {
     private int height;
     
     public Body(int width, int height){
-        width = width;
-        height = height;
+        this.width = width;
+        this.height = height;
     }
     
     public int getWidth(){
@@ -27,9 +27,9 @@ public class Body {
     }
     
     public void setWidth(int width){
-        width=width;
+        this.width=width;
     }
     public void setHeight(int height){
-        height=height;
+        this.height=height;
     }
 }

@@ -16,13 +16,13 @@ import client_app_v0.pkg01.gameObjects.physicBody.Entity;
  */
 public class RenderHeroInfo {
 
-    static final int GRID_SIZE_X = 75;
+    static final int GRID_SIZE_X = 80;
     static final int GRID_SIZE_Y = 15;
     //==========================================
     float healthBarCount = 15;
     float energyBarCount = 15;
-    float experienceBarCount = 73;
-    float line = 75;
+    float experienceBarCount = GRID_SIZE_X-3;
+    float line = GRID_SIZE_X;
     private char initChar = ' ';
 
     private char[][] grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
@@ -33,24 +33,22 @@ public class RenderHeroInfo {
         initGrid(initChar);
     }
     
-    public RenderHeroInfo(Entity hero) {
-        if(hero.type == EntityType.PLAYER){
-            Player p = (Player)hero;
-            initWord(0,38,"CLASS HERO - " + p.getClassName() +"(" + p.getLevel() + ")");
-            initWord(1,40,"(-_-(-_-)-_-)");
-            drawLine(2,0,line);
+    public RenderHeroInfo(Player p) {
+        if(p.type == EntityType.PLAYER){            
+            initWord(0,38,"CLASS HERO - " + p.getClassName() +"(" + p.getLevel() + ") "+p.getNickName());
+            drawLine(1,0,line);
             initHealth(2,0,p.getActualHealth(), p.getHealth());        
-            initEnergy(2,35,p.getActualEnergy(), p.getEnergy());
+            initEnergy(2,40,p.getActualEnergy(), p.getEnergy());
             drawLine(3,0,line);
             initExperience(4,0,p.getExp(), p.getLevelExp());
-            initWord(5, 0,"STRENGTH:        |" + p.getStrenght());
-            initWord(6, 0,"intellegence:    |" + p.getIntellegence());
-            initWord(7, 0,"physicArmor:     |" + p.getPhysicArmor());
-            initWord(10,0,"magicResist:     |" + p.getMagicResist());
-            initWord(11,0,"attackPower:     |" + p.getAttackPower());
-            initWord(12,0,"spellPower:      |" + p.getSpellPower());
-            initWord(13,0,"healthRegen:     |" + p.getHealthRegen());
-            initWord(14,0,"energyRegen:     |" + p.getEnergyRegen());
+            initWord(6, 0,"STRENGTH:        |" + p.getStrenght());
+            initWord(7, 0,"intellegence:    |" + p.getIntellegence());
+            initWord(8, 0,"physicArmor:     |" + p.getPhysicArmor());
+            initWord(9,0,"magicResist:     |" + p.getMagicResist());
+            initWord(6,30,"attackPower:     |" + p.getAttackPower());
+            initWord(7,30,"spellPower:      |" + p.getSpellPower());
+            initWord(8,30,"healthRegen:     |" + p.getHealthRegen());
+            initWord(9,30,"energyRegen:     |" + p.getEnergyRegen());  
         }        
     }
     
@@ -164,8 +162,4 @@ public class RenderHeroInfo {
             grid[y][x+i] = str.charAt(i);
         }
     }    
-    
-    public void initStats() {
-
-    }
 }

@@ -13,14 +13,15 @@ import client_app_v0.pkg01.gameObjects.classes.ClassType;
  */
 public class Shield implements Abillity{
     
-    private SkillEntityType typeOfBlockingSkill;
+    private SkillType skillType = SkillType.SHIELD;
+    private SkillEntityType type;
     private int blockingDamage;
     private int blockingDamageChange;
     private Skill skill;
 
     public Shield(Skill skill, SkillEntityType typeOfBlockingSkill,
             int blockingDamage, int blockingDamageChange) {
-        this.typeOfBlockingSkill = typeOfBlockingSkill;
+        this.type = typeOfBlockingSkill;
         this.blockingDamage = blockingDamage;
         this.blockingDamageChange = blockingDamageChange;
         this.skill = skill;
@@ -35,9 +36,14 @@ public class Shield implements Abillity{
         blockingDamage += blockingDamageChange;
     }
     
-    public SkillEntityType getType(){
-        return typeOfBlockingSkill;
+    public SkillEntityType getSkillEntityType(){
+        return type;
     }
+    
+    public SkillType getSkillType(){
+        return skillType;
+    }
+    
     public int getDamage(){
         return blockingDamage;
     }

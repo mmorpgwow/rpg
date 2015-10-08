@@ -22,7 +22,7 @@ public abstract class Entity {
     protected boolean battleState;
 
     private int moveSpeed;
-    private Body body;
+    protected Body body;
 
     public Entity(int x, int y, int xBattle, int yBattle, int speed, Body body) {
         this.xPos = x;

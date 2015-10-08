@@ -42,9 +42,14 @@ public class Potion extends Item {
             return i + count - maxCount;
         }
     }
-    ////WARNING NEED FINISH METHOD/////
+    
     public Potion getPotions(int i){
-        return null;        
+        if(count == 0){
+            return null;   
+        } else {
+            count--;
+            return new Potion(id,name, buyCost, sellCost, resHealth, resEnergy, 1);
+        }
     }
     
     public int drinkPotion(){

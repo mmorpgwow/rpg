@@ -13,6 +13,7 @@ import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
  */
 public class Buff implements Abillity{
 
+    private SkillType skillType = SkillType.BUFF;
     private int time;
     private int timeGain;
     private ChangeableStats stats;
@@ -31,11 +32,19 @@ public class Buff implements Abillity{
     public ChangeableStats getStats(){
         return stats;
     }
+    
+    public void tick(){
+        time--;
+    }
 
     @Override
     public void lvlUp() {
         time+=timeGain;
         stats.lvlUp();
         skill.lvlUp();
+    }
+    
+    public SkillType getSkillType(){
+        return skillType;
     }
 }

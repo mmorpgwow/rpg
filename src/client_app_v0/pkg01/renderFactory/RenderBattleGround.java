@@ -4,15 +4,10 @@
  * and open the template in the editor.
  */
 package client_app_v0.pkg01.renderFactory;
-
-import client_app_v0.pkg01.battleGround.BattleGround;
 import client_app_v0.pkg01.gameObjects.Player;
-import client_app_v0.pkg01.gameObjects.physicBody.Entity;
-import java.io.IOException;
-import java.io.OutputStream;
+import client_app_v0.pkg01.gameObjects.skills.Buff;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  *
@@ -23,6 +18,8 @@ public class RenderBattleGround {
     private Player hero1;
     private Player hero2;
 
+    private List<String> battleLog;
+            
     private int xBG;
     private int yBG;
 
@@ -32,22 +29,19 @@ public class RenderBattleGround {
     private char[][] grid;
     private char[][] hero1Grid;
     private char[][] hero2Grid;
-    private char initChar = ' ';
+    private final char initChar = ' ';
     PrintStream stream;
 
     //=================================================
-    public RenderBattleGround(BattleGround bg){//, Process p) {//Entity hero1, Entity hero2){
-        //PrintStream st = new PrintStream(p.getOutputStream());
-        /*OutputStream o = p.getOutputStream();
-        try {
-            o.write(123);
-        } catch (IOException ex) {
-            Logger.getLogger(RenderBattleGround.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        stream = st;*/
-        xBG = bg.getXSize();
-        yBG = bg.getYSize();        
-        GRID_SIZE_X = 151;
+    public RenderBattleGround(List<Player> players, List<String> battleLog,int width,int height){
+               
+        this.battleLog = battleLog;
+        hero1 = players.get(0);
+        hero2 = players.get(1);
+        
+        xBG = width;
+        yBG = height;        
+        GRID_SIZE_X = RenderHeroInfo.GRID_SIZE_X * 2+40;
         GRID_SIZE_Y = yBG + 23;
         if(xBG > 151){
             GRID_SIZE_X = xBG+3;
@@ -59,16 +53,24 @@ public class RenderBattleGround {
     public void update() {            
         initGrid(initChar);
                 
-        initBattleGround((int)(GRID_SIZE_X-xBG)/2);
-        drawLine(yBG+2, 0, GRID_SIZE_X);
+        initBattleGround((int)(RenderHeroInfo.GRID_SIZE_X * 2-xBG)/2);
+        drawLine(yBG+2, 0, RenderHeroInfo.GRID_SIZE_X * 2);
         initPlayers(yBG+3);
-        drawLine(yBG+12, 0, GRID_SIZE_X);
+        drawLine(yBG+12, 0, RenderHeroInfo.GRID_SIZE_X * 2);
         initBattleLog(yBG+13, 0);
         initEffectsLog(yBG+18, 0);
-        drawVerticalLine(yBG+19, 75, 4);
-        drawVerticalLine(yBG+3, 75, 10);
+        drawVerticalLine(yBG+19, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 4);
+        drawVerticalLine(yBG+3, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 10);
+        initRules(yBG+2, RenderHeroInfo.GRID_SIZE_X * 2+1);
     }
 
+    private void initRules(int y, int x){
+        initWord(y,x,"s - Use skill");
+        initWord(y+1,x,"m - Move");
+        initWord(y+2,x,"i - Use item");
+        initWord(y+3,x,"c - Miss step");        
+    }
+    
     public void initGrid(char c) {
         for (int i = 0; i < GRID_SIZE_Y; i++) {
             for (int j = 0; j < GRID_SIZE_X; j++) {
@@ -78,6 +80,8 @@ public class RenderBattleGround {
     }
 
     private void initBattleGround(int x) {
+        char player1Symbol = 'X';
+        char player2Symbol = 'O';
         drawLine(0, x, xBG+1);
         drawLine(yBG+1, x, xBG+1);
         drawVerticalLine(1, x+xBG+1, yBG);
@@ -87,35 +91,53 @@ public class RenderBattleGround {
                 grid[i][j] = '.';
             }
         }
+        
+        char[][] p1 = new char[hero1.getHeight()][hero1.getWidth()];
+        char[][] p2 = new char[hero2.getHeight()][hero2.getWidth()];
+        
+        for (int i = 0; i < p1.length; i++) {
+            for (int j = 0; j < p1[0].length; j++) {
+                p1[i][j] = player1Symbol;
+            }
+        }
+        for (int i = 0; i < p2.length; i++) {
+            for (int j = 0; j < p2[0].length; j++) {
+                p2[i][j] = player2Symbol;
+            }
+        }
+        attachGrid(hero1.getY(), hero1.getX() + x, p1);
+        attachGrid(hero2.getY(), hero2.getX() + x, p2);        
     }
 
     private void initPlayers(int y) {
-        RenderHeroInfo r1 = new RenderHeroInfo();
+        RenderHeroInfo r1 = new RenderHeroInfo(hero1);
         hero1Grid = r1.getGrid();
         attachGrid(y, 0, hero1Grid);
-        RenderHeroInfo r2 = new RenderHeroInfo();
+        RenderHeroInfo r2 = new RenderHeroInfo(hero2);
         hero2Grid = r2.getGrid();
-        attachGrid(y, 76, hero2Grid);
+        attachGrid(y, RenderHeroInfo.GRID_SIZE_X, hero2Grid);
     }
     
     private void initBattleLog(int y, int x){
-        initWord(y,(int)GRID_SIZE_X/2-8,"--=BATTLE LOG=--");
-        initWord(y+1,x,"Player2: Use skill awdaw Damage 100");  
-        initWord(y+2,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+3,x,"Player2: Use skill awdaw Damage 100");
-        initWord(y+4,x,"Player1: Use skill awdaw Damage 100");              
+        initWord(y,RenderHeroInfo.GRID_SIZE_X-8,"--=BATTLE LOG=--");
+        for(int i = 0; i < this.battleLog.size(); i++){
+            initWord(y+1+i,x, this.battleLog.get(i));  
+        }           
     }
     
     private void initEffectsLog(int y, int x){
-        initWord(y,(int)GRID_SIZE_X/2-9,"--=EFFECTS LOG=--");
-        initWord(y+2,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+3,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+4,x,"Player1: Use skill awdaw Damage 100");
-        initWord(y+1,x,"Player1: Use skill awdaw Damage 100");    
-        initWord(y+2,x+76,"Player2: Use skill awdaw Damage 100");
-        initWord(y+3,x+76,"Player2: Use skill awdaw Damage 100");
-        initWord(y+4,x+76,"Player2: Use skill awdaw Damage 100");
-        initWord(y+1,x+76,"Player2: Use skill awdaw Damage 100");
+        int dlt = (int)GRID_SIZE_X/2;
+        initWord(y,RenderHeroInfo.GRID_SIZE_X-9,"--=EFFECTS LOG=--");
+        int i = 0;
+        for(Buff b :hero1.getBuffs() ){
+            initWord(y+1+i,x,hero1.getNickName()+": ");
+            i++;
+        }
+        i = 0;
+        for(Buff b :hero2.getBuffs() ){
+            initWord(y+1+i,x+dlt,hero2.getNickName()+": ");
+            i++;
+        }
     }
 
     public void initWord(int y, int x,String str){

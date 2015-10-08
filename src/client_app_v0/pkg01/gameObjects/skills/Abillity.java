@@ -11,4 +11,5 @@ package client_app_v0.pkg01.gameObjects.skills;
  */
 public interface Abillity {
     public void lvlUp();
+    public SkillType getSkillType();
 }

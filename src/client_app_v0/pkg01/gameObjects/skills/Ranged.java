@@ -5,7 +5,6 @@
  */
 package client_app_v0.pkg01.gameObjects.skills;
 
-import client_app_v0.pkg01.gameObjects.classes.ClassType;
 import java.util.List;
 
 /**
@@ -14,6 +13,7 @@ import java.util.List;
  */
 public class Ranged implements Abillity{
 
+    private SkillType skillType = SkillType.RANGED;
     private int width;
     private int height;
     private int xSpeed;
@@ -56,10 +56,15 @@ public class Ranged implements Abillity{
     public List<Buff> getBuffs() {
         return buffs;
     }
-    public SkillEntityType getSkillType(){
+    
+    public SkillEntityType getSkillEntityType(){
         return type;
+    }    
+   
+    public SkillType getSkillType(){
+        return skillType;
     }
-
+    
     @Override
     public void lvlUp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
