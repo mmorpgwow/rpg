@@ -80,6 +80,10 @@ public class Skill {
         }
     }
     
+    public int getColdown(){
+        return coldownValue;
+    }
+    
     public ClassType getClassType(){
         return classType;
     }

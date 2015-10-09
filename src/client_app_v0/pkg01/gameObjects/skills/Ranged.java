@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Pablo
  */
-public class Ranged implements Abillity{
+public class Ranged extends Abillity{
 
     private SkillType skillType = SkillType.RANGED;
     private int width;
@@ -57,10 +57,19 @@ public class Ranged implements Abillity{
         return buffs;
     }
     
+    public void tick(){
+        skill.tick();
+    }
+    
+    public int getColdown(){
+        return skill.getColdown();
+    }
+    
     public SkillEntityType getSkillEntityType(){
         return type;
     }    
    
+    @Override
     public SkillType getSkillType(){
         return skillType;
     }

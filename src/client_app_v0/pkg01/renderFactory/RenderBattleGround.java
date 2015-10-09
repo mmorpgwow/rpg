@@ -130,12 +130,12 @@ public class RenderBattleGround {
         initWord(y,RenderHeroInfo.GRID_SIZE_X-9,"--=EFFECTS LOG=--");
         int i = 0;
         for(Buff b :hero1.getBuffs() ){
-            initWord(y+1+i,x,hero1.getNickName()+": ");
+            initWord(y+1+i,x,hero1.getNickName()+": "+b.getName()+" time late " + b.getTimeValue());
             i++;
         }
         i = 0;
         for(Buff b :hero2.getBuffs() ){
-            initWord(y+1+i,x+dlt,hero2.getNickName()+": ");
+            initWord(y+1+i,x+dlt,hero2.getNickName()+": "+b.getName()+" time late " + b.getTimeValue());
             i++;
         }
     }

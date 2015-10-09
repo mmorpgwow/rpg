@@ -20,7 +20,11 @@ public class EventListener {
         scan = new Scanner(System.in);
     }
     
-    public String start(){
+    public String startLine(){
         return scan.nextLine();
+    }
+    
+    public int startInt(){
+        return scan.nextInt();
     }
 }

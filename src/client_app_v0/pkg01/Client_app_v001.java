@@ -19,13 +19,8 @@ import client_app_v0.pkg01.gameObjects.inventory.items.Weapon;
 import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.SkillList;
-import client_app_v0.pkg01.renderFactory.RenderBattleGround;
-import client_app_v0.pkg01.renderFactory.RenderHeroInfo;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -74,7 +69,7 @@ public class Client_app_v001 {
 
         ChangeableStats stats = new ChangeableStats(10, 1, 25, 2, 50, 1, 70, 2, 20, 1, 40, 2,
                 1000, 20, 2000, 40, 10, 1, 20, 2, 0);
-        Mage mage = new Mage(100, 760, stats.getStats());
+        Mage mage = new Mage(100, 23760, stats.getStats());
 
         return new Player(0, 0, x, y, 10, body, inventory, mage, skills, name);
     }

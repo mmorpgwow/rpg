@@ -35,16 +35,16 @@ public class SkillList {
         skill = new Skill(1, 20, 50, ClassType.MAGE, 2, "FireWall", 100, 5, 5, 1, 2);
         fireWall = new AoE(200, 0, 0, 20, 5, null, 5, 2, 0, skill, SkillEntityType.MFIRE);
         skill = new Skill(1, 5, 50, ClassType.MAGE, 3, "FireShield", 0, 5, 2, 1, 0);
-        fireShield = new Shield(skill, SkillEntityType.MFIRE, 100, 80);
+        fireShield = new Shield(skill, SkillEntityType.MFIRE,3, 100, 80);
         skill = new Skill(1, 4, 55, ClassType.MAGE, 4, "FrostShield", 0, 4, 2, 1, 0);
-        frostShield = new Shield(skill, SkillEntityType.MFROST, 100, 80);
+        frostShield = new Shield(skill, SkillEntityType.MFROST, 4, 100, 80);
         skill = new Skill(1, 10, 10, ClassType.MAGE, 5, "StrengthBuff", 0, 5, 5, 0, 0);
         ChangeableStats stats = new ChangeableStats(10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         strengthBuff = new Buff(skill, stats, 100, 5);
-        skill = new Skill(1, 10, 10, ClassType.MAGE, 6, "IntellegenceBuff", 0, 5, 5, 0, 0);
+        skill = new Skill(1, 10, 3, ClassType.MAGE, 6, "IntellegenceBuff", 0, 5, 5, 0, 0);
         stats = new ChangeableStats(0, 0, 10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        intellegenceBuff = new Buff(skill, stats, 100, 5);
-        skill = new Skill(1, 80, 3, ClassType.MAGE, 7, "HolyLight", 150, 1, 1, 0, 0);
+        intellegenceBuff = new Buff(skill, stats, 8, 5);
+        skill = new Skill(1, 300, 3, ClassType.MAGE, 7, "HolyLight", 50, 1, 1, 0, 0);
         holyLight = new Directional(skill, 150, 10, null, SkillEntityType.MHOLY, 1);
     }
 

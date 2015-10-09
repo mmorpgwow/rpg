@@ -5,25 +5,30 @@
  */
 package client_app_v0.pkg01.gameObjects.skills;
 
+import client_app_v0.pkg01.gameObjects.Player;
+import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.ClassType;
 
 /**
  *
  * @author Pablo
  */
-public class Shield implements Abillity{
+public class Shield extends Abillity{
     
     private SkillType skillType = SkillType.SHIELD;
     private SkillEntityType type;
+    private int time;
+    private int timeValue = 0;
     private int blockingDamage;
-    private int blockingDamageChange;
+    private int blockingDamageGain;
     private Skill skill;
 
-    public Shield(Skill skill, SkillEntityType typeOfBlockingSkill,
+    public Shield(Skill skill, SkillEntityType typeOfBlockingSkill, int time ,
             int blockingDamage, int blockingDamageChange) {
         this.type = typeOfBlockingSkill;
         this.blockingDamage = blockingDamage;
-        this.blockingDamageChange = blockingDamageChange;
+        this.blockingDamageGain = blockingDamageChange;
+        this.time = time;
         this.skill = skill;
     }
     
@@ -33,18 +38,48 @@ public class Shield implements Abillity{
         changeStats();
     }
     private void changeStats(){
-        blockingDamage += blockingDamageChange;
+        blockingDamage += blockingDamageGain;
+    }
+    
+    public void use(Player target){
+        skill.use();
+        timeValue = time;
+        target.addShield(this);        
+    }
+    
+    public int getTime(){
+        return time;
+    }
+    
+    public int getTimeValue(){
+        return timeValue;
+    }
+    
+    public void tick(){
+        if(timeValue > 0){
+            timeValue--;
+        }
+    }
+    
+    public void tickCuldown(){        
+        skill.tick();
+    }
+    
+    
+    public int getColdown(){
+        return skill.getColdown();
     }
     
     public SkillEntityType getSkillEntityType(){
         return type;
     }
     
-    public SkillType getSkillType(){
-        return skillType;
-    }
-    
     public int getDamage(){
         return blockingDamage;
+    }
+    
+    @Override
+    public SkillType getSkillType(){
+        return skillType;
     }
 }

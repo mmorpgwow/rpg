@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Broff
  */
-public class Directional implements Abillity{
+public class Directional extends Abillity{
     
     
     private SkillType skillType = SkillType.DIRECTIONAL;
@@ -32,7 +32,7 @@ public class Directional implements Abillity{
     }
 
     public boolean checkAvailability(int level, int energyPool) {
-        if(level >= skill.getLvlCost() && energyPool >= skill.getEnergyCost()){
+        if(level >= skill.getLvlCost() && energyPool >= skill.getEnergyCost() && getColdown() == 0){
             return true;
         } else {
             return false;
@@ -40,9 +40,18 @@ public class Directional implements Abillity{
     }
     
     public int use(Player target){
+        skill.use();
         int dmg = getDamage();
         target.setActualHealth(-dmg);
         return dmg;
+    }
+    
+    public void tick(){
+        skill.tick();
+    }
+    
+    public int getColdown(){
+        return skill.getColdown();
     }
     
     public String getName(){
@@ -69,6 +78,7 @@ public class Directional implements Abillity{
         return type;
     }    
     
+    @Override
     public SkillType getSkillType(){
         return skillType;
     }

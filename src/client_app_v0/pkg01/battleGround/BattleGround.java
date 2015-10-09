@@ -7,7 +7,9 @@ package client_app_v0.pkg01.battleGround;
 
 import client_app_v0.pkg01.gameObjects.Player;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
+import client_app_v0.pkg01.gameObjects.skills.Buff;
 import client_app_v0.pkg01.gameObjects.skills.Directional;
+import client_app_v0.pkg01.gameObjects.skills.Spell;
 import client_app_v0.pkg01.renderFactory.RenderBattleGround;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,11 +40,11 @@ public class BattleGround {
 
     public void start() {
         if (this.events != null && this.players.size() == 2) {
-            players.get(0).setActualHealth(-400);
-            players.get(1).setActualHealth(-700);
-            players.get(0).setActualEnergy(-1700);
-            players.get(1).setActualEnergy(-1400);
-            battleState = true;
+             players.get(0).setActualHealth(1400);
+             players.get(1).setActualHealth(-400);
+             players.get(0).setActualEnergy(-1000);
+             players.get(1).setActualEnergy(-1300);
+             battleState = true;
             render = new RenderBattleGround(players, battleLog, xSize, ySize);
             render.update();
             render.show();
@@ -51,46 +53,54 @@ public class BattleGround {
     }
 
     boolean listenEv = true;
+
     private void steps() {
-        String inStr;        
+        String inStr;
         while (battleState) {
             exit:
             while (listenEv) {
-                inStr = events.start();
+                inStr = events.startLine();
                 if (inStr.equals("exit")) {
                     stop();
                     break;
                 } else {
                     switch (inStr) {
                         case "s":                                 //Skill
-                            useSkill(players.get(activeP).getAbility(7));
-                            break exit;
+                            int spellNum;                           
+                            try {
+                                spellNum = events.startInt();
+                                if (players.get(activeP).getAbility(spellNum) != null) {
+                                    useSkill(players.get(activeP).getAbility(spellNum));
+                                }
+                            } catch (Exception e) {}
+                            break;                            
                         case "m":                                 //Move
+                            int direction;
                             listenEv = false;
-                            break exit;
+                            break;
                         case "i":                                 //Item
                             listenEv = false;
-                            break exit;
+                            break;
                         case "c":                                 //Check
-                            addEventLog(players.get(activeP).getNickName()+": Miss step.");
+                            addEventLog(players.get(activeP).getNickName() + ": Miss step.");
                             listenEv = false;
-                            break exit;
+                            break;
                         default:
-                            render.update();
-                            render.show();
                             break;
                     }
+                    render.update();
+                    render.show();
                 }
             }
-            if(!players.get(activeP).getLifeState()){
-                addEventLog(players.get(activeP).getNickName()+": is died.");
+            if (!players.get(activeP).getLifeState()) {
+                addEventLog(players.get(activeP).getNickName() + ": is died.");
                 battleState = false;
             }
             players.get(activeP).tick();
             setActivePlayer();
             players.get(activeP).tick();
-            if(!players.get(activeP).getLifeState()){
-                addEventLog(players.get(activeP).getNickName()+": is died.");
+            if (!players.get(activeP).getLifeState()) {
+                addEventLog(players.get(activeP).getNickName() + ": is died.");
                 battleState = false;
             }
             render.update();
@@ -98,21 +108,45 @@ public class BattleGround {
             listenEv = true;
         }
     }
-    
-    private void useSkill(Abillity skill){
-        switch(skill.getSkillType()){
+
+    private void useSkill(Spell skill) {
+        if(players.get(activeP).getLifeState()){
+        switch (((Abillity) skill).getSkillType()) {
             case DIRECTIONAL:
-                Directional skillD = (Directional)skill;
-                if(skillD.checkAvailability(players.get(activeP).getLevel(),players.get(activeP).getActualEnergy())){
+                Directional skillD = (Directional) skill;
+                if (skillD.checkAvailability(players.get(activeP).getLevel(), players.get(activeP).getActualEnergy())) {
                     players.get(activeP).setActualEnergy(-skillD.getEnergyCost());
                     int dmg = skillD.use(players.get(nonActiveP));
-                    addEventLog(players.get(activeP).getNickName()+": Use skill("+skillD.getName()+"). Accept damage -"+dmg+". "+skillD.getEnergyCost()+"energy is lost.");
+                    addEventLog(players.get(activeP).getNickName() + ": Use skill(" + skillD.getName() + "). Accept damage -" + dmg + ". " + skillD.getEnergyCost() + " energy is lost.");
                     listenEv = false;
                 }
                 break;
-            default :
+            case SHIELD:
+                break;
+            case MOVE:
+                break;
+            case AOE:
+                break;
+            case DEBUFF:
+                break;
+            case BUFF:
+                Buff skillB = (Buff) skill;
+                if (skillB.checkAvailability(players.get(activeP).getLevel(), players.get(activeP).getActualEnergy())) {
+                    players.get(activeP).setActualEnergy(-skillB.getEnergyCost());
+                    skillB.use(players.get(activeP));
+                    addEventLog(players.get(activeP).getNickName() + ": Use buff(" + skillB.getName() + "). " + skillB.getEnergyCost() + " energy is lost.");
+                    listenEv = false;
+                }
+                break;
+            case RANGED:
+                break;
+            case MILEE:
+                break;
+            default:
                 break;
         }
+        }
+        listenEv = false;
     }
 
     private void setActivePlayer() {

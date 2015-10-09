@@ -5,14 +5,13 @@
  */
 package client_app_v0.pkg01.gameObjects.skills;
 
-import client_app_v0.pkg01.gameObjects.classes.ClassType;
 import java.util.List;
 
 /**
  *
  * @author Pablo
  */
-public class AoE implements Abillity{
+public class AoE extends Abillity{
 
     private SkillType skillType = SkillType.AOE;
     private int damage;
@@ -75,7 +74,20 @@ public class AoE implements Abillity{
     public List<Buff> getBuffs() {
         return buffs;
     }
+    
+    public void tick(){
+        skill.tick();
+    }
+    
+    public int getColdown(){
+        return skill.getColdown();
+    }
 
+    @Override
+    public SkillType getSkillType(){
+        return skillType;
+    }
+    
     @Override
     public void lvlUp() {
         skill.lvlUp();
@@ -84,9 +96,5 @@ public class AoE implements Abillity{
     
     public SkillEntityType getSkillEntityType(){
         return type;
-    }
-    
-    public SkillType getSkillType(){
-        return skillType;
     }
 }
