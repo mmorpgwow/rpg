@@ -19,9 +19,12 @@ public class SkillList {
     private Abillity fireWall;
     private Abillity fireShield;
     private Abillity frostShield;
+    private Abillity lightningShield;
     private Abillity strengthBuff;
     private Abillity intellegenceBuff;
-    private Abillity holyLight;
+    private Abillity frostHit;
+    private Abillity fireHit;
+    private Abillity lightningHit;
     private Abillity hit;
 
     public SkillList() {
@@ -36,19 +39,25 @@ public class SkillList {
         skill = new Skill(1, 20, 50, ClassType.MAGE, 2, "FireWall", 100, 5, 5, 1, 2);
         fireWall = new AoE(200, 0, 0, 20, 5, null, 5, 2, 0, skill, SkillEntityType.MFIRE);
         skill = new Skill(1, 5, 50, ClassType.MAGE, 3, "FireShield", 0, 5, 2, 1, 0);
-        fireShield = new Shield(skill, SkillEntityType.MFIRE,3, 100, 80);
+        fireShield = new Shield(skill, SkillEntityType.MFIRE, 4, 100, 80);
         skill = new Skill(1, 4, 55, ClassType.MAGE, 4, "FrostShield", 0, 4, 2, 1, 0);
-        frostShield = new Shield(skill, SkillEntityType.MFROST, 4, 100, 80);
-        skill = new Skill(1, 10, 10, ClassType.MAGE, 5, "StrengthBuff", 0, 5, 5, 0, 0);
+        frostShield = new Shield(skill, SkillEntityType.MFROST, 4, 120, 80);
+        skill = new Skill(1, 4, 45, ClassType.MAGE, 5, "LightningShield", 0, 3, 2, 1, 0);
+        lightningShield = new Shield(skill, SkillEntityType.MLIGHTNING, 4, 80, 80);
+        skill = new Skill(1, 10, 10, ClassType.MAGE, 6, "StrengthBuff", 0, 5, 5, 0, 0);
         ChangeableStats stats = new ChangeableStats(10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         strengthBuff = new Buff(skill, stats, 100, 5);
-        skill = new Skill(1, 10, 3, ClassType.MAGE, 6, "IntellegenceBuff", 0, 5, 5, 0, 0);
+        skill = new Skill(1, 10, 3, ClassType.MAGE, 7, "IntellegenceBuff", 0, 5, 5, 0, 0);
         stats = new ChangeableStats(0, 0, 10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         intellegenceBuff = new Buff(skill, stats, 8, 5);
-        skill = new Skill(1, 300, 3, ClassType.MAGE, 7, "FrostHit", 50, 1, 1, 0, 5);
-        holyLight = new Directional(skill, 150, 10, null, SkillEntityType.MFROST, 1);
-        skill = new Skill(1,150, 1, ClassType.MAGE, 8, "Hit", 0, 2, 2, 0, 0);
-        hit = new Melee(skill, 200,null,SkillEntityType.PNORMAL, 1);
+        skill = new Skill(1, 300, 3, ClassType.MAGE, 8, "FrostHit", 50, 1, 1, 0, 5);
+        frostHit = new Directional(skill, 150, 10, null, SkillEntityType.MFROST, 1);
+        skill = new Skill(1, 400, 2, ClassType.MAGE, 9, "FireHit", 50, 1, 1, 0, 5);
+        fireHit = new Directional(skill, 200, 10, null, SkillEntityType.MFIRE, 1);
+        skill = new Skill(1, 200, 3, ClassType.MAGE, 10, "LightningHit", 50, 1, 1, 0, 5);
+        lightningHit = new Directional(skill, 100, 10, null, SkillEntityType.MLIGHTNING, 1);
+        skill = new Skill(1, 150, 1, ClassType.MAGE, 11, "Hit", 0, 2, 2, 0, 0);
+        hit = new Melee(skill, 200, null, SkillEntityType.PNORMAL, 1);
     }
 
     public Abillity getSkillWithID(int id) {
@@ -64,12 +73,18 @@ public class SkillList {
             case 4:
                 return frostShield;
             case 5:
-                return strengthBuff;
+                return lightningShield;
             case 6:
-                return intellegenceBuff;
+                return strengthBuff;
             case 7:
-                return holyLight;
+                return intellegenceBuff;
             case 8:
+                return frostHit;
+            case 9:
+                return fireHit;
+            case 10:
+                return lightningHit;
+            case 11:
                 return hit;
             default:
                 return null;
