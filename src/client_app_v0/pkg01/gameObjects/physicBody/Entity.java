@@ -37,6 +37,10 @@ public abstract class Entity {
     public void update() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public int getSpeed(){
+        return moveSpeed;
+    }
 
     public int getX() {
         if (battleState) {
@@ -71,7 +75,7 @@ public abstract class Entity {
     }
 
     public void moveBattle(int direction, int range) {
-        if (range > 0 && range < this.moveSpeed && direction <= 8 && direction > 0) {
+        if (range > 0 && range <= this.moveSpeed && direction <= 8 && direction > 0) {
             switch (direction) {
                 case 1:
                     setYpos(yPosBattle-range);

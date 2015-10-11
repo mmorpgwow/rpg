@@ -41,16 +41,15 @@ public class RenderBattleGround {
         
         xBG = width;
         yBG = height;        
-        GRID_SIZE_X = RenderHeroInfo.GRID_SIZE_X * 2+40;
+        GRID_SIZE_X = RenderHeroInfo.GRID_SIZE_X * 2+50;
         GRID_SIZE_Y = yBG + 23;
         if(xBG > 151){
             GRID_SIZE_X = xBG+3;
         }
         grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
-        update(hero1.getNickName());        
     }
 
-    public void update(String activePlayer) {            
+    public void update(String activePlayer, int roundTime) {            
         initGrid(initChar);
                 
         initBattleGround((int)(RenderHeroInfo.GRID_SIZE_X * 2-xBG)/2);
@@ -61,15 +60,20 @@ public class RenderBattleGround {
         initEffectsLog(yBG+18, 0);
         drawVerticalLine(yBG+19, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 4);
         drawVerticalLine(yBG+3, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 10);
-        initRules(yBG+2, RenderHeroInfo.GRID_SIZE_X * 2+1,activePlayer);
+        initRules(yBG+2, RenderHeroInfo.GRID_SIZE_X * 2+1,activePlayer, roundTime);
     }
 
-    private void initRules(int y, int x, String actP){
+    private void initRules(int y, int x, String actP, int roundTime){        
+        initWord(y-2,x,"Time remaining "+roundTime);
         initWord(y-1,x,"Now active player - "+actP);
         initWord(y,x,"s - Use skill");
         initWord(y+1,x,"m - Move");
         initWord(y+2,x,"i - Use item");
         initWord(y+3,x,"c - Miss step");        
+        initWord(y+4,x,"Move settings");
+        initWord(y+5,x,"812");        
+        initWord(y+6,x,"7 3");        
+        initWord(y+7,x,"654");        
     }
     
     public void initGrid(char c) {

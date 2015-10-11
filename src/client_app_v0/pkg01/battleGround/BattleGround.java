@@ -48,7 +48,7 @@ public class BattleGround {
             players.get(1).setActualEnergy(-1300);
             battleState = true;
             render = new RenderBattleGround(players, battleLog, xSize, ySize);
-            render.update(players.get(activeP).getNickName());
+            render.update(players.get(activeP).getNickName(), this.roundTime);
             render.show();
             steps();
         }
@@ -72,10 +72,10 @@ public class BattleGround {
                             try {
                                 spellNum = events.startInt();
                                 Abillity skill = players.get(activeP).getAbility(spellNum);
-                                if (skill != null) {
-                                    listenEv = removeTime(skill.getCastTime());
-                                    if (listenEv) {
+                                if (skill != null) {                                    
+                                    if (removeTime(skill.getCastTime())) {
                                         useSkill(skill);
+                                        break;
                                     }                                    
                                 }
                             } catch (Exception e) {
@@ -85,27 +85,31 @@ public class BattleGround {
                             int range;
                             try {
                                 direction = events.startInt();
-                                listenEv = removeTime(1);
-                                if (listenEv) {
-                                    players.get(activeP).moveBattle(direction, 1);
+                                if (removeTime(1)) {
+                                    players.get(activeP).moveBattle(direction, players.get(activeP).getSpeed());
+                                    addEventLog(players.get(activeP).getNickName() + ": made a motion.");
+                                    break;
                                 }
                             } catch (Exception e) {
                             }
                         case "i":                                 //Item
-                            listenEv = false;
+                            
                             break;
                         case "c":                                 //Check
                             addEventLog(players.get(activeP).getNickName() + ": Miss step.");
-                            this.roundTime = this.fullRoundTime;
-                            listenEv = false;
+                            removeTime(roundTime);                            
                             break;
                         default:
                             break;
                     }
-                    render.update(players.get(activeP).getNickName());
+                    render.update(players.get(activeP).getNickName(), this.roundTime);
                     render.show();
                 }
+                if(this.roundTime == 0){
+                    listenEv = false;
+                }
             }
+            this.roundTime = this.fullRoundTime;
             if (!players.get(activeP).getLifeState()) {
                 addEventLog(players.get(activeP).getNickName() + ": is died.");
                 battleState = false;
@@ -117,7 +121,7 @@ public class BattleGround {
                 addEventLog(players.get(activeP).getNickName() + ": is died.");
                 battleState = false;
             }
-            render.update(players.get(activeP).getNickName());
+            render.update(players.get(activeP).getNickName(), this.roundTime);
             render.show();
             listenEv = true;
         }

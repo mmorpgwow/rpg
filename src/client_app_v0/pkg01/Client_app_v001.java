@@ -71,6 +71,6 @@ public class Client_app_v001 {
                 1000, 20, 2000, 40, 10, 1, 20, 2, 0);
         Mage mage = new Mage(100, 23760, stats.getStats());
 
-        return new Player(0, 0, x, y, 10, body, inventory, mage, skills, name);
+        return new Player(0, 0, x, y, 5, body, inventory, mage, skills, name);
     }
 }
