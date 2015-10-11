@@ -39,10 +39,15 @@ public class Directional extends Abillity{
         }
     }
     
+    public int getId(){
+        return this.skill.getId();
+    }
+    
     public int use(Player target){
         skill.use();
         int dmg = getDamage();
-        target.setActualHealth(-dmg);
+        SkillEntityType st = this.getSkillEntityType();
+        target.takeDamage(dmg, st);
         return dmg;
     }
     

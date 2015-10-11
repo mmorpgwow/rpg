@@ -15,6 +15,8 @@ import client_app_v0.pkg01.gameObjects.physicBody.Entity;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.Buff;
 import client_app_v0.pkg01.gameObjects.skills.Shield;
+import client_app_v0.pkg01.gameObjects.skills.SkillEntityType;
+import client_app_v0.pkg01.gameObjects.skills.SkillType;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,14 +31,13 @@ public class Player extends Entity {
     private Inventory inventory;
     private Hero classHero;
     private List<Abillity> skills = new LinkedList<Abillity>();
-    private List<Buff> buffs = new LinkedList<Buff>();
-    private List<Shield> shields = new LinkedList<Shield>();
+    private List<Abillity> effects = new LinkedList<Abillity>();
     private int abilityPoints;
     private String nick;
     private int health;
     private int energy;
     private boolean lifeState = true;
-    
+
     public Player(int xPos, int yPos, int xBattle, int yBattle, int speed, Body body, Inventory inventory,
             Hero classHero, List<Abillity> skills, String nick) {
         super(xPos, yPos, xBattle, yBattle, speed, body);
@@ -48,40 +49,62 @@ public class Player extends Entity {
         this.health = getHealth();
         this.energy = getEnergy();
         abilityPoints = getLevel();
-    }    
-    
-    public void addBuff(Buff b){
-        
-        for(Buff buf : buffs){
-            if(buf.equals(b)){
-                buffs.remove(b);
-            }            
-        }        
-        buffs.add(b);        
     }
-    
-    public void addShield(Shield sh){
-        
-        for(Shield s : shields){
-            if(s.equals(sh)){
-                shields.remove(sh);
-            }            
-        }        
-        shields.add(sh);        
+
+    public void addBuff(Buff b) {
+        for (Abillity buf : effects) {
+            if (buf.getSkillType() == SkillType.BUFF) {
+                if (((Buff) buf).getId() == b.getId()) {
+                    effects.remove(b);
+                }
+            }
+        }
+        effects.add(b);
+    }
+
+    public void addShield(Shield sh) {
+        for (Abillity buf : effects) {
+            if (buf.getSkillType() == SkillType.SHIELD) {
+                if (((Buff) buf).getId() == sh.getId()) {
+                    effects.remove(sh);
+                }
+            }
+        }
+        effects.add(sh);
     }
 
     public ClassType getClassHero() {
         return classHero.getHeroClass();
     }
 
-    public String getNickName(){
+    public String getNickName() {
         return this.nick;
     }
-    
-    public List<Buff> getBuffs(){
-        return this.buffs;
+
+    public List<Abillity> getEffects() {
+        return this.effects;
     }
-    
+
+    public List<Buff> getBuffs() {
+        List<Buff> buffs = new LinkedList<Buff>();
+        for (int i = 0; i < effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffs.add((Buff) effects.get(i));
+            }
+        }
+        return buffs;
+    }
+
+    public List<Shield> getShields() {
+        List<Shield> shields = new LinkedList<Shield>();
+        for (int i = 0; i < effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.SHIELD) {
+                shields.add((Shield) effects.get(i));
+            }
+        }
+        return shields;
+    }
+
     public String getClassName() {
         switch (getClassHero()) {
             case MAGE:
@@ -92,56 +115,53 @@ public class Player extends Entity {
                 return "NO CLASS";
         }
     }
-    
-    public void tick(){
-        if(lifeState){
+
+    public void tick() {
+        if (lifeState) {
             skillsTick();
-            buffsTick();
-            shieldsTick();
+            effectsTick();
             regenTick();
         }
     }
-    
-    private void skillsTick(){
-        for(Abillity a: skills){
+
+    private void skillsTick() {
+        for (Abillity a : skills) {
             a.tick();
         }
     }
-    
-    private void buffsTick(){
-        for(int i = 0 ;i < buffs.size();i++){
-            if(buffs.get(i).getTimeValue() < 1){
-                buffs.remove(i);
-                continue;
-            } else { 
-                buffs.get(i).tickCuldown();
+
+    private void effectsTick() {
+        for (int i = 0; i < effects.size(); i++) {
+            switch (effects.get(i).getSkillType()) {
+                case BUFF:
+                    if (((Buff) effects.get(i)).getTimeValue() < 1) {
+                        effects.remove(i);
+                    } else {
+                        ((Buff) effects.get(i)).tickCuldown();
+                    }
+                    break;
+                case SHIELD:
+                    if (((Shield) effects.get(i)).getTimeValue() < 1 || ((Shield) effects.get(i)).getDamage() == 0) {
+                        effects.remove(i);
+                    } else {
+                        ((Shield) effects.get(i)).tickCuldown();
+                    }
+                    break;
             }
         }
     }
-    
-    private void shieldsTick(){
-        for(int i = 0 ;i < shields.size();i++){
-            if(shields.get(i).getTimeValue() < 1){
-                shields.remove(i);
-                continue;
-            } else { 
-                shields.get(i).tickCuldown();
-            }
-        }
-    }
-    
-    private void regenTick(){
-        if(health + getHealthRegen() > getHealth()){
+
+    private void regenTick() {
+        if (health + getHealthRegen() > getHealth()) {
             health = getHealth();
         } else {
             health += getHealthRegen();
         }
-        if(energy + getEnergyRegen() > getEnergy())
-        {
+        if (energy + getEnergyRegen() > getEnergy()) {
             energy = getEnergy();
         } else {
             energy += getEnergyRegen();
-        }   
+        }
     }
 
     public int getLevel() {
@@ -156,7 +176,7 @@ public class Player extends Entity {
 
     public void finishtBattle() {
         this.battleState = false;
-        
+
     }
 
     public void abilityLvlUp(int abilityId) {
@@ -209,64 +229,80 @@ public class Player extends Entity {
 
     public int getStrenght() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getStrength();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getStrength();
+            }
         }
         return getHeroStats().getStrength() + getArmorStats().getStrenght() + buffsVal;
     }
 
     public int getIntellegence() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getIntellegence();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getIntellegence();
+            }
         }
         return getHeroStats().getIntellegence() + getArmorStats().getIntellegence() + buffsVal;
     }
 
     public int getPhysicArmor() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getPhysicArmor();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getPhysicArmor();
+            }
         }
         return getHeroStats().getPhysicArmor() + getArmorStats().getPhysicArmor() + buffsVal;
     }
 
     public int getMagicResist() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getMagicResist();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getMagicResist();
+            }
         }
         return getHeroStats().getMagicResist() + getArmorStats().getMagicResist() + buffsVal;
     }
 
     public int getAttackPower() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getAttackPower();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getAttackPower();
+            }
         }
         return getHeroStats().getAttackPower() + getArmorStats().getAttackPower() + buffsVal;
     }
 
     public int getSpellPower() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getSpellPower();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getSpellPower();
+            }
         }
         return getHeroStats().getSpellPower() + getArmorStats().getSpellPower() + buffsVal;
     }
 
     public int getHealth() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getHealth();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getHealth();
+            }
         }
         return getHeroStats().getHealth() + getStrenght() + buffsVal;
     }
 
     public int getEnergy() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getEnergy();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getEnergy();
+            }
         }
         return getHeroStats().getEnergy() + getIntellegence() + buffsVal;
     }
@@ -278,32 +314,49 @@ public class Player extends Entity {
     public int getActualEnergy() {
         return this.energy;
     }
-    
+
+    public void takeDamage(int dlt, SkillEntityType st) {
+        List<Shield> shields = getShields();
+        int damage = dlt;
+        for (Shield s : shields) {
+            if (s.getSkillEntityType() == st) {
+                int d = damage;
+                damage -= s.getDamage();
+                s.takeDamage(d);
+                if (damage <= 0) {
+                    damage = 0;
+                    break;
+                }
+            }
+        }
+        setActualHealth(-damage);
+    }
+
     public void setActualHealth(int dlt) {
-        if(this.health + dlt > getHealth()){
+        if (this.health + dlt > getHealth()) {
             this.health = getHealth();
-        } else if(this.health + dlt <= 0){
+        } else if (this.health + dlt <= 0) {
             this.health = 0;
             setLifeState();
         } else {
             this.health += dlt;
         }
-        
+
     }
-    
-    public void setLifeState(){
+
+    public void setLifeState() {
         this.lifeState = !this.lifeState;
     }
-    
-    public boolean getLifeState(){
+
+    public boolean getLifeState() {
         return this.lifeState;
     }
 
     public boolean setActualEnergy(int dlt) {
-        if(this.energy + dlt > getHealth()){
+        if (this.energy + dlt > getHealth()) {
             this.energy = getHealth();
             return true;
-        } else if(this.energy + dlt < 0){
+        } else if (this.energy + dlt < 0) {
             this.energy = 0;
             return false;
         } else {
@@ -314,25 +367,29 @@ public class Player extends Entity {
 
     public int getHealthRegen() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getHealthRegen();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getHealthRegen();
+            }
         }
         return getHeroStats().getHealthRegen() + buffsVal;
     }
 
     public int getEnergyRegen() {
         int buffsVal = 0;
-        for(int i = 0 ;i < this.buffs.size();i++){
-            buffsVal += this.buffs.get(i).getStats().getEnergyRegen();
+        for (int i = 0; i < this.effects.size(); i++) {
+            if (effects.get(i).getSkillType() == SkillType.BUFF) {
+                buffsVal += ((Buff) effects.get(i)).getStats().getEnergyRegen();
+            }
         }
         return getHeroStats().getEnergyRegen() + buffsVal;
     }
-    
+
     public int getWidth() {
         return this.body.getWidth();
     }
 
-    public int getHeight() {         
+    public int getHeight() {
         return this.body.getHeight();
     }
 }

@@ -32,6 +32,14 @@ public class Shield extends Abillity{
         this.skill = skill;
     }
     
+    public boolean checkAvailability(int level, int energyPool) {
+        if(level >= skill.getLvlCost() && energyPool >= skill.getEnergyCost() && getColdown() == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @Override
     public void lvlUp(){
         skill.lvlUp();
@@ -39,6 +47,14 @@ public class Shield extends Abillity{
     }
     private void changeStats(){
         blockingDamage += blockingDamageGain;
+    }
+    
+    public void takeDamage(int dmg){
+        if(this.blockingDamage >= dmg){
+            this.blockingDamage -= dmg;
+        } else if(this.blockingDamage < dmg){
+            this.blockingDamage = 0;
+        } 
     }
     
     public void use(Player target){
@@ -61,6 +77,10 @@ public class Shield extends Abillity{
         }
     }
     
+    public int getId(){
+        return this.skill.getId();
+    }
+    
     public void tickCuldown(){        
         skill.tick();
     }
@@ -76,6 +96,15 @@ public class Shield extends Abillity{
     
     public int getDamage(){
         return blockingDamage;
+    }
+    
+    public int getEnergyCost(){
+        return skill.getEnergyCost();
+    }
+    
+    @Override
+    public String getName(){
+        return this.skill.getName();
     }
     
     @Override

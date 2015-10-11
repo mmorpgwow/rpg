@@ -44,8 +44,8 @@ public class SkillList {
         skill = new Skill(1, 10, 3, ClassType.MAGE, 6, "IntellegenceBuff", 0, 5, 5, 0, 0);
         stats = new ChangeableStats(0, 0, 10, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         intellegenceBuff = new Buff(skill, stats, 8, 5);
-        skill = new Skill(1, 300, 3, ClassType.MAGE, 7, "HolyLight", 50, 1, 1, 0, 5);
-        holyLight = new Directional(skill, 150, 10, null, SkillEntityType.MHOLY, 1);
+        skill = new Skill(1, 300, 3, ClassType.MAGE, 7, "FrostHit", 50, 1, 1, 0, 5);
+        holyLight = new Directional(skill, 150, 10, null, SkillEntityType.MFROST, 1);
     }
 
     public Abillity getSkillWithID(int id) {

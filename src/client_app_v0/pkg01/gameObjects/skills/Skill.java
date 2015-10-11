@@ -55,6 +55,10 @@ public class Skill {
         return startStat += gainStat * (lvl);        
     }
     
+    public int getId(){
+        return this.id;
+    }
+    
     public int getLvl(){
         return lvl;
     }

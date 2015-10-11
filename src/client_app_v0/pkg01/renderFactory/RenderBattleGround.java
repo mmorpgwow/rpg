@@ -5,9 +5,14 @@
  */
 package client_app_v0.pkg01.renderFactory;
 import client_app_v0.pkg01.gameObjects.Player;
+import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.Buff;
+import client_app_v0.pkg01.gameObjects.skills.Shield;
+import client_app_v0.pkg01.gameObjects.skills.Skill;
+import client_app_v0.pkg01.gameObjects.skills.SkillType;
 import java.io.PrintStream;
 import java.util.List;
+import sun.awt.image.ImageWatched.Link;
 
 /**
  *
@@ -69,7 +74,7 @@ public class RenderBattleGround {
         initWord(y,x,"s - Use skill");
         initWord(y+1,x,"m - Move");
         initWord(y+2,x,"i - Use item");
-        initWord(y+3,x,"c - Miss step");        
+        initWord(y+3,x,"c - End step");        
         initWord(y+4,x,"Move settings");
         initWord(y+5,x,"812");        
         initWord(y+6,x,"7 3");        
@@ -132,15 +137,23 @@ public class RenderBattleGround {
     
     private void initEffectsLog(int y, int x){
         int dlt = (int)GRID_SIZE_X/2;
-        initWord(y,RenderHeroInfo.GRID_SIZE_X-9,"--=EFFECTS LOG=--");
+        initWord(y,RenderHeroInfo.GRID_SIZE_X-8,"--=EFFECTS LOG=--");
         int i = 0;
-        for(Buff b :hero1.getBuffs() ){
-            initWord(y+1+i,x,hero1.getNickName()+": "+b.getName()+" time late " + b.getTimeValue());
+        for(Abillity b :hero1.getEffects() ){
+            if (b.getSkillType() == SkillType.BUFF) {
+                initWord(y+1+i,x,hero1.getNickName()+": "+((Buff)b).getName()+" time late " + ((Buff)b).getTimeValue());
+            } else if(b.getSkillType() == SkillType.SHIELD){
+                initWord(y+1+i,x,hero1.getNickName()+": "+((Shield)b).getName()+" damage late " + ((Shield)b).getDamage()+" time late " + ((Shield)b).getTimeValue());
+            }
             i++;
         }
         i = 0;
-        for(Buff b :hero2.getBuffs() ){
-            initWord(y+1+i,x+dlt,hero2.getNickName()+": "+b.getName()+" time late " + b.getTimeValue());
+        for(Abillity b :hero2.getEffects() ){
+            if (b.getSkillType() == SkillType.BUFF) {
+                initWord(y+1+i,x+dlt,hero2.getNickName()+": "+((Buff)b).getName()+" time late " + ((Buff)b).getTimeValue());
+            } else if(b.getSkillType() == SkillType.SHIELD){
+                initWord(y+1+i,x+dlt,hero2.getNickName()+": "+((Shield)b).getName()+" damage late " + ((Shield)b).getDamage()+" time late " + ((Shield)b).getTimeValue());
+            }
             i++;
         }
     }
@@ -176,6 +189,13 @@ public class RenderBattleGround {
             for (int j = 0; j < grid[0].length; j++) {
                 this.grid[y + i][x + j] = grid[i][j];
             }
+        }
+    }
+    
+    public void showSkills(List<Abillity> skillList){
+        System.out.println("Chose skill");
+        for(int i =0;i< skillList.size();i++){
+            System.out.println(i+") "+skillList.get(i).getName()+" CastTime = "+skillList.get(i).getCastTime());
         }
     }
     

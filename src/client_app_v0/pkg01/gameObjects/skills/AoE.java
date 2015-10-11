@@ -50,6 +50,10 @@ public class AoE extends Abillity{
         xPos = xPos;
         yPos = yPos;
     }
+    
+    public int getId(){
+        return this.skill.getId();
+    }
 
     public int getDamage() {
         return damage;
@@ -81,6 +85,11 @@ public class AoE extends Abillity{
     
     public int getColdown(){
         return skill.getColdown();
+    }
+    
+    @Override
+    public String getName(){
+        return this.skill.getName();
     }
 
     @Override

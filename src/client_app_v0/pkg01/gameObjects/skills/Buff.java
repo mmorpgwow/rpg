@@ -46,6 +46,10 @@ public class Buff extends Abillity{
         return time;
     }
     
+    public int getId(){
+        return this.skill.getId();
+    }
+    
     public int getTimeValue(){
         return timeValue;
     }

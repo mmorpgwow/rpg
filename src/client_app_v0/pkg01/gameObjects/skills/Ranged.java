@@ -68,6 +68,15 @@ public class Ranged extends Abillity{
     public SkillEntityType getSkillEntityType(){
         return type;
     }    
+    
+    public int getId(){
+        return this.skill.getId();
+    }
+    
+    @Override
+    public String getName(){
+        return this.skill.getName();
+    }
    
     @Override
     public SkillType getSkillType(){
