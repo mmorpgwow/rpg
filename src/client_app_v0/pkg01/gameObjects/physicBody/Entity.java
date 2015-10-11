@@ -75,7 +75,10 @@ public abstract class Entity {
     }
 
     public void moveBattle(int direction, int range, int xMin, int xMax, int yMin, int yMax) {
-        if (range > 0 && range <= this.moveSpeed && direction <= 8 && direction > 0) {
+        if(range < 0 || range > this.moveSpeed){
+            range = this.moveSpeed;
+        }
+        if (direction <= 8 && direction > 0) {
             switch (direction) {
                 case 1:
                     if (yPosBattle - range >= yMin) {

@@ -90,9 +90,10 @@ public class BattleGround {
                             int range;
                             try {
                                 direction = events.startInt();
+                                range = events.startInt();
                                 if (checkRemoveTime(1)) {
                                     removeTime(1);
-                                    players.get(activeP).moveBattle(direction, players.get(activeP).getSpeed(),
+                                    players.get(activeP).moveBattle(direction, range,
                                             render.getXMin(),render.getXMax(),render.getYMin(),render.getYMax());
                                     addEventLog(players.get(activeP).getNickName() + ": Made a motion.");
                                     break;
