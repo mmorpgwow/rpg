@@ -51,6 +51,7 @@ public class Directional extends Abillity{
         return dmg;
     }
     
+    @Override
     public void tick(){
         skill.tick();
     }
@@ -59,6 +60,7 @@ public class Directional extends Abillity{
         return skill.getColdown();
     }
     
+    @Override
     public String getName(){
         return skill.getName();
     }

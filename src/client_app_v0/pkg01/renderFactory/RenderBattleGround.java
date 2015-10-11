@@ -199,8 +199,7 @@ public class RenderBattleGround {
             System.out.println(i+") "+skillList.get(i).getName()+" CastTime = "+skillList.get(i).getCastTime());
         }
     }
-    
-    public void showPotions(List<Potion> skillList){
+     public void showPotions(List<Potion> skillList){
         System.out.println("Chose potion");
         for(int i =0;i< skillList.size();i++){
             System.out.println(i+") "+skillList.get(i).getName()+": Res Health = "+skillList.get(i).getRestoratedValue()[0]+" Res Energy = "+skillList.get(i).getRestoratedValue()[1]);

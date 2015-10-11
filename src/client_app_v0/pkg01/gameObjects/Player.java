@@ -76,7 +76,7 @@ public class Player extends Entity {
         effects.add(sh);
     }
 
-    public List<Potion> getPotions() {
+      public List<Potion> getPotions() {
         List<Potion> p = new LinkedList<Potion>();
 
         for (Item i : this.inventory.getBag()) {
@@ -95,7 +95,7 @@ public class Player extends Entity {
             return null;
         }
     }
-
+    
     public ClassType getClassHero() {
         return classHero.getHeroClass();
     }

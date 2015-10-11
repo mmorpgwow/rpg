@@ -10,6 +10,7 @@ import client_app_v0.pkg01.gameObjects.inventory.items.Potion;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.Buff;
 import client_app_v0.pkg01.gameObjects.skills.Directional;
+import client_app_v0.pkg01.gameObjects.skills.Melee;
 import client_app_v0.pkg01.gameObjects.skills.Shield;
 import client_app_v0.pkg01.gameObjects.skills.Spell;
 import client_app_v0.pkg01.renderFactory.RenderBattleGround;
@@ -122,7 +123,7 @@ public class BattleGround {
                             } catch (Exception e) {
                             }
                             break;
-                        case "c":                                 
+                        case "c":                                 //Check
                             addEventLog(players.get(activeP).getNickName() + ": End step.");
                             removeTime(roundTime);
                             listenEv = false;
@@ -190,11 +191,31 @@ public class BattleGround {
                     break;
                 case RANGED:
                     break;
-                case MILEE:
+                case MELEE:
+                    Melee skillM = (Melee) skill;
+                    if (skillM.checkAvailability(players.get(activeP).getLevel(), players.get(activeP).getActualEnergy())) {
+                        removeTime(skillM.getCastTime());
+                        players.get(activeP).setActualEnergy(-skillM.getEnergyCost());
+                        if (checkCollision()) {
+                            int dmg = skillM.use(players.get(nonActiveP));
+                            addEventLog(players.get(activeP).getNickName() + ": Use skill(" + skillM.getName() + "). Accept damage -" + dmg + ". " + skillM.getEnergyCost() + " energy is lost.");
+                        } else {
+                            addEventLog(players.get(activeP).getNickName() + ": Use skill(" + skillM.getName() + ") and missed.");
+                        }
+                    }
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    private boolean checkCollision() {
+        if (Math.abs(players.get(activeP).getX() - players.get(nonActiveP).getX()) <= 3
+                && Math.abs(players.get(activeP).getY() - players.get(nonActiveP).getY()) <= 4) {
+            return true;
+        } else {
+            return false;
         }
     }
 

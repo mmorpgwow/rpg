@@ -22,6 +22,7 @@ public class SkillList {
     private Abillity strengthBuff;
     private Abillity intellegenceBuff;
     private Abillity holyLight;
+    private Abillity hit;
 
     public SkillList() {
         init();
@@ -46,6 +47,8 @@ public class SkillList {
         intellegenceBuff = new Buff(skill, stats, 8, 5);
         skill = new Skill(1, 300, 3, ClassType.MAGE, 7, "FrostHit", 50, 1, 1, 0, 5);
         holyLight = new Directional(skill, 150, 10, null, SkillEntityType.MFROST, 1);
+        skill = new Skill(1,150, 1, ClassType.MAGE, 8, "Hit", 0, 2, 2, 0, 0);
+        hit = new Melee(skill, 200,null,SkillEntityType.PNORMAL, 1);
     }
 
     public Abillity getSkillWithID(int id) {
@@ -66,6 +69,8 @@ public class SkillList {
                 return intellegenceBuff;
             case 7:
                 return holyLight;
+            case 8:
+                return hit;
             default:
                 return null;
         }

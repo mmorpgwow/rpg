@@ -50,14 +50,14 @@ public class Client_app_v001 {
 
         List<Abillity> skills = new ArrayList<Abillity>();
         SkillList skillList = new SkillList();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 9; i++) {
             skills.add(skillList.getSkillWithID(i));
         }
 
         List<Item> bag = new LinkedList<Item>();
         ItemList itemList = new ItemList();
         bag.add(itemList.getItemWithID(9));
-        bag.add(itemList.getItemWithID(10));        
+        bag.add(itemList.getItemWithID(10));
         HeroArmor heroArmor = new HeroArmor();
         for (int i = 0; i < 9; i++) {
             if (i != 2) {
