@@ -82,4 +82,8 @@ public class Shield extends Abillity{
     public SkillType getSkillType(){
         return skillType;
     }
+    
+      public int getCastTime(){
+        return skill.getCastTime();
+    }
 }

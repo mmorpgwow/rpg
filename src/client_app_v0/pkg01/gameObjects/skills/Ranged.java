@@ -78,4 +78,8 @@ public class Ranged extends Abillity{
     public void lvlUp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+      public int getCastTime(){
+        return skill.getCastTime();
+    }
 }

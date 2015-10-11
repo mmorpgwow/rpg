@@ -87,4 +87,7 @@ public class Buff extends Abillity{
         stats.lvlUp();
         skill.lvlUp();
     }
+      public int getCastTime(){
+        return skill.getCastTime();
+    }
 }

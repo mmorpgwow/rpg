@@ -87,4 +87,8 @@ public class Directional extends Abillity{
     public void lvlUp() {
         skill.lvlUp();
     }
+    
+      public int getCastTime(){
+        return skill.getCastTime();
+    }
 }

@@ -97,4 +97,8 @@ public class AoE extends Abillity{
     public SkillEntityType getSkillEntityType(){
         return type;
     }
+    
+    public int getCastTime(){
+        return skill.getCastTime();
+    }
 }

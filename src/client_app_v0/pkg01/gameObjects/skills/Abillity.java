@@ -15,5 +15,7 @@ public abstract class Abillity implements Spell {
     public abstract void lvlUp();    
     
     public abstract void tick();    
+    
+    public abstract int getCastTime();
 
 }

@@ -74,32 +74,32 @@ public abstract class Entity {
         if (range > 0 && range < this.moveSpeed && direction <= 8 && direction > 0) {
             switch (direction) {
                 case 1:
-                    setYpos(yPos-range);
+                    setYpos(yPosBattle-range);
                     break;
                 case 2:
-                    setXpos(xPos+range);
-                    setYpos(yPos-range);
+                    setXpos(xPosBattle+range);
+                    setYpos(yPosBattle-range);
                     break;
                 case 3:
-                    setXpos(xPos+range);
+                    setXpos(xPosBattle+range);
                     break;
                 case 4:
-                    setXpos(xPos+range);
-                    setYpos(yPos+range);
+                    setXpos(xPosBattle+range);
+                    setYpos(yPosBattle+range);
                     break;
                 case 5:
-                    setYpos(yPos+range);
+                    setYpos(yPosBattle+range);
                     break;
                 case 6:
-                    setXpos(xPos-range);
-                    setYpos(yPos+range);
+                    setXpos(xPosBattle-range);
+                    setYpos(yPosBattle+range);
                     break;
                 case 7:
-                    setXpos(xPos-range);
+                    setXpos(xPosBattle-range);
                     break;
                 case 8:
-                    setXpos(xPos-range);
-                    setYpos(yPos-range);
+                    setXpos(xPosBattle-range);
+                    setYpos(yPosBattle-range);
                     break;
                 default:
                     break;

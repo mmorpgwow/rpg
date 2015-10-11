@@ -95,4 +95,7 @@ public class Skill {
     public String getName(){
         return name;
     }
+    public int getCastTime(){
+        return castTime;
+    }
 }
