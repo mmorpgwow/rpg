@@ -47,10 +47,10 @@ public class RenderBattleGround {
             GRID_SIZE_X = xBG+3;
         }
         grid = new char[GRID_SIZE_Y][GRID_SIZE_X];
-        update();        
+        update(hero1.getNickName());        
     }
 
-    public void update() {            
+    public void update(String activePlayer) {            
         initGrid(initChar);
                 
         initBattleGround((int)(RenderHeroInfo.GRID_SIZE_X * 2-xBG)/2);
@@ -61,10 +61,11 @@ public class RenderBattleGround {
         initEffectsLog(yBG+18, 0);
         drawVerticalLine(yBG+19, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 4);
         drawVerticalLine(yBG+3, (int)RenderHeroInfo.GRID_SIZE_X * 2/2-1, 10);
-        initRules(yBG+2, RenderHeroInfo.GRID_SIZE_X * 2+1);
+        initRules(yBG+2, RenderHeroInfo.GRID_SIZE_X * 2+1,activePlayer);
     }
 
-    private void initRules(int y, int x){
+    private void initRules(int y, int x, String actP){
+        initWord(y-1,x,"Now active player - "+actP);
         initWord(y,x,"s - Use skill");
         initWord(y+1,x,"m - Move");
         initWord(y+2,x,"i - Use item");

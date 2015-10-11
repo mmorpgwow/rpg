@@ -46,7 +46,7 @@ public class BattleGround {
              players.get(1).setActualEnergy(-1300);
              battleState = true;
             render = new RenderBattleGround(players, battleLog, xSize, ySize);
-            render.update();
+            render.update(players.get(activeP).getNickName());
             render.show();
             steps();
         }
@@ -88,7 +88,7 @@ public class BattleGround {
                         default:
                             break;
                     }
-                    render.update();
+                    render.update(players.get(activeP).getNickName());
                     render.show();
                 }
             }
@@ -103,7 +103,7 @@ public class BattleGround {
                 addEventLog(players.get(activeP).getNickName() + ": is died.");
                 battleState = false;
             }
-            render.update();
+            render.update(players.get(activeP).getNickName());
             render.show();
             listenEv = true;
         }
