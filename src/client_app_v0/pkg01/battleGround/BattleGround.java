@@ -19,27 +19,27 @@ import java.util.List;
  * @author Pablo
  */
 public class BattleGround {
-    
+
     private int xSize;
     private int ySize;
     private final int fullRoundTime;
     private int roundTime;
     private boolean battleState = false;
-    
+
     private List<Player> players = new LinkedList<Player>();
     private List<String> battleLog = new LinkedList<String>();
     private EventListener events;
     private RenderBattleGround render;
     private int activeP = 0;
     private int nonActiveP = 1;
-    
+
     public BattleGround(int xSize, int ySize, int roundTime) {
         this.xSize = xSize;
         this.ySize = ySize;
         this.roundTime = roundTime;
         this.fullRoundTime = roundTime;
     }
-    
+
     public void start() {
         if (this.events != null && this.players.size() == 2) {
             players.get(0).setActualHealth(1400);
@@ -53,9 +53,9 @@ public class BattleGround {
             steps();
         }
     }
-    
+
     boolean listenEv = true;
-    
+
     private void steps() {
         String inStr;
         while (battleState) {
@@ -68,45 +68,49 @@ public class BattleGround {
                 } else {
                     switch (inStr) {
                         case "s":                                 //Skill
-                            int spellNum;                            
+                            int spellNum;
                             try {
                                 spellNum = events.startInt();
                                 Abillity skill = players.get(activeP).getAbility(spellNum);
-                                if (skill != null) {                                    
+                                if (skill != null) {
                                     if (removeTime(skill.getCastTime())) {
                                         useSkill(skill);
                                         break;
-                                    }                                    
+                                    } else {
+                                        addEventLog(players.get(activeP).getNickName() + ": Not enough time");
+                                        break;
+                                    }
                                 }
                             } catch (Exception e) {
-                            }                        
+                            }
                         case "m":                                 //Move
                             int direction;
                             int range;
                             try {
                                 direction = events.startInt();
                                 if (removeTime(1)) {
-                                    players.get(activeP).moveBattle(direction, players.get(activeP).getSpeed());
+                                    players.get(activeP).moveBattle(direction, players.get(activeP).getSpeed(),
+                                            render.getXMin(),render.getXMax(),render.getYMin(),render.getYMax());
                                     addEventLog(players.get(activeP).getNickName() + ": made a motion.");
+                                    break;
+                                } else {
+                                    addEventLog(players.get(activeP).getNickName() + ": Not enough time");
                                     break;
                                 }
                             } catch (Exception e) {
                             }
                         case "i":                                 //Item
-                            
+
                             break;
                         case "c":                                 //Check
-                            addEventLog(players.get(activeP).getNickName() + ": Miss step.");
-                            removeTime(roundTime);                            
+                            addEventLog(players.get(activeP).getNickName() + ": End step.");
+                            listenEv = false;
                             break;
                         default:
                             break;
                     }
                     render.update(players.get(activeP).getNickName(), this.roundTime);
                     render.show();
-                }
-                if(this.roundTime == 0){
-                    listenEv = false;
                 }
             }
             this.roundTime = this.fullRoundTime;
@@ -126,17 +130,16 @@ public class BattleGround {
             listenEv = true;
         }
     }
-    
+
     private boolean removeTime(int value) {
         if (this.roundTime - value >= 0) {
             this.roundTime -= value;
             return true;
         } else {
-            roundTime = fullRoundTime;
             return false;
         }
     }
-    
+
     private void useSkill(Spell skill) {
         if (players.get(activeP).getLifeState()) {
             switch (((Abillity) skill).getSkillType()) {
@@ -146,7 +149,7 @@ public class BattleGround {
                         players.get(activeP).setActualEnergy(-skillD.getEnergyCost());
                         int dmg = skillD.use(players.get(nonActiveP));
                         addEventLog(players.get(activeP).getNickName() + ": Use skill(" + skillD.getName() + "). Accept damage -" + dmg + ". " + skillD.getEnergyCost() + " energy is lost.");
-                        
+
                     }
                     break;
                 case SHIELD:
@@ -163,7 +166,7 @@ public class BattleGround {
                         players.get(activeP).setActualEnergy(-skillB.getEnergyCost());
                         skillB.use(players.get(activeP));
                         addEventLog(players.get(activeP).getNickName() + ": Use buff(" + skillB.getName() + "). " + skillB.getEnergyCost() + " energy is lost.");
-                        
+
                     }
                     break;
                 case RANGED:
@@ -175,7 +178,7 @@ public class BattleGround {
             }
         }
     }
-    
+
     private void setActivePlayer() {
         if (activeP == 0) {
             activeP = 1;
@@ -185,50 +188,50 @@ public class BattleGround {
             nonActiveP = 1;
         }
     }
-    
+
     public void stop() {
         battleState = false;
     }
-    
+
     public void addEventListener(EventListener event) {
         if (this.events == null) {
             this.events = event;
         }
     }
-    
+
     public void addPlayer(Player e) {
         if (!battleState && players.size() < 2) {
             e.startBattle();
             players.add(e);
         }
     }
-    
+
     public Player getPlayer(int id) {
         if (id >= 0 && id < players.size()) {
             return players.get(id);
         }
         return null;
     }
-    
+
     public List<Player> getEntityList() {
         return this.players;
     }
-    
+
     public List<String> getBattleLog() {
         return this.battleLog;
     }
-    
+
     public void addEventLog(String str) {
         if (this.battleLog.size() >= 4) {
             this.battleLog.remove(0);
         }
         this.battleLog.add(str);
     }
-    
+
     public int getXSize() {
         return xSize;
     }
-    
+
     public int getYSize() {
         return ySize;
     }

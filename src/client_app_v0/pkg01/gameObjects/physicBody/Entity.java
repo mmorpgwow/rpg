@@ -37,8 +37,8 @@ public abstract class Entity {
     public void update() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public int getSpeed(){
+
+    public int getSpeed() {
         return moveSpeed;
     }
 
@@ -74,36 +74,84 @@ public abstract class Entity {
         }
     }
 
-    public void moveBattle(int direction, int range) {
+    public void moveBattle(int direction, int range, int xMin, int xMax, int yMin, int yMax) {
         if (range > 0 && range <= this.moveSpeed && direction <= 8 && direction > 0) {
             switch (direction) {
                 case 1:
-                    setYpos(yPosBattle-range);
+                    if (yPosBattle - range >= yMin) {
+                        setYpos(yPosBattle - range);
+                    } else {
+                        setYpos(yMin);
+                    }
                     break;
                 case 2:
-                    setXpos(xPosBattle+range);
-                    setYpos(yPosBattle-range);
+                    if (xPosBattle + range < xMax) {
+                        setXpos(xPosBattle + range);
+                    } else {
+                        setXpos(xMax - 1);
+                    }
+                    if (yPosBattle - range >= yMax) {
+                        setYpos(yPosBattle - range);
+                    } else {
+                        setYpos(yMin);
+                    }
                     break;
                 case 3:
-                    setXpos(xPosBattle+range);
+                    if (xPosBattle + range < xMax) {
+                        setXpos(xPosBattle + range);
+                    } else {
+                        setXpos(xMax - 1);
+                    }
                     break;
                 case 4:
-                    setXpos(xPosBattle+range);
-                    setYpos(yPosBattle+range);
+                    if (xPosBattle + range < xMax) {
+                        setXpos(xPosBattle + range);
+                    } else {
+                        setXpos(xMax - 1);
+                    }
+                    if (yPosBattle + range < yMax) {
+                        setYpos(yPosBattle + range);
+                    } else {
+                        setYpos(yMax - 1);
+                    }
                     break;
                 case 5:
-                    setYpos(yPosBattle+range);
+                    if (yPosBattle + range < yMax) {
+                        setYpos(yPosBattle + range);
+                    } else {
+                        setYpos(yMax - 1);
+                    }
                     break;
                 case 6:
-                    setXpos(xPosBattle-range);
-                    setYpos(yPosBattle+range);
+                     if (xPosBattle - range > xMin) {
+                        setXpos(xPosBattle - range);
+                    } else {
+                        setXpos(xMin + 1);
+                    }
+                    if (yPosBattle + range < yMax) {
+                        setYpos(yPosBattle + range);
+                    } else {
+                        setYpos(yMax - 1);
+                    }
                     break;
                 case 7:
-                    setXpos(xPosBattle-range);
+                    if (xPosBattle - range > xMin) {
+                        setXpos(xPosBattle - range);
+                    } else {
+                        setXpos(xMin + 1);
+                    }
                     break;
                 case 8:
-                    setXpos(xPosBattle-range);
-                    setYpos(yPosBattle-range);
+                    if (xPosBattle - range > xMin) {
+                        setXpos(xPosBattle - range);
+                    } else {
+                        setXpos(xMin + 1);
+                    }
+                    if (yPosBattle - range > yMin) {
+                        setYpos(yPosBattle - range);
+                    } else {
+                        setYpos(yMin + 1);
+                    }
                     break;
                 default:
                     break;

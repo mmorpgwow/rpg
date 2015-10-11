@@ -178,4 +178,20 @@ public class RenderBattleGround {
             }
         }
     }
+    
+    public int getXMin(){
+        return 0;
+    }
+    
+    public int getYMin(){
+        return 1;
+    }
+    
+    public int getXMax(){
+        return xBG-1;
+    }
+    
+    public int getYMax(){
+        return yBG-1;
+    }
 }
