@@ -9,6 +9,9 @@ import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.ClassType;
 import client_app_v0.pkg01.gameObjects.classes.Hero;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
+import client_app_v0.pkg01.gameObjects.inventory.items.Item;
+import client_app_v0.pkg01.gameObjects.inventory.items.ItemType;
+import client_app_v0.pkg01.gameObjects.inventory.items.Potion;
 import client_app_v0.pkg01.gameObjects.inventory.items.Stats;
 import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.physicBody.Entity;
@@ -71,6 +74,26 @@ public class Player extends Entity {
             }
         }
         effects.add(sh);
+    }
+
+    public List<Potion> getPotions() {
+        List<Potion> p = new LinkedList<Potion>();
+
+        for (Item i : this.inventory.getBag()) {
+            if (((Potion)i).getItemType() == ItemType.POTION) {
+                p.add((Potion) i);
+            }
+        }
+        return p;
+    }
+
+    public Potion getPotion(int i) {
+        List<Potion> p = getPotions();
+        if (i >= 0 && i < p.size()) {
+            return p.get(i);
+        } else {
+            return null;
+        }
     }
 
     public ClassType getClassHero() {

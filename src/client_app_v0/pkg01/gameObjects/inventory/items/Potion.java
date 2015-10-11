@@ -66,4 +66,9 @@ public class Potion extends Item {
         int[] Arr = {resHealth,resEnergy};
         return Arr;
     }
+    
+    @Override
+    public ItemType getItemType(){
+        return itemType;
+    }
 }

@@ -20,8 +20,8 @@ public class ItemList {
     private Item belt;
     private Item neck;
     private Item ring;
-    private Item healingPotion;
-    private Item energyPotion;
+    private Potion healingPotion;
+    private Potion energyPotion;
 
     public ItemList() {
         init();

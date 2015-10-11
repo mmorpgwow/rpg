@@ -11,6 +11,7 @@ package client_app_v0.pkg01.gameObjects.inventory.items;
  */
 public abstract class Item {
     
+    public ItemType itemType;
     protected int id;
     protected String name;
     protected int buyCost;
@@ -22,6 +23,8 @@ public abstract class Item {
         this.buyCost = buyCost;
         this.sellCost = sellCost;
     }
+    
+    public abstract ItemType getItemType();
     
     public int getId(){
         return id;

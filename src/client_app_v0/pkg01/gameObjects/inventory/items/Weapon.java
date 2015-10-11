@@ -50,5 +50,9 @@ public class Weapon extends Item{
         return twoHands;
     }    
     
+    @Override
+    public ItemType getItemType(){
+        return itemType;
+    }
 }
 

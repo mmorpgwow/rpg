@@ -20,6 +20,7 @@ import client_app_v0.pkg01.gameObjects.physicBody.Body;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.SkillList;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,10 +54,10 @@ public class Client_app_v001 {
             skills.add(skillList.getSkillWithID(i));
         }
 
-        List<Item> bag = new ArrayList<Item>();
+        List<Item> bag = new LinkedList<Item>();
         ItemList itemList = new ItemList();
         bag.add(itemList.getItemWithID(9));
-        bag.add(itemList.getItemWithID(10));
+        bag.add(itemList.getItemWithID(10));        
         HeroArmor heroArmor = new HeroArmor();
         for (int i = 0; i < 9; i++) {
             if (i != 2) {

@@ -20,6 +20,9 @@ public class Components extends Item{
         super(id, name, buyCost, sellCost);
     }
 
-    
+    @Override
+    public ItemType getItemType(){
+        return itemType;
+    }
     
 }

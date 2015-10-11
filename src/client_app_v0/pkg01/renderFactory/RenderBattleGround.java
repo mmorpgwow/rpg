@@ -5,6 +5,7 @@
  */
 package client_app_v0.pkg01.renderFactory;
 import client_app_v0.pkg01.gameObjects.Player;
+import client_app_v0.pkg01.gameObjects.inventory.items.Potion;
 import client_app_v0.pkg01.gameObjects.skills.Abillity;
 import client_app_v0.pkg01.gameObjects.skills.Buff;
 import client_app_v0.pkg01.gameObjects.skills.Shield;
@@ -196,6 +197,13 @@ public class RenderBattleGround {
         System.out.println("Chose skill");
         for(int i =0;i< skillList.size();i++){
             System.out.println(i+") "+skillList.get(i).getName()+" CastTime = "+skillList.get(i).getCastTime());
+        }
+    }
+    
+    public void showPotions(List<Potion> skillList){
+        System.out.println("Chose potion");
+        for(int i =0;i< skillList.size();i++){
+            System.out.println(i+") "+skillList.get(i).getName()+": Res Health = "+skillList.get(i).getRestoratedValue()[0]+" Res Energy = "+skillList.get(i).getRestoratedValue()[1]);
         }
     }
     

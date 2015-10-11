@@ -30,4 +30,8 @@ public class Armor extends Item{
         return type;
     }
     
+    @Override
+    public ItemType getItemType(){
+        return itemType;
+    }
 }
