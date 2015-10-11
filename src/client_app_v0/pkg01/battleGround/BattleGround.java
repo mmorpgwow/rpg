@@ -113,7 +113,9 @@ public class BattleGround {
                                 Potion potion = players.get(activeP).getPotion(itemNum);
                                 if (potion != null) {
                                     if (checkRemoveTime(1)) {
-
+                                        removeTime(1);
+                                        players.get(activeP).drinkPotion(potion.getPotion());
+                                        addEventLog(players.get(activeP).getNickName() + ": Drink potion. Res health="+potion.getResHealth()+" Res energy="+potion.getResEnergy());
                                         break;
                                     } else {
                                         addEventLog(players.get(activeP).getNickName() + ": Not enough time");

@@ -76,14 +76,19 @@ public class Player extends Entity {
         effects.add(sh);
     }
 
-      public List<Potion> getPotions() {
+    public List<Potion> getPotions() {
         List<Potion> p = new LinkedList<Potion>();
-
         for (Item i : this.inventory.getBag()) {
-            if (((Potion)i).getItemType() == ItemType.POTION) {
+            if (((Potion) i).getItemType() == ItemType.POTION && ((Potion) i).getCount() == 0) {
+                this.inventory.getBag().remove(i);
+            }
+        }
+        for (Item i : this.inventory.getBag()) {
+            if (((Potion) i).getItemType() == ItemType.POTION) {
                 p.add((Potion) i);
             }
         }
+        
         return p;
     }
 
@@ -95,7 +100,7 @@ public class Player extends Entity {
             return null;
         }
     }
-    
+
     public ClassType getClassHero() {
         return classHero.getHeroClass();
     }
@@ -367,6 +372,11 @@ public class Player extends Entity {
 
     }
 
+    public void drinkPotion(Potion p) {
+        this.setActualEnergy(p.getResEnergy());
+        this.setActualHealth(p.getResHealth());
+    }
+
     public void setLifeState() {
         this.lifeState = !this.lifeState;
     }
@@ -376,8 +386,8 @@ public class Player extends Entity {
     }
 
     public boolean setActualEnergy(int dlt) {
-        if (this.energy + dlt > getHealth()) {
-            this.energy = getHealth();
+        if (this.energy + dlt > getEnergy()) {
+            this.energy = getEnergy();
             return true;
         } else if (this.energy + dlt < 0) {
             this.energy = 0;

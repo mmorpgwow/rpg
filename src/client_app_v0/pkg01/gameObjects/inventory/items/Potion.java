@@ -43,7 +43,7 @@ public class Potion extends Item {
         }
     }
     
-    public Potion getPotions(int i){
+    public Potion getPotion(){
         if(count == 0){
             return null;   
         } else {
@@ -52,19 +52,12 @@ public class Potion extends Item {
         }
     }
     
-    public int drinkPotion(){
-        count--;
-        if(type == PotionType.ENERGY){
-            return resEnergy;
-        } else {
-            return resHealth;
-        } 
+    public int getResHealth(){        
+        return this.resHealth;
     }
     
-    public int[] getRestoratedValue(){
-        count--;
-        int[] Arr = {resHealth,resEnergy};
-        return Arr;
+    public int getResEnergy(){        
+        return this.resEnergy;
     }
     
     @Override
