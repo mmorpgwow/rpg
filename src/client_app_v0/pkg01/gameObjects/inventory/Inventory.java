@@ -6,6 +6,7 @@
 package client_app_v0.pkg01.gameObjects.inventory;
 
 import client_app_v0.pkg01.gameObjects.inventory.items.Item;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +17,17 @@ public class Inventory {
     
     private int gold;
     private int gem;
-    private List<Item> bag;
-    private HeroArmor armor;
+    private List<Item> bag = new ArrayList<Item>();
+    private HeroArmor armor = new HeroArmor();
     
-    public Inventory(List<Item> bag, HeroArmor armor ){
+    public Inventory(){
+    }
+    
+    public void addBag(List<Item> bag){
         this.bag = bag;
+    }
+    
+    public void setArmor(HeroArmor armor){
         this.armor = armor;
     }
     

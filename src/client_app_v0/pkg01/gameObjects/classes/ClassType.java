@@ -11,5 +11,7 @@ package client_app_v0.pkg01.gameObjects.classes;
  */
 public enum ClassType {
     WARRIOR,
-    MAGE
+    MAGE,
+    DEFAULT;    
+    
 }

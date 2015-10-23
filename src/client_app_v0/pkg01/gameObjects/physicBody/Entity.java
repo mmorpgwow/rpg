@@ -24,12 +24,12 @@ public abstract class Entity {
     private int moveSpeed;
     protected Body body;
 
-    public Entity(int x, int y, int xBattle, int yBattle, int speed, Body body) {
+    public Entity(int x, int y, int xBattle, int yBattle, int speed/*, Body body*/) {
         this.xPos = x;
         this.yPos = y;
         this.xPosBattle = xBattle;
         this.yPosBattle = yBattle;
-        this.body = body;
+        this.body = new Body(0,0);
         this.moveSpeed = speed;
         //this.inventory = new Inventory();
     }

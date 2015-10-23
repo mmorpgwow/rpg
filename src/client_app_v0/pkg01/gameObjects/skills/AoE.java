@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Pablo
  */
-public class AoE extends Abillity{
+public class AoE extends Abillity {
 
     private SkillType skillType = SkillType.AOE;
     private int damage;
@@ -25,6 +25,8 @@ public class AoE extends Abillity{
     private List<Buff> buffs;
     private Skill skill;
     private SkillEntityType type;
+    private boolean isCasted = false;
+    private int side;
 
     public AoE(int damage, int xPos, int yPos, int area, int delay,
             List<Buff> buffs, int damageGain, int areaGain, int delayGain,
@@ -40,18 +42,33 @@ public class AoE extends Abillity{
         this.type = type;
     }
 
+    public void use(int x, int y, int side) {
+        isCasted = true;
+        this.xPos = x;
+        this.yPos = y;
+        this.side = side;
+    }
+
     private void upStats() {
         damage += damageGain;
         area += areaGain;
         delay += delayGain;
     }
 
+    public boolean checkAvailability(int level, int energyPool) {
+        if (level >= skill.getLvlCost() && energyPool >= skill.getEnergyCost() && getColdown() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void setPos(int xPos, int yPos) {
         xPos = xPos;
         yPos = yPos;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.skill.getId();
     }
 
@@ -78,36 +95,41 @@ public class AoE extends Abillity{
     public List<Buff> getBuffs() {
         return buffs;
     }
-    
-    public void tick(){
+
+    public void tick() {
         skill.tick();
     }
-    
-    public int getColdown(){
+
+    public int getColdown() {
         return skill.getColdown();
     }
-    
+
     @Override
-    public String getName(){
+    public String getName() {
         return this.skill.getName();
     }
 
     @Override
-    public SkillType getSkillType(){
+    public SkillType getSkillType() {
         return skillType;
     }
-    
+
     @Override
     public void lvlUp() {
         skill.lvlUp();
         upStats();
     }
-    
-    public SkillEntityType getSkillEntityType(){
+
+    public SkillEntityType getSkillEntityType() {
         return type;
     }
-    
-    public int getCastTime(){
+
+    @Override
+    public int getCastTime() {
         return skill.getCastTime();
+    }
+
+    public int getEnergyCost() {
+        return skill.getEnergyCost();
     }
 }

@@ -33,9 +33,9 @@ public class SkillList {
 
     private void init() { // -_-
         Skill skill = new Skill(1, 10, 20, ClassType.MAGE, 0, "FireBall", 100, 2, 1, 0, 2);
-        fireBall = new Ranged(skill, 0, 0, 50, 50, 100, null, SkillEntityType.MFIRE, 5);
+        fireBall = new Ranged(skill, 0, 0, 6, 100, null, SkillEntityType.MFIRE, 5);
         skill = new Skill(1, 8, 30, ClassType.MAGE, 1, "FrostBall", 150, 1, 1, 0, 2);
-        frostBolt = new Ranged(skill, 0, 0, 50, 50, 80, null, SkillEntityType.MFIRE, 4);
+        frostBolt = new Ranged(skill, 0, 0, 6, 80, null, SkillEntityType.MFROST, 4);
         skill = new Skill(1, 20, 50, ClassType.MAGE, 2, "FireWall", 100, 5, 5, 1, 2);
         fireWall = new AoE(200, 0, 0, 20, 5, null, 5, 2, 0, skill, SkillEntityType.MFIRE);
         skill = new Skill(1, 5, 50, ClassType.MAGE, 3, "FireShield", 0, 5, 2, 1, 0);

@@ -10,16 +10,14 @@ package client_app_v0.pkg01.gameObjects.skills;
  * @author Pablo
  */
 public abstract class Abillity implements Spell {
-    private SkillType skillType;
-    
-    public abstract void lvlUp();    
-    
-    public abstract void tick();    
-    
-    public abstract int getCastTime();
-    
-    public abstract String getName();
-    
-    public abstract int getId();
 
+    public abstract void lvlUp();
+
+    public abstract void tick();
+
+    public abstract int getCastTime();
+
+    public abstract String getName();
+
+    public abstract int getId();
 }

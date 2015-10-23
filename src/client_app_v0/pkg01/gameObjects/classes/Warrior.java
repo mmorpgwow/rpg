@@ -10,14 +10,10 @@ package client_app_v0.pkg01.gameObjects.classes;
  * @author Broff
  */
 public class Warrior extends Hero{
-    public final ClassType heroClass = ClassType.MAGE;
 
-    public Warrior(int startExp, int innerExp, ChangeableStats stats) {
-        super(startExp, stats);
-        addExp(innerExp);
+    public Warrior(int innerExp) {
+        super(innerExp);
+        super.setHeroClass(heroClass.WARRIOR);
+        super.setStats();
     }        
-    
-    public ClassType getHeroClass(){
-        return heroClass;
-    }
 }

@@ -7,13 +7,17 @@ package client_app_v0.pkg01.gameObjects.classes;
 
 /**
  *
- * @author Broff
+ * @author Pablo
  */
-public class Mage extends Hero {
+public class Default extends Hero {
 
-    public Mage(int innerExp) {
-        super(innerExp);
-        super.setHeroClass(heroClass.MAGE);
-        super.setStats();
+    public Default() {
+        super(0);
+        heroClass = ClassType.DEFAULT;
+    }
+
+    @Override
+    public ClassType getHeroClass() {
+        return heroClass;
     }
 }

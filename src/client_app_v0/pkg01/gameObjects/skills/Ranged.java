@@ -11,84 +11,218 @@ import java.util.List;
  *
  * @author Pablo
  */
-public class Ranged extends Abillity{
+public class Ranged extends Abillity {
 
     private SkillType skillType = SkillType.RANGED;
     private int width;
     private int height;
-    private int xSpeed;
-    private int ySpeed;
+    private int speed;
+    private int xPos;
+    private int yPos;
     private int damage;
     private int damageGain;
     private List<Buff> buffs;
     private SkillEntityType type;
     private Skill skill;
+    private boolean isCasted;
+    private int xRes;
+    private int yRes;
+    private int xSpeed;
+    private int ySpeed;
+    private int err;
+    private float deltaerr;
+    private int side;
+    private int[][] pathArr;
 
-    public Ranged(Skill skill, int width, int height, int xSpeed,
-            int ySpeed, int damage, List<Buff> buffs, SkillEntityType type,
+    public Ranged(Skill skill, int width, int height, int speed,
+            int damage, List<Buff> buffs, SkillEntityType type,
             int damageGain) {
+        this.err = 0;
         this.width = width;
         this.height = height;
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
+        this.speed = speed;
         this.damage = damage;
         this.buffs = buffs;
         this.type = type;
         this.skill = skill;
         this.damageGain = damageGain;
+        this.isCasted = false;
+        this.pathArr = new int[speed+1][2];
+    }
+
+    public boolean checkAvailability(int level, int energyPool) {
+        if (level >= skill.getLvlCost() && energyPool >= skill.getEnergyCost() && getColdown() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void use(int x, int y, int xRes, int yRes, int side) {
+        isCasted = true;
+        this.xPos = x;
+        this.yPos = y;
+        this.xRes = xRes;
+        this.yRes = yRes;
+        this.xSpeed = Math.abs(this.xRes - xPos);
+        this.ySpeed = Math.abs(this.yRes - yPos);
+        this.side = side;
+    }
+
+    public boolean getIsCasted() {
+        return isCasted;
+    }
+
+    public void setIsCasted(boolean isCasted) {
+        this.isCasted = isCasted;
+    }
+
+    private void BrezAlg() {
+        if (xSpeed >= ySpeed) {
+            deltaerr = ySpeed;
+            for (int i = 0; i <= speed; i++) {
+                err += deltaerr;
+                if (2 * err >= xSpeed) {
+                    if (yRes > yPos) {
+                        yPos += 1;
+                    } else {
+                        yPos -= 1;
+                    }
+                    i++;
+                    err -= xSpeed;
+                }
+                if (i > speed) {
+                    break;
+                }
+                if (xRes > xPos) {
+                    xPos += 1;
+                } else {
+                    xPos -= 1;
+                }
+                if (xPos == xRes && yRes == yRes) {
+                    break;
+                }
+                addPointToPath(i);
+            }
+        } else {
+            deltaerr = xSpeed;
+            for (int i = 0; i <= speed; i++) {
+                err += deltaerr;
+                if (2 * err >= ySpeed) {
+                    if (yRes > yPos) {
+                        yPos += 1;
+                    } else {
+                        yPos -= 1;
+                    }
+                    err -= ySpeed;
+                }
+                if (i > speed) {
+                    break;
+                }
+                if (xRes > xPos) {
+                    xPos += 1;
+                } else {
+                    xPos -= 1;
+                }
+                if (xPos == xRes && yRes == yRes) {
+                    break;
+                }
+                addPointToPath(i);
+            }
+        }
+    }
+
+    private void addPointToPath(int i) {
+        pathArr[i][0] = xPos;
+        pathArr[i][1] = yPos;
+    }
+
+    public int[][] getPath() {
+        return pathArr;
+    }
+
+    @Override
+    public void tick() {
+        skill.tick();
+    }
+
+    public void physicalTick() {
+        BrezAlg();
+    }
+
+    public int getEnergyCost() {
+        return skill.getEnergyCost();
+    }
+
+    public void setXPos(int x) {
+        this.xPos = x;
+    }
+
+    public void setYPos(int y) {
+        this.yPos = y;
+    }
+
+    public int getXPos() {
+        return this.xPos;
+    }
+
+    public int getYPos() {
+        return this.yPos;
     }
 
     public int getDamage() {
         return damage;
     }
+
     public int getWidth() {
         return width;
     }
+
     public int getHeight() {
         return height;
     }
-    public int getXSpeed(){
-        return xSpeed;
+
+    public int getSpeed() {
+        return speed;
     }
-    public int getYSpeed(){
-        return ySpeed;
-    }
+
     public List<Buff> getBuffs() {
         return buffs;
     }
-    
-    public void tick(){
-        skill.tick();
+
+    public SkillEntityType getSkillEntityType() {
+        return type;
     }
-    
-    public int getColdown(){
+
+    @Override
+    public int getId() {
+        return this.skill.getId();
+    }
+
+    @Override
+    public void lvlUp() {
+    }
+
+    @Override
+    public int getCastTime() {
+        return skill.getCastTime();
+    }
+
+    @Override
+    public String getName() {
+        return skill.getName();
+    }
+
+    @Override
+    public SkillType getSkillType() {
+        return skillType;
+    }
+
+    public int getColdown() {
         return skill.getColdown();
     }
     
-    public SkillEntityType getSkillEntityType(){
-        return type;
-    }    
-    
-    public int getId(){
-        return this.skill.getId();
-    }
-    
-    @Override
-    public String getName(){
-        return this.skill.getName();
-    }
-   
-    @Override
-    public SkillType getSkillType(){
-        return skillType;
-    }
-    
-    @Override
-    public void lvlUp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-      public int getCastTime(){
-        return skill.getCastTime();
+    public int getSide(){
+        return this.side;
     }
 }

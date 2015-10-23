@@ -7,7 +7,9 @@ package client_app_v0.pkg01.gameObjects;
 
 import client_app_v0.pkg01.gameObjects.classes.ChangeableStats;
 import client_app_v0.pkg01.gameObjects.classes.ClassType;
+import client_app_v0.pkg01.gameObjects.classes.Default;
 import client_app_v0.pkg01.gameObjects.classes.Hero;
+import client_app_v0.pkg01.gameObjects.inventory.HeroArmor;
 import client_app_v0.pkg01.gameObjects.inventory.Inventory;
 import client_app_v0.pkg01.gameObjects.inventory.items.Item;
 import client_app_v0.pkg01.gameObjects.inventory.items.ItemType;
@@ -31,8 +33,8 @@ public class Player extends Entity {
 
     public final static EntityType type = EntityType.PLAYER;
 
-    private Inventory inventory;
-    private Hero classHero;
+    private Inventory inventory = new Inventory();
+    private Hero classHero = new Default();
     private List<Abillity> skills = new LinkedList<Abillity>();
     private List<Abillity> effects = new LinkedList<Abillity>();
     private int abilityPoints;
@@ -41,12 +43,9 @@ public class Player extends Entity {
     private int energy;
     private boolean lifeState = true;
 
-    public Player(int xPos, int yPos, int xBattle, int yBattle, int speed, Body body, Inventory inventory,
-            Hero classHero, List<Abillity> skills, String nick) {
-        super(xPos, yPos, xBattle, yBattle, speed, body);
-        this.inventory = inventory;
-        this.classHero = classHero;
-        this.skills = skills;
+    public Player(int xPos, int yPos, int xBattle, int yBattle, int speed, /*Body body, Inventory inventory,
+     Hero classHero, List<Abillity> skills*/ String nick) {
+        super(xPos, yPos, xBattle, yBattle, speed);
         this.battleState = false;
         this.nick = nick;
         this.health = getHealth();
@@ -88,7 +87,7 @@ public class Player extends Entity {
                 p.add((Potion) i);
             }
         }
-        
+
         return p;
     }
 
@@ -424,5 +423,25 @@ public class Player extends Entity {
 
     public int getHeight() {
         return this.body.getHeight();
+    }
+    
+    public void setBody(Body body){
+        this.body = body;
+    }
+    
+    public void addSkills(List<Abillity> skills){
+        this.skills = skills;
+    }
+    
+    public void addBag(List<Item> bag){
+        this.inventory.addBag(bag);
+    }
+    
+    public void addHeroArmor(HeroArmor armor){
+        this.inventory.setArmor(armor);
+    }
+    
+    public void addHeroClass(Hero classHero){
+        this.classHero = classHero;
     }
 }

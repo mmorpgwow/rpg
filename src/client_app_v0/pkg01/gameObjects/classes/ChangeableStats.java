@@ -64,6 +64,9 @@ public class ChangeableStats {
         this.levelCost = levelCost;
         level = 0;
     }
+    public ChangeableStats(){
+        
+    }
 
     public ChangeableStats getStats(){
         return this;
